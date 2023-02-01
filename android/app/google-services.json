@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "570232323077",
+    "project_id": "empathy-firebase",
+    "storage_bucket": "empathy-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:570232323077:android:70ad4de235b42d9d74706c",
+        "android_client_info": {
+          "package_name": "com.example.empathy_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "570232323077-ee5ghdupvr1q0jf84vo1af4a667tq35r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiWyyi1L_QWN7upjJxUkQ5ssYXfG-Grho"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "570232323077-ee5ghdupvr1q0jf84vo1af4a667tq35r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
