@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -8,33 +9,40 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPage extends State<RegisterPage> {
-  var _checkBox1 = false;
-  var _checkBox2 = false;
-  var _switchValue = true;
-  var _switchTitle = 'Switch Test';
+  String _checkBox2 = "";
+  var _checkBox3 = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Checkbox'),
+        title: const Text('Checkbox'),
       ),
-      body: Container(
-        padding: EdgeInsets.all(30.0),
+      body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             CheckboxListTile(
-              value: _checkBox2,
+              value: false,
               title: const Text(
-                'Checkbox 2 Title',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+                '人間関係に悩んでいる',
               ),
               controlAffinity: ListTileControlAffinity.leading,
               onChanged: (bool? value) {
                 setState(() {
-                  _checkBox2 = value!;
+                  _checkBox2 = "人間関係に悩んでいる";
+                });
+              },
+            ),
+            CheckboxListTile(
+              value: _checkBox3,
+              title: const Text(
+                '身体的コンプレックス',
+              ),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) {
+                setState(() {
+                  _checkBox3 = value!;
                 });
               },
             ),

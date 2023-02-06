@@ -1,4 +1,4 @@
-import 'package:empathy_flutter/main.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +16,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String newUser = '';
-  // メッセージ表示用
-  String infoText = '';
-  // 入力したメールアドレス・パスワード
-  String email = '';
+  String infoText = ''; // メッセージ表示用
+  String email = ''; // 入力したメールアドレス・パスワード
   String password = '';
 
   @override
@@ -28,22 +25,13 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: Center(
         child: Container(
-          padding: EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              // ニックネーム入力
-              TextFormField(
-                decoration: InputDecoration(labelText: "ニックネーム"),
-                onChanged: (String value) {
-                  setState(() {
-                    newUser = value;
-                  });
-                },
-              ),
               // メールアドレス入力
               TextFormField(
-                decoration: InputDecoration(labelText: 'メールアドレス'),
+                decoration: const InputDecoration(labelText: 'メールアドレス'),
                 onChanged: (String value) {
                   setState(() {
                     email = value;
@@ -52,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               // パスワード入力
               TextFormField(
-                decoration: InputDecoration(labelText: 'パスワード'),
+                decoration: const InputDecoration(labelText: 'パスワード'),
                 obscureText: true,
                 onChanged: (String value) {
                   setState(() {
@@ -61,20 +49,18 @@ class _LoginPageState extends State<LoginPage> {
                 },
               ),
               Container(
-                padding: EdgeInsets.all(8),
-                // メッセージ表示
+                padding: const EdgeInsets.all(8),
                 child: Text(infoText),
               ),
-              Container(
+              SizedBox(
                 width: double.infinity,
-                // ユーザー登録ボタン
                 child: ElevatedButton(
-                  child: Text('ユーザー登録'),
+                  child: const Text('ユーザー登録'),
                   onPressed: () async {
                     try {
                       // メール/パスワードでユーザー登録
                       final FirebaseAuth auth = FirebaseAuth.instance;
-                      await auth.createUserWithEmailAndPassword(
+                      final result = await auth.createUserWithEmailAndPassword(
                         email: email,
                         password: password,
                       );
@@ -82,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                       // チャット画面に遷移＋ログイン画面を破棄
                       await Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) {
-                          return MyHomePage(title: 'test');
+                          return RegisterPage(result.user!);
                         }),
                       );
                     } catch (e) {
@@ -95,16 +81,16 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 8),
-              Container(
+              SizedBox(
                   width: double.infinity,
                   // ログイン登録ボタン
                   child: OutlinedButton(
-                    child: Text('ログイン'),
+                    child: const Text('ログイン'),
                     onPressed: () async {
                       try {
                         // メール/パスワードでログイン
                         final FirebaseAuth auth = FirebaseAuth.instance;
-                        await auth.signInWithEmailAndPassword(
+                        final result = await auth.signInWithEmailAndPassword(
                           email: email,
                           password: password,
                         );
@@ -112,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                         // チャット画面に遷移＋ログイン画面を破棄
                         await Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) {
-                            return MyApp();
+                            return RegisterPage(result.user!);
                           }),
                         );
                       } catch (e) {
@@ -125,6 +111,100 @@ class _LoginPageState extends State<LoginPage> {
                   )),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class RegisterPage extends StatefulWidget {
+  RegisterPage(this.user, {super.key});
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final User user;
+  @override
+  State<StatefulWidget> createState() {
+    return _RegisterPage();
+  }
+}
+
+class _RegisterPage extends State<RegisterPage> {
+  String userName = ''; //ユーザー名
+  var _checkBox01 = false;
+  var _checkBox02 = false;
+  String worries01 = ""; //人間関係の悩み
+  String worries02 = ""; //上下関係の悩み
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Checkbox'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            TextFormField(
+              decoration: const InputDecoration(labelText: 'ユーザー名'),
+              onChanged: (String value) {
+                setState(() {
+                  userName = value;
+                });
+              },
+            ),
+            CheckboxListTile(
+              value: _checkBox01,
+              title: const Text(
+                '人間関係に悩んでいる',
+              ),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) {
+                setState(() {
+                  _checkBox01 = value!;
+                });
+                if (_checkBox01 == true) {
+                  worries01 = "人間関係に悩んでいる";
+                } else if (_checkBox01 == false) {
+                  worries01 = "";
+                }
+              },
+            ),
+            CheckboxListTile(
+              value: _checkBox02,
+              title: const Text(
+                '上下関係に悩んでいる',
+              ),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) {
+                setState(() {
+                  _checkBox02 = value!;
+                });
+                if (_checkBox02 == true) {
+                  worries02 = "上下関係に悩んでいる";
+                } else if (_checkBox02 == false) {
+                  worries02 = "";
+                }
+              },
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final date = DateTime.now().toLocal().toIso8601String();
+                final uuid = widget.user.uid;
+                final email = widget.user.email; //ログインしているユーザーのuidを取得
+                await FirebaseFirestore.instance
+                    .collection('users') // コレクションID指定
+                    .doc(uuid) // ドキュメントID自動生成
+                    .set({
+                  'username': userName,
+                  'date': date,
+                  'email': email,
+                  'worries01': worries01,
+                  'worries02': worries02,
+                });
+              },
+              child: const Text('登録'),
+            )
+          ],
         ),
       ),
     );
