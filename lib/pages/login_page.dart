@@ -3,12 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() async {
-  // 初期化処理を追加
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-}
-
 // ログイン画面用Widget
 class LoginPage extends StatefulWidget {
   @override
@@ -175,14 +169,29 @@ class _RegisterPage extends State<RegisterPage> {
                 '上下関係に悩んでいる',
               ),
               controlAffinity: ListTileControlAffinity.leading,
-              onChanged: (bool? value) {
+              onChanged: (bool? value) async {
                 setState(() {
                   _checkBox02 = value!;
                 });
                 if (_checkBox02 == true) {
                   worries02 = "上下関係に悩んでいる";
+                  await FirebaseFirestore.instance
+                      .collection('worries_users') // コレクションID指定
+                      .doc('worries id 2')
+                      .update({
+                    "users": FieldValue.arrayUnion([userName])
+                  }); // ドキュメントID自動生成
+                  //     .set({
+                  //   'username': userName,
+                  // });
                 } else if (_checkBox02 == false) {
-                  worries02 = "";
+                  await FirebaseFirestore.instance
+                      .collection('worries_users') // コレクションID指定
+                      .doc('worries id 2')
+                      .update({
+                    "users": FieldValue.arrayRemove([userName])
+                  });
+                  //worries02 = "";
                 }
               },
             ),
