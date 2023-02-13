@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:empathy_flutter/pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String infoText = ''; // メッセージ表示用
+  String username = ''; // ニックネーム
   String email = ''; // 入力したメールアドレス・パスワード
   String password = '';
 
@@ -23,6 +25,14 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'ニックネーム'),
+                onChanged: (String value) {
+                  setState(() {
+                    username = value;
+                  });
+                },
+              ),
               // メールアドレス入力
               TextFormField(
                 decoration: const InputDecoration(labelText: 'メールアドレス'),
@@ -62,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                       // チャット画面に遷移＋ログイン画面を破棄
                       await Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) {
-                          return RegisterPage(result.user!);
+                          return RegisterWorriesPage(result.user!);
                         }),
                       );
                     } catch (e) {
@@ -92,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                         // チャット画面に遷移＋ログイン画面を破棄
                         await Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) {
-                            return RegisterPage(result.user!);
+                            return const HomePage();
                           }),
                         );
                       } catch (e) {
@@ -111,18 +121,18 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-class RegisterPage extends StatefulWidget {
-  RegisterPage(this.user, {super.key});
+class RegisterWorriesPage extends StatefulWidget {
+  RegisterWorriesPage(this.user);
   final FirebaseAuth auth = FirebaseAuth.instance;
   final User user;
   @override
   State<StatefulWidget> createState() {
-    return _RegisterPage();
+    return _RegisterWorriesPage();
   }
 }
 
-class _RegisterPage extends State<RegisterPage> {
-  String userName = ''; //ユーザー名
+class _RegisterWorriesPage extends State<RegisterWorriesPage> {
+  String userName = ""; //ユーザー名
   var _checkBox01 = false;
   var _checkBox02 = false;
   String worries01 = ""; //人間関係の悩み
