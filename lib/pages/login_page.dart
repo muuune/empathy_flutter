@@ -67,11 +67,37 @@ class _LoginPageState extends State<LoginPage> {
                           return SignUpPage(result.user!);
                         }),
                       );
-                    } catch (e) {
-                      // ユーザー登録に失敗した場合
-                      setState(() {
-                        infoText = "登録に失敗しました：${e.toString()}";
-                      });
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'email-already-in-use') {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('指定したメールアドレスは登録済みです'),
+                          ),
+                        );
+                        print('指定したメールアドレスは登録済みです');
+                        // print('指定したメールアドレスは登録済みです');
+                      } else if (e.code == 'invalid-email') {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('メールアドレスのフォーマットが正しくありません'),
+                          ),
+                        );
+                        print('メールアドレスのフォーマットが正しくありません');
+                      } else if (e.code == 'operation-not-allowed') {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('指定したメールアドレス・パスワードは現在使用できません'),
+                          ),
+                        );
+                        print('指定したメールアドレス・パスワードは現在使用できません');
+                      } else if (e.code == 'weak-password') {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('パスワードは６文字以上にしてください'),
+                          ),
+                        );
+                        print('パスワードは６文字以上にしてください');
+                      }
                     }
                   },
                 ),
@@ -97,11 +123,37 @@ class _LoginPageState extends State<LoginPage> {
                             return const HomePage();
                           }),
                         );
-                      } catch (e) {
+                      } on FirebaseAuthException catch (e) {
                         // ログインに失敗した場合
-                        setState(() {
-                          infoText = "ログインに失敗しました：${e.toString()}";
-                        });
+                        if (e.code == 'invalid-email') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(''),
+                            ),
+                          );
+                          print('メールアドレスのフォーマットが正しくありません');
+                        } else if (e.code == 'user-disabled') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('現在指定したメールアドレスは使用できません'),
+                            ),
+                          );
+                          print('現在指定したメールアドレスは使用できません');
+                        } else if (e.code == 'user-not-found') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('指定したメールアドレスは登録されていません'),
+                            ),
+                          );
+                          print('指定したメールアドレスは登録されていません');
+                        } else if (e.code == 'wrong-password') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('パスワードが間違っています'),
+                            ),
+                          );
+                          print('パスワードが間違っています');
+                        }
                       }
                     },
                   )),
