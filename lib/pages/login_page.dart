@@ -3,6 +3,7 @@ import 'package:empathy_flutter/pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:empathy_flutter/firebase.dart';
 
 // ログイン画面用Widget
 class LoginPage extends StatefulWidget {
@@ -12,7 +13,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String infoText = ''; // メッセージ表示用
-  String username = ''; // ニックネーム
   String email = ''; // 入力したメールアドレス・パスワード
   String password = '';
 
@@ -25,14 +25,6 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'ニックネーム'),
-                onChanged: (String value) {
-                  setState(() {
-                    username = value;
-                  });
-                },
-              ),
               // メールアドレス入力
               TextFormField(
                 decoration: const InputDecoration(labelText: 'メールアドレス'),
@@ -72,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                       // チャット画面に遷移＋ログイン画面を破棄
                       await Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) {
-                          return RegisterWorriesPage(result.user!);
+                          return SignUpPage(result.user!);
                         }),
                       );
                     } catch (e) {
@@ -121,10 +113,160 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-class RegisterWorriesPage extends StatefulWidget {
-  RegisterWorriesPage(this.user);
-  final FirebaseAuth auth = FirebaseAuth.instance;
+// class RegisterNamePage extends StatefulWidget {
+//   RegisterNamePage(this.user);
+//   final User user;
+//   @override
+//   _RegisterNamePage createState() => _RegisterNamePage();
+// }
+
+// class _RegisterNamePage extends State<RegisterNamePage> {
+//   String username = ''; // ニックネーム
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         body: Center(
+//             child: Container(
+//                 padding: const EdgeInsets.all(24),
+//                 child: Column(
+//                     mainAxisAlignment: MainAxisAlignment.center,
+//                     children: <Widget>[
+//                       Container(
+//                         padding: EdgeInsets.all(8),
+//                         child: Text("${widget.user.email}"),
+//                       ),
+//                       TextFormField(
+//                         decoration: const InputDecoration(labelText: 'ニックネーム'),
+//                         onChanged: (String value) {
+//                           setState(() {
+//                             username = value;
+//                           });
+//                         },
+//                         validator: (String? value) {
+//                           if (value!.isEmpty) {
+//                             return 'ユーザー名を入力してください';
+//                           } else if () {
+//                             return 'そのユーザー名は使用されています';
+//                           } else {
+//                             return null;
+//                           }
+//                         },
+//                       ),
+//                       SizedBox(
+//                         width: double.infinity,
+//                         child: ElevatedButton(
+//                           child: const Text('ニックネーム登録'),
+//                           onPressed: () async {},
+//                         ),
+//                       ),
+//                     ]))));
+//   }
+// }
+
+class SignUpPage extends StatefulWidget {
+  SignUpPage(this.user);
   final User user;
+
+  @override
+  _SignUpPageState createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  final _formKey = GlobalKey<FormState>();
+  bool _existsUserName = false;
+
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _userNameController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _userNameController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('悩みを登録'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 200,
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      child: Text("${widget.user.email}"),
+                    ),
+                    TextFormField(
+                      controller: _userNameController,
+                      decoration: const InputDecoration(
+                        hintText: 'ユーザー名',
+                      ),
+                      maxLength: 15,
+                      textInputAction: TextInputAction.done,
+                      onChanged: (value) async {
+                        _existsUserName = await Firestore.existsUserName(value);
+                        _formKey.currentState!.validate();
+                      },
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
+                          return 'ユーザー名を入力してください';
+                        } else if (_existsUserName) {
+                          return 'そのユーザー名は使用されています';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          final userNameText = _userNameController.text;
+                          final email = widget.user.email;
+                          if (_formKey.currentState!.validate()) {
+                            if (!_existsUserName) {
+                              await Firestore.signUp(
+                                  _userNameController.text, email);
+                              await Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(builder: (context) {
+                                  return RegisterWorriesPage(userNameText);
+                                }),
+                              );
+                            }
+                            print(_nameController.text);
+                            print(_userNameController.text);
+                          }
+                        },
+                        child: const Text('登録'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class RegisterWorriesPage extends StatefulWidget {
+  RegisterWorriesPage(this.userNameText);
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final String userNameText;
   @override
   State<StatefulWidget> createState() {
     return _RegisterWorriesPage();
@@ -132,7 +274,6 @@ class RegisterWorriesPage extends StatefulWidget {
 }
 
 class _RegisterWorriesPage extends State<RegisterWorriesPage> {
-  String userName = ""; //ユーザー名
   var _checkBox01 = false;
   var _checkBox02 = false;
   String worries01 = ""; //人間関係の悩み
@@ -148,14 +289,6 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            TextFormField(
-              decoration: const InputDecoration(labelText: 'ユーザー名'),
-              onChanged: (String value) {
-                setState(() {
-                  userName = value;
-                });
-              },
-            ),
             CheckboxListTile(
               value: _checkBox01,
               title: const Text(
@@ -189,7 +322,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                       .collection('worries_users') // コレクションID指定
                       .doc('worries id 2')
                       .update({
-                    "users": FieldValue.arrayUnion([userName])
+                    "users": FieldValue.arrayUnion([widget.userNameText])
                   }); // ドキュメントID自動生成
                   //     .set({
                   //   'username': userName,
@@ -199,7 +332,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                       .collection('worries_users') // コレクションID指定
                       .doc('worries id 2')
                       .update({
-                    "users": FieldValue.arrayRemove([userName])
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                    // "users": FieldValue.arrayRemove([userName])
                   });
                   //worries02 = "";
                 }
@@ -207,19 +341,19 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
             ),
             ElevatedButton(
               onPressed: () async {
-                final date = DateTime.now().toLocal().toIso8601String();
-                final uuid = widget.user.uid;
-                final email = widget.user.email; //ログインしているユーザーのuidを取得
-                await FirebaseFirestore.instance
-                    .collection('users') // コレクションID指定
-                    .doc(uuid) // ドキュメントID自動生成
-                    .set({
-                  'username': userName,
-                  'date': date,
-                  'email': email,
-                  'worries01': worries01,
-                  'worries02': worries02,
-                });
+                // final date = DateTime.now().toLocal().toIso8601String();
+                // // final uuid = widget.user.uid;
+                // // final email = widget.user.email; //ログインしているユーザーのuidを取得
+                // await FirebaseFirestore.instance
+                //     .collection('users') // コレクションID指定
+                //     .doc(uuid) // ドキュメントID自動生成
+                //     .set({
+                //   'username': userName,
+                //   'date': date,
+                //   'email': email,
+                //   'worries01': worries01,
+                //   'worries02': worries02,
+                // });
               },
               child: const Text('登録'),
             )
