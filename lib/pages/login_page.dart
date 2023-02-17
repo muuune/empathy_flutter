@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:empathy_flutter/pages/home_page.dart';
+import 'package:empathy_flutter/pages/worries1_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -120,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                         // チャット画面に遷移＋ログイン画面を破棄
                         await Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) {
-                            return const HomePage();
+                            return const Worries1Page();
                           }),
                         );
                       } on FirebaseAuthException catch (e) {

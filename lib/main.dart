@@ -1,5 +1,6 @@
-import 'package:empathy_flutter/pages/home_page.dart';
+import 'package:empathy_flutter/home_page.dart';
 import 'package:empathy_flutter/pages/login_page.dart';
+import 'package:empathy_flutter/pages/worries1_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
