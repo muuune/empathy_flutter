@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:empathy_flutter/pages/user_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,6 +15,16 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('FutureBuilder Demo'),
+          automaticallyImplyLeading: false,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.person),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => UserPage()));
+              },
+            ),
+          ],
         ),
         body: SafeArea(
           child: FutureBuilder(
@@ -126,6 +137,26 @@ class _HomePageState extends State<HomePage> {
                     child: ListTile(
                       title: Text(
                           "${snapshot.data[0]}さんと${snapshot.data[6]}さんがマッチングしました"),
+                      leading: Icon(Icons.face),
+                      subtitle: Row(
+                        children: const [
+                          Text('配列の0番目を取得'),
+                          SizedBox(width: 20),
+                          Text('配列の1番目を取得'),
+                        ],
+                      ),
+                    ),
+                    elevation: 8, // 影の離れ具合
+                    shadowColor: Colors.black, // 影の色
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                if (snapshot.data.length >= 8)
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[7]}さんがマッチングしました"),
                       leading: Icon(Icons.face),
                       subtitle: Row(
                         children: const [
