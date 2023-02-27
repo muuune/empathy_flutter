@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:empathy_flutter/home_page.dart';
 import 'package:empathy_flutter/pages/worries1_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -120,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                         // チャット画面に遷移＋ログイン画面を破棄
                         await Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) {
-                            return const Worries1Page();
+                            return const HomePage();
                           }),
                         );
                       } on FirebaseAuthException catch (e) {
@@ -257,7 +258,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       child: Text("${widget.user.email}"),
                     ),
                     TextFormField(
@@ -328,40 +329,23 @@ class RegisterWorriesPage extends StatefulWidget {
 class _RegisterWorriesPage extends State<RegisterWorriesPage> {
   var _checkBox01 = false;
   var _checkBox02 = false;
-  String worries01 = ""; //人間関係の悩み
-  String worries02 = ""; //上下関係の悩み
+  // String school_01 = "";
+  // String worries02 = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Checkbox'),
+        title: const Text('悩みを登録'),
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             CheckboxListTile(
-              value: _checkBox01,
-              title: const Text(
-                '人間関係に悩んでいる',
-              ),
-              controlAffinity: ListTileControlAffinity.leading,
-              onChanged: (bool? value) {
-                setState(() {
-                  _checkBox01 = value!;
-                });
-                if (_checkBox01 == true) {
-                  worries01 = "人間関係に悩んでいる";
-                } else if (_checkBox01 == false) {
-                  worries01 = "";
-                }
-              },
-            ),
-            CheckboxListTile(
               value: _checkBox02,
               title: const Text(
-                '上下関係に悩んでいる',
+                '試験・レポート・研究等が上手く進まず、進級・卒業できるか心配である',
               ),
               controlAffinity: ListTileControlAffinity.leading,
               onChanged: (bool? value) async {
@@ -369,10 +353,10 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   _checkBox02 = value!;
                 });
                 if (_checkBox02 == true) {
-                  worries02 = "上下関係に悩んでいる";
+                  //worries02 = "上下関係に悩んでいる";
                   await FirebaseFirestore.instance
-                      .collection('worries_users') // コレクションID指定
-                      .doc('worries id 2')
+                      .collection('学業') // コレクションID指定
+                      .doc('進級・卒業')
                       .update({
                     "users": FieldValue.arrayUnion([widget.userNameText])
                   }); // ドキュメントID自動生成
@@ -381,8 +365,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   // });
                 } else if (_checkBox02 == false) {
                   await FirebaseFirestore.instance
-                      .collection('worries_users') // コレクションID指定
-                      .doc('worries id 2')
+                      .collection('学業') // コレクションID指定
+                      .doc('進級・卒業')
                       .update({
                     "users": FieldValue.arrayRemove([widget.userNameText])
                     // "users": FieldValue.arrayRemove([userName])
@@ -406,6 +390,11 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                 //   'worries01': worries01,
                 //   'worries02': worries02,
                 // });
+                await Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) {
+                    return const HomePage();
+                  }),
+                );
               },
               child: const Text('登録'),
             )
