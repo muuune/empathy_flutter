@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:empathy_flutter/home_page.dart';
-import 'package:empathy_flutter/pages/worries1_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:empathy_flutter/firebase.dart';
 
@@ -277,8 +275,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           return 'ユーザー名を入力してください';
                         } else if (_existsUserName) {
                           return 'そのユーザー名は使用されています';
-                        } else {
-                          return null;
                         }
                       },
                     ),
@@ -329,30 +325,65 @@ class RegisterWorriesPage extends StatefulWidget {
 class _RegisterWorriesPage extends State<RegisterWorriesPage> {
   var _checkBox01 = false;
   var _checkBox02 = false;
-  // String school_01 = "";
-  // String worries02 = "";
+  var _checkBox03 = false;
+  var _checkBox04 = false;
+  var _checkBox05 = false;
+  var _checkBox06 = false;
+  var _checkBox07 = false;
+  var _checkBox08 = false;
+  var _checkBox09 = false;
+  var _checkBox10 = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('悩みを登録'),
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: const Text('悩みを登録する',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 17,
+              // fontWeight: FontWeight.bold
+            )),
+        elevation: 0.0,
+        shape: const Border(bottom: BorderSide(color: Colors.grey, width: 0.2)),
+        backgroundColor: Colors.grey[50],
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            const Padding(
+                padding:
+                    EdgeInsets.only(top: 20, bottom: 10, left: 20, right: 20),
+                child: Text('🎓 学業に関する悩み',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                      // fontWeight: FontWeight.bold
+                    ))),
+            const Divider(
+              color: Colors.grey,
+              thickness: 0.5,
+              height: 0,
+              indent: 15,
+              endIndent: 15,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 10),
+            ),
             CheckboxListTile(
-              value: _checkBox02,
-              title: const Text(
-                '試験・レポート・研究等が上手く進まず、進級・卒業できるか心配である',
-              ),
+              value: _checkBox01,
+              title: const Text('試験・レポート・研究等が上手く進まず、進級・卒業できるか心配である',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
               controlAffinity: ListTileControlAffinity.leading,
               onChanged: (bool? value) async {
                 setState(() {
-                  _checkBox02 = value!;
+                  _checkBox01 = value!;
                 });
-                if (_checkBox02 == true) {
+                if (_checkBox01 == true) {
                   //worries02 = "上下関係に悩んでいる";
                   await FirebaseFirestore.instance
                       .collection('学業') // コレクションID指定
@@ -372,6 +403,62 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                     // "users": FieldValue.arrayRemove([userName])
                   });
                   //worries02 = "";
+                }
+              },
+            ),
+            CheckboxListTile(
+              value: _checkBox02,
+              title: const Text('大学の講義を受ける中で、自分の入りたい学部じゃなかったと感じることがある',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) async {
+                setState(() {
+                  _checkBox02 = value!;
+                });
+                if (_checkBox02 == true) {
+                  await FirebaseFirestore.instance
+                      .collection('学業') // コレクションID指定
+                      .doc('入りたい学部じゃなかった')
+                      .update({
+                    "users": FieldValue.arrayUnion([widget.userNameText])
+                  });
+                } else if (_checkBox02 == false) {
+                  await FirebaseFirestore.instance
+                      .collection('学業')
+                      .doc('入りたい学部じゃなかった')
+                      .update({
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                  });
+                }
+              },
+            ),
+            CheckboxListTile(
+              value: _checkBox03,
+              title: const Text('大学の講義を受ける中で、ついていけないと感じることがある',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) async {
+                setState(() {
+                  _checkBox03 = value!;
+                });
+                if (_checkBox03 == true) {
+                  await FirebaseFirestore.instance
+                      .collection('学業') // コレクションID指定
+                      .doc('講義についていけない')
+                      .update({
+                    "users": FieldValue.arrayUnion([widget.userNameText])
+                  });
+                } else if (_checkBox02 == false) {
+                  await FirebaseFirestore.instance
+                      .collection('学業')
+                      .doc('講義についていけない')
+                      .update({
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                  });
                 }
               },
             ),
@@ -396,7 +483,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   }),
                 );
               },
-              child: const Text('登録'),
+              child: const Text('マッチング一覧画面へ'),
             )
           ],
         ),
