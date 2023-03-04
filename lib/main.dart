@@ -1,9 +1,11 @@
 import 'package:empathy_flutter/home_page.dart';
 import 'package:empathy_flutter/pages/login_page.dart';
+import 'package:empathy_flutter/pages/tutorial_page.dart';
 import 'package:empathy_flutter/pages/worries1_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +22,8 @@ class MyApp extends StatelessWidget {
         home: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
+            WidgetsBinding.instance
+                .addPostFrameCallback((_) => _showTutorial(context));
             if (snapshot.connectionState == ConnectionState.waiting) {
               // スプラッシュ画面などに書き換えても良い
               return const SizedBox();
@@ -34,14 +38,18 @@ class MyApp extends StatelessWidget {
         ),
       );
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return MaterialApp(
-  //     title: 'Flutter Demo',
-  //     theme: ThemeData(
-  //       primarySwatch: Colors.blue,
-  //     ),
-  //     home: LoginPage(),
-  //   );
-  // }
+  void _showTutorial(BuildContext context) async {
+    final pref = await SharedPreferences.getInstance();
+
+    if (pref.getBool('isAlreadyFirstLaunch') != true) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TutorialPage(),
+          fullscreenDialog: true,
+        ),
+      );
+      pref.setBool('isAlreadyFirstLaunch', true);
+    }
+  }
 }

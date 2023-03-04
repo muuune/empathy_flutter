@@ -31,7 +31,11 @@ class _Worries1PageState extends State<Worries1Page> {
                   Card(
                     child: ListTile(
                       title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[1]}さんがマッチングしました"),
+                          "${snapshot.data[0]}さんと${snapshot.data[1]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
                       leading: const Text("🧑‍🎓",
                           style: TextStyle(
                             color: Colors.black,
@@ -40,9 +44,11 @@ class _Worries1PageState extends State<Worries1Page> {
                           )),
                       subtitle: Row(
                         children: const [
-                          Text('学業に関する悩み', textAlign: TextAlign.right),
-                          // SizedBox(width: 20),
-                          // Text('配列の1番目を取得'),
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
                         ],
                       ),
                     ),
@@ -200,7 +206,24 @@ class _Worries1PageState extends State<Worries1Page> {
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 30,
-                            // fontWeight: FontWeight.bold
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み', textAlign: TextAlign.right),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 6) //[0][8]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[2]}さんと${snapshot.data[5]}さんがマッチングしました"),
+                      leading: const Text("📕",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
                           )),
                       subtitle: Row(
                         children: const [

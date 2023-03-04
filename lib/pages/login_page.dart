@@ -275,6 +275,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           return 'ユーザー名を入力してください';
                         } else if (_existsUserName) {
                           return 'そのユーザー名は使用されています';
+                        } else {
+                          return null;
                         }
                       },
                     ),
@@ -323,16 +325,17 @@ class RegisterWorriesPage extends StatefulWidget {
 }
 
 class _RegisterWorriesPage extends State<RegisterWorriesPage> {
-  var _checkBox01 = false;
-  var _checkBox02 = false;
-  var _checkBox03 = false;
-  var _checkBox04 = false;
-  var _checkBox05 = false;
-  var _checkBox06 = false;
-  var _checkBox07 = false;
-  var _checkBox08 = false;
-  var _checkBox09 = false;
-  var _checkBox10 = false;
+  var _school01 = false;
+  var _school02 = false;
+  var _school03 = false;
+  var _school04 = false;
+  var _school05 = false;
+  var _school06 = false;
+  var _school07 = false;
+  var _school08 = false;
+  var _school09 = false;
+  var _school10 = false;
+  var _relationship01 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -373,7 +376,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               padding: EdgeInsets.only(top: 10),
             ),
             CheckboxListTile(
-              value: _checkBox01,
+              value: _school01,
               title: const Text('試験・レポート・研究等が上手く進まず、進級・卒業できるか心配である',
                   style: TextStyle(
                     fontSize: 13,
@@ -381,9 +384,9 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               controlAffinity: ListTileControlAffinity.leading,
               onChanged: (bool? value) async {
                 setState(() {
-                  _checkBox01 = value!;
+                  _school01 = value!;
                 });
-                if (_checkBox01 == true) {
+                if (_school01 == true) {
                   //worries02 = "上下関係に悩んでいる";
                   await FirebaseFirestore.instance
                       .collection('学業') // コレクションID指定
@@ -394,7 +397,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   //     .set({
                   //   'username': userName,
                   // });
-                } else if (_checkBox02 == false) {
+                } else if (_school02 == false) {
                   await FirebaseFirestore.instance
                       .collection('学業') // コレクションID指定
                       .doc('進級・卒業')
@@ -407,7 +410,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               },
             ),
             CheckboxListTile(
-              value: _checkBox02,
+              value: _school02,
               title: const Text('大学の講義を受ける中で、自分の入りたい学部じゃなかったと感じることがある',
                   style: TextStyle(
                     fontSize: 13,
@@ -415,16 +418,16 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               controlAffinity: ListTileControlAffinity.leading,
               onChanged: (bool? value) async {
                 setState(() {
-                  _checkBox02 = value!;
+                  _school02 = value!;
                 });
-                if (_checkBox02 == true) {
+                if (_school02 == true) {
                   await FirebaseFirestore.instance
                       .collection('学業') // コレクションID指定
                       .doc('入りたい学部じゃなかった')
                       .update({
                     "users": FieldValue.arrayUnion([widget.userNameText])
                   });
-                } else if (_checkBox02 == false) {
+                } else if (_school02 == false) {
                   await FirebaseFirestore.instance
                       .collection('学業')
                       .doc('入りたい学部じゃなかった')
@@ -435,7 +438,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               },
             ),
             CheckboxListTile(
-              value: _checkBox03,
+              value: _school03,
               title: const Text('大学の講義を受ける中で、ついていけないと感じることがある',
                   style: TextStyle(
                     fontSize: 13,
@@ -443,22 +446,271 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               controlAffinity: ListTileControlAffinity.leading,
               onChanged: (bool? value) async {
                 setState(() {
-                  _checkBox03 = value!;
+                  _school03 = value!;
                 });
-                if (_checkBox03 == true) {
+                if (_school03 == true) {
                   await FirebaseFirestore.instance
                       .collection('学業') // コレクションID指定
                       .doc('講義についていけない')
                       .update({
                     "users": FieldValue.arrayUnion([widget.userNameText])
                   });
-                } else if (_checkBox02 == false) {
+                } else if (_school03 == false) {
                   await FirebaseFirestore.instance
                       .collection('学業')
                       .doc('講義についていけない')
                       .update({
                     "users": FieldValue.arrayRemove([widget.userNameText])
                   });
+                }
+              },
+            ),
+            CheckboxListTile(
+              value: _school04,
+              title: const Text('学業とサークル・バイトの両立が難しく悩んでいる',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) async {
+                setState(() {
+                  _school04 = value!;
+                });
+                if (_school04 == true) {
+                  await FirebaseFirestore.instance
+                      .collection('学業') // コレクションID指定
+                      .doc('両立が難しい')
+                      .update({
+                    "users": FieldValue.arrayUnion([widget.userNameText])
+                  });
+                } else if (_school04 == false) {
+                  await FirebaseFirestore.instance
+                      .collection('学業')
+                      .doc('両立が難しい')
+                      .update({
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                  });
+                }
+              },
+            ),
+            CheckboxListTile(
+              value: _school05,
+              title: const Text('大学院に進学すべきか、就職するべきか悩んでいる',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) async {
+                setState(() {
+                  _school05 = value!;
+                });
+                if (_school05 == true) {
+                  await FirebaseFirestore.instance
+                      .collection('学業') // コレクションID指定
+                      .doc('大学院への進学に不安')
+                      .update({
+                    "users": FieldValue.arrayUnion([widget.userNameText])
+                  });
+                } else if (_school05 == false) {
+                  await FirebaseFirestore.instance
+                      .collection('学業')
+                      .doc('大学院への進学に不安')
+                      .update({
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                  });
+                }
+              },
+            ),
+            CheckboxListTile(
+              value: _school06,
+              title: const Text('周りと比べ就職先がなかなか決まらず、焦り・不安を感じている',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) async {
+                setState(() {
+                  _school06 = value!;
+                });
+                if (_school06 == true) {
+                  await FirebaseFirestore.instance
+                      .collection('学業') // コレクションID指定
+                      .doc('就職先が決まらない')
+                      .update({
+                    "users": FieldValue.arrayUnion([widget.userNameText])
+                  });
+                } else if (_school06 == false) {
+                  await FirebaseFirestore.instance
+                      .collection('学業')
+                      .doc('就職先が決まらない')
+                      .update({
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                  });
+                }
+              },
+            ),
+            CheckboxListTile(
+              value: _school07,
+              title: const Text('就職したい業界が決まらず悩んでいる',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) async {
+                setState(() {
+                  _school07 = value!;
+                });
+                if (_school07 == true) {
+                  await FirebaseFirestore.instance
+                      .collection('学業') // コレクションID指定
+                      .doc('就職したい業界が分からない')
+                      .update({
+                    "users": FieldValue.arrayUnion([widget.userNameText])
+                  });
+                } else if (_school07 == false) {
+                  await FirebaseFirestore.instance
+                      .collection('学業')
+                      .doc('就職したい業界が分からない')
+                      .update({
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                  });
+                }
+              },
+            ),
+            CheckboxListTile(
+              value: _school08,
+              title: const Text('学費などの学納金について悩んでいる',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) async {
+                setState(() {
+                  _school08 = value!;
+                });
+                if (_school08 == true) {
+                  await FirebaseFirestore.instance
+                      .collection('学業') // コレクションID指定
+                      .doc('学納金')
+                      .update({
+                    "users": FieldValue.arrayUnion([widget.userNameText])
+                  });
+                } else if (_school08 == false) {
+                  await FirebaseFirestore.instance
+                      .collection('学業')
+                      .doc('学納金')
+                      .update({
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                  });
+                }
+              },
+            ),
+            CheckboxListTile(
+              value: _school09,
+              title: const Text('生活費について悩んでいる',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) async {
+                setState(() {
+                  _school09 = value!;
+                });
+                if (_school09 == true) {
+                  await FirebaseFirestore.instance
+                      .collection('学業') // コレクションID指定
+                      .doc('生活費')
+                      .update({
+                    "users": FieldValue.arrayUnion([widget.userNameText])
+                  });
+                } else if (_school09 == false) {
+                  await FirebaseFirestore.instance
+                      .collection('学業')
+                      .doc('生活費')
+                      .update({
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                  });
+                }
+              },
+            ),
+            CheckboxListTile(
+              value: _school10,
+              title: const Text('奨学金について悩んでいる',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) async {
+                setState(() {
+                  _school10 = value!;
+                });
+                if (_school10 == true) {
+                  await FirebaseFirestore.instance
+                      .collection('学業') // コレクションID指定
+                      .doc('奨学金')
+                      .update({
+                    "users": FieldValue.arrayUnion([widget.userNameText])
+                  });
+                } else if (_school10 == false) {
+                  await FirebaseFirestore.instance
+                      .collection('学業')
+                      .doc('奨学金')
+                      .update({
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                  });
+                }
+              },
+            ),
+            const Padding(
+                padding:
+                    EdgeInsets.only(top: 20, bottom: 10, left: 20, right: 20),
+                child: Text('👫 人間関係に関する悩み',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                      // fontWeight: FontWeight.bold
+                    ))),
+            const Divider(
+              color: Colors.grey,
+              thickness: 0.5,
+              height: 0,
+              indent: 15,
+              endIndent: 15,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 10),
+            ),
+            CheckboxListTile(
+              value: _relationship01,
+              title: const Text('大学・サークル・バイト内などでの友人関係・上下関係に悩んでいる',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) async {
+                setState(() {
+                  _relationship01 = value!;
+                });
+                if (_relationship01 == true) {
+                  //worries02 = "上下関係に悩んでいる";
+                  await FirebaseFirestore.instance
+                      .collection('人間関係') // コレクションID指定
+                      .doc('友人関係・上下関係')
+                      .update({
+                    "users": FieldValue.arrayUnion([widget.userNameText])
+                  }); // ドキュメントID自動生成
+                  //     .set({
+                  //   'username': userName,
+                  // });
+                } else if (_relationship01 == false) {
+                  await FirebaseFirestore.instance
+                      .collection('人間関係') // コレクションID指定
+                      .doc('友人関係・上下関係')
+                      .update({
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                    // "users": FieldValue.arrayRemove([userName])
+                  });
+                  //worries02 = "";
                 }
               },
             ),
