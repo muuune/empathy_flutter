@@ -24,6 +24,9 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              const Text('アナタノミカタへようこそ！'),
+              const Padding(padding: const EdgeInsets.only(bottom: 50)),
+
               // メールアドレス入力
               TextFormField(
                 decoration: const InputDecoration(labelText: 'メールアドレス'),
@@ -50,6 +53,11 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary:
+                        const Color.fromARGB(255, 81, 161, 101), // background
+                    onPrimary: Colors.white, // foreground
+                  ),
                   child: const Text('ユーザー登録'),
                   onPressed: () async {
                     try {
@@ -70,6 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                       if (e.code == 'email-already-in-use') {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
+                            backgroundColor: Color.fromARGB(255, 81, 161, 101),
                             content: Text('指定したメールアドレスは登録済みです'),
                           ),
                         );
@@ -78,6 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                       } else if (e.code == 'invalid-email') {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
+                            backgroundColor: Color.fromARGB(255, 81, 161, 101),
                             content: Text('メールアドレスのフォーマットが正しくありません'),
                           ),
                         );
@@ -85,6 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                       } else if (e.code == 'operation-not-allowed') {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
+                            backgroundColor: Color.fromARGB(255, 81, 161, 101),
                             content: Text('指定したメールアドレス・パスワードは現在使用できません'),
                           ),
                         );
@@ -92,6 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                       } else if (e.code == 'weak-password') {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
+                            backgroundColor: Color.fromARGB(255, 81, 161, 101),
                             content: Text('パスワードは６文字以上にしてください'),
                           ),
                         );
@@ -107,6 +119,10 @@ class _LoginPageState extends State<LoginPage> {
                   // ログイン登録ボタン
                   child: OutlinedButton(
                     child: const Text('ログイン'),
+                    style: ElevatedButton.styleFrom(
+                      onPrimary:
+                          Color.fromARGB(255, 81, 161, 101), // foreground
+                    ),
                     onPressed: () async {
                       try {
                         // メール/パスワードでログイン
@@ -127,6 +143,8 @@ class _LoginPageState extends State<LoginPage> {
                         if (e.code == 'invalid-email') {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
+                              backgroundColor:
+                                  Color.fromARGB(255, 81, 161, 101),
                               content: Text(''),
                             ),
                           );
@@ -134,6 +152,8 @@ class _LoginPageState extends State<LoginPage> {
                         } else if (e.code == 'user-disabled') {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
+                              backgroundColor:
+                                  Color.fromARGB(255, 81, 161, 101),
                               content: Text('現在指定したメールアドレスは使用できません'),
                             ),
                           );
@@ -141,6 +161,8 @@ class _LoginPageState extends State<LoginPage> {
                         } else if (e.code == 'user-not-found') {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
+                              backgroundColor:
+                                  Color.fromARGB(255, 81, 161, 101),
                               content: Text('指定したメールアドレスは登録されていません'),
                             ),
                           );
@@ -148,6 +170,8 @@ class _LoginPageState extends State<LoginPage> {
                         } else if (e.code == 'wrong-password') {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
+                              backgroundColor:
+                                  Color.fromARGB(255, 81, 161, 101),
                               content: Text('パスワードが間違っています'),
                             ),
                           );
@@ -236,6 +260,14 @@ class _SignUpPageState extends State<SignUpPage> {
     super.dispose();
   }
 
+  bool _isCheck = false;
+
+  void _handleCheckbox(bool? isCheck) {
+    setState(() {
+      _isCheck = isCheck!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -280,6 +312,20 @@ class _SignUpPageState extends State<SignUpPage> {
                         }
                       },
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Checkbox(
+                          activeColor: Colors.blueAccent,
+                          value: _isCheck,
+                          onChanged: _handleCheckbox,
+                        ),
+                        Text("私は現在大学生です。"),
+                      ],
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 1.0),
+                        child: const Text('アナタノミカタのプライバシーポリシーにも同意します。')),
                     Padding(
                       padding: const EdgeInsets.only(top: 20.0),
                       child: ElevatedButton(
