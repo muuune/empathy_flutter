@@ -53,11 +53,6 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary:
-                        const Color.fromARGB(255, 81, 161, 101), // background
-                    onPrimary: Colors.white, // foreground
-                  ),
                   child: const Text('ユーザー登録'),
                   onPressed: () async {
                     try {
@@ -119,10 +114,6 @@ class _LoginPageState extends State<LoginPage> {
                   // ログイン登録ボタン
                   child: OutlinedButton(
                     child: const Text('ログイン'),
-                    style: ElevatedButton.styleFrom(
-                      onPrimary:
-                          Color.fromARGB(255, 81, 161, 101), // foreground
-                    ),
                     onPressed: () async {
                       try {
                         // メール/パスワードでログイン
@@ -272,7 +263,13 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('悩みを登録'),
+        title: const Text('ユーザー登録',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 17,
+              // fontWeight: FontWeight.bold
+            )),
+        backgroundColor: Colors.grey[50],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -289,12 +286,13 @@ class _SignUpPageState extends State<SignUpPage> {
                   children: [
                     Container(
                       padding: const EdgeInsets.all(8),
-                      child: Text("${widget.user.email}"),
+                      child: Text("${widget.user.email} 様"),
                     ),
                     TextFormField(
                       controller: _userNameController,
                       decoration: const InputDecoration(
-                        hintText: 'ユーザー名',
+                        hintText: 'ユーザー名を入力してください',
+                        hintStyle: TextStyle(fontSize: 13),
                       ),
                       maxLength: 15,
                       textInputAction: TextInputAction.done,
@@ -304,30 +302,37 @@ class _SignUpPageState extends State<SignUpPage> {
                       },
                       validator: (String? value) {
                         if (value!.isEmpty) {
-                          return 'ユーザー名を入力してください';
+                          return 'ⓘ ユーザー名が入力されていません';
                         } else if (_existsUserName) {
-                          return 'そのユーザー名は使用されています';
+                          return 'ⓘ そのユーザー名は使用されています';
                         } else {
                           return null;
                         }
                       },
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Checkbox(
-                          activeColor: Colors.blueAccent,
-                          value: _isCheck,
-                          onChanged: _handleCheckbox,
-                        ),
-                        Text("私は現在大学生です。"),
-                      ],
+                    Container(
+                      padding: const EdgeInsets.all(3),
+                      child: const Text("🚨 性別の判断や個人の特定がされないなユーザー名を使用してください。"),
                     ),
                     Padding(
-                        padding: const EdgeInsets.only(top: 1.0),
-                        child: const Text('アナタノミカタのプライバシーポリシーにも同意します。')),
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Checkbox(
+                              activeColor: Colors.blueAccent,
+                              value: _isCheck,
+                              onChanged: _handleCheckbox,
+                            ),
+                            const Text("私は現在大学生です🎓"),
+                          ],
+                        )),
+                    Container(
+                      padding: const EdgeInsets.all(0),
+                      child: const Text("アナタノミカタのプライバシーポリシーに同意します。"),
+                    ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
+                      padding: const EdgeInsets.only(top: 30),
                       child: ElevatedButton(
                         onPressed: () async {
                           final userNameText = _userNameController.text;

@@ -31,13 +31,13 @@ class TutorialPage extends StatelessWidget {
 
   final pages = [
     PageModel(
-        color: const Color.fromARGB(255, 81, 161, 101),
+        color: Color.fromARGB(255, 81, 161, 101),
         imageAssetPath: 'images/Handshake_Outline.png',
         title: 'アナタノミカタへようこそ！',
         body: 'このアプリでは、あなたと同じ悩みを抱える人と繋がることができます。',
         doAnimateImage: true),
     PageModel(
-        color: const Color.fromARGB(255, 69, 142, 88),
+        color: Color.fromARGB(255, 69, 142, 88),
         imageAssetPath: 'images/Checklist_Outline.png',
         title: '1. あなたのお悩みを登録',
         body: 'ユーザー登録時に、あなたの悩みに該当する項目を選択していただくことで、悩みを登録していきます。',
