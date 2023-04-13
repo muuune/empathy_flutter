@@ -1031,7 +1031,7 @@ class _Worries1PageState extends State<Worries1Page> {
                       padding: EdgeInsets.only(
                           top: 20, bottom: 10, left: 20, right: 20),
                       child: Text(
-                        '5. 大学院に進学するべきか、就職するべきか悩んでいる',
+                        '5. 大学院に進学するべきか、就職するべきか悩んでいるる',
                       ))),
               if (snapshot.connectionState == ConnectionState.done)
                 if (snapshot.data.length >= 2) //配列の長さが一定数以上であれば表示
