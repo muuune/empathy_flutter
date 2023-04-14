@@ -43,6 +43,46 @@ class _HomePage extends State<HomePage> {
                 fontSize: 17,
                 // fontWeight: FontWeight.bold
               )),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.info_outline),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text("マッチング後の流れについて",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 17,
+                            )),
+                        content: const Text(
+                            "マッチングしたお相手と1対1のトークを、1日限りでしていただきます。\n\n1. 後日、登録時に使用したメールアドレス宛にトークルームへの招待をお送りします。\n2. 入室後は積極的なトークと、悩みへの共感をお願いします。",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                            )),
+                        actions: [
+                          TextButton(
+                            child: const Text("Cancel",
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 81, 161, 101),
+                                )),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                          TextButton(
+                            child: const Text("OK",
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 81, 161, 101),
+                                )),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }),
+          ],
           elevation: 0.0,
           shape:
               const Border(bottom: BorderSide(color: Colors.grey, width: 0.2)),
@@ -83,10 +123,44 @@ class _HomePage extends State<HomePage> {
                       child: const Text('マッチング後の流れ'),
                     ),
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => TutorialPage()),
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text("マッチング後の流れについて",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 17,
+                                )),
+                            content: const Text(
+                                "マッチングしたお相手と1対1のトークを、1日限りでしていただきます。\n\n1. 後日、登録時に使用したメールアドレス宛にトークルームへの招待をお送りします。\n2. 入室後は積極的なトークと、悩みへの共感をお願いします。",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                )),
+                            actions: [
+                              TextButton(
+                                child: const Text("Cancel",
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 81, 161, 101),
+                                    )),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                              TextButton(
+                                child: const Text("OK",
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 81, 161, 101),
+                                    )),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                            ],
+                          );
+                        },
                       );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => TutorialPage()),
+                      // );
                     },
                   ),
                   ListTile(
@@ -96,6 +170,17 @@ class _HomePage extends State<HomePage> {
                       child: const Text('当てはまる悩みがない方'),
                     ),
                     onTap: () => _openUrl(),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.push_pin),
+                    title: Transform.translate(
+                      offset: const Offset(-20, 0),
+                      child: const Text('チュートリアル画面'),
+                    ),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => TutorialPage()),
+                    ),
                   ),
                   ListTile(
                     leading: const Icon(Icons.lock),
