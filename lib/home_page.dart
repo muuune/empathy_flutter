@@ -1,10 +1,12 @@
 import 'package:empathy_flutter/pages/login_page.dart';
+import 'package:empathy_flutter/pages/tutorial_page.dart';
 import 'package:empathy_flutter/pages/worries1_page.dart';
 import 'package:empathy_flutter/pages/worries2_page.dart';
 import 'package:empathy_flutter/pages/worries3_page.dart';
 import 'package:empathy_flutter/pages/worries4_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -74,6 +76,27 @@ class _HomePage extends State<HomePage> {
                                   BorderSide(color: Colors.grey, width: 0.2)),
                         ),
                       )),
+                  ListTile(
+                    leading: const Icon(Icons.fast_forward),
+                    title: Transform.translate(
+                      offset: const Offset(-20, 0),
+                      child: const Text('マッチング後の流れ'),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TutorialPage()),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.announcement),
+                    title: Transform.translate(
+                      offset: const Offset(-20, 0),
+                      child: const Text('当てはまる悩みがない方'),
+                    ),
+                    onTap: () => _openUrl(),
+                  ),
                   ListTile(
                     leading: const Icon(Icons.lock),
                     title: Transform.translate(
@@ -150,5 +173,18 @@ class _HomePage extends State<HomePage> {
               ],
               type: BottomNavigationBarType.fixed,
             )));
+  }
+
+  void _openUrl() async {
+    const url = 'https://forms.gle/W9UMC2Um6vB5bvrM9'; //←ここに表示させたいURLを入力する
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: true,
+        forceWebView: true,
+      );
+    } else {
+      throw 'このURLにはアクセスできません';
+    }
   }
 }

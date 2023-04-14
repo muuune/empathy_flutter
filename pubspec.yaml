@@ -43,6 +43,7 @@ dependencies:
   provider: ^6.0.5
   shared_preferences: ^2.0.18
   flutter_overboard: ^3.1.1
+  url_launcher: ^6.1.10
 
 dev_dependencies:
   flutter_test:
