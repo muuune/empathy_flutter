@@ -1,6 +1,8 @@
 import 'package:empathy_flutter/pages/login_page.dart';
-import 'package:empathy_flutter/pages/user_page.dart';
 import 'package:empathy_flutter/pages/worries1_page.dart';
+import 'package:empathy_flutter/pages/worries2_page.dart';
+import 'package:empathy_flutter/pages/worries3_page.dart';
+import 'package:empathy_flutter/pages/worries4_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -14,9 +16,9 @@ class HomePage extends StatefulWidget {
 class _HomePage extends State<HomePage> {
   static const _screens = [
     Worries1Page(),
-    Worries1Page(),
-    Worries1Page(),
-    Worries1Page(),
+    Worries2Page(),
+    Worries3Page(),
+    Worries4Page(),
   ];
 
   int _selectedIndex = 0;

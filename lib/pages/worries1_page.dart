@@ -1031,7 +1031,775 @@ class _Worries1PageState extends State<Worries1Page> {
                       padding: EdgeInsets.only(
                           top: 20, bottom: 10, left: 20, right: 20),
                       child: Text(
-                        '5. 大学院に進学するべきか、就職するべきか悩んでいるる',
+                        '5. 大学院に進学するべきか、就職するべきか悩んでいる',
+                      ))),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 2) //配列の長さが一定数以上であれば表示
+                  // if (snapshot.data.contains(snapshot.data[10]))
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[1]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("🧑‍🎓",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 3) //[0][2]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[2]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                          )),
+                      leading: const Text("📚",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 4) //[0][3]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[3]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("🎓",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 5) //[0][4]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[4]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("🏫",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 6) //[0][5]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[5]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("✍️",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 7) //[0][6]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[6]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("📖",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 8) //[0][7]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[7]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("👩‍🎓",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 9) //[0][8]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[8]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("📕",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 6) //[0][8]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[2]}さんと${snapshot.data[5]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("📕",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+            ]);
+          },
+        ),
+        FutureBuilder(
+          //就職先が決まらない
+          future: getProducts_find_work(),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            return Column(children: [
+              const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                      padding: EdgeInsets.only(
+                          top: 20, bottom: 10, left: 20, right: 20),
+                      child: Text(
+                        '6. 周りと比べ就職先がなかなか決まらず、焦り・不安を感じている',
+                      ))),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 2) //配列の長さが一定数以上であれば表示
+                  // if (snapshot.data.contains(snapshot.data[10]))
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[1]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("🧑‍🎓",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 3) //[0][2]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[2]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                          )),
+                      leading: const Text("📚",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 4) //[0][3]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[3]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("🎓",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 5) //[0][4]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[4]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("🏫",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 6) //[0][5]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[5]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("✍️",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 7) //[0][6]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[6]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("📖",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 8) //[0][7]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[7]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("👩‍🎓",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 9) //[0][8]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[8]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("📕",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 6) //[0][8]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[2]}さんと${snapshot.data[5]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("📕",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+            ]);
+          },
+        ),
+        FutureBuilder(
+          //就職したい業界が決まらない
+          future: getProducts_industry(),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            return Column(children: [
+              const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                      padding: EdgeInsets.only(
+                          top: 20, bottom: 10, left: 20, right: 20),
+                      child: Text(
+                        '7. 就職したい業界が決まらず悩んでいる',
+                      ))),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 2) //配列の長さが一定数以上であれば表示
+                  // if (snapshot.data.contains(snapshot.data[10]))
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[1]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("🧑‍🎓",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 3) //[0][2]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[2]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                          )),
+                      leading: const Text("📚",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 4) //[0][3]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[3]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("🎓",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 5) //[0][4]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[4]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("🏫",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 6) //[0][5]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[5]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("✍️",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 7) //[0][6]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[6]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("📖",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 8) //[0][7]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[7]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("👩‍🎓",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 9) //[0][8]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[0]}さんと${snapshot.data[8]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("📕",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+              if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.data.length >= 6) //[0][8]
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                          "${snapshot.data[2]}さんと${snapshot.data[5]}さんがマッチングしました",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            // fontWeight: FontWeight.bold
+                          )),
+                      leading: const Text("📕",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                          )),
+                      subtitle: Row(
+                        children: const [
+                          Text('学業に関する悩み',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+            ]);
+          },
+        ),
+        FutureBuilder(
+          //学費・奨学金・生活費などの金銭面で悩んでいる
+          future: getProducts_money(),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            return Column(children: [
+              const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                      padding: EdgeInsets.only(
+                          top: 20, bottom: 10, left: 20, right: 20),
+                      child: Text(
+                        '8. 学費・奨学金・生活費などの金銭面で悩んでいる',
                       ))),
               if (snapshot.connectionState == ConnectionState.done)
                 if (snapshot.data.length >= 2) //配列の長さが一定数以上であれば表示
@@ -1319,6 +2087,31 @@ class _Worries1PageState extends State<Worries1Page> {
         .collection('学業')
         .doc('大学院への進学に不安')
         .get();
+    return Future.value(collection['users'] as List);
+  }
+
+  Future getProducts_find_work() async {
+    //就職先が決まらない
+    var collection = await FirebaseFirestore.instance
+        .collection('学業')
+        .doc('就職先が決まらない')
+        .get();
+    return Future.value(collection['users'] as List);
+  }
+
+  Future getProducts_industry() async {
+    //就職したい業界が分からない
+    var collection = await FirebaseFirestore.instance
+        .collection('学業')
+        .doc('就職したい業界が分からない')
+        .get();
+    return Future.value(collection['users'] as List);
+  }
+
+  Future getProducts_money() async {
+    //学費・奨学金・生活費などの金銭面で悩んでいる
+    var collection =
+        await FirebaseFirestore.instance.collection('学業').doc('金銭面').get();
     return Future.value(collection['users'] as List);
   }
 
