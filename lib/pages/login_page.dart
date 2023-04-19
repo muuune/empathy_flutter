@@ -350,7 +350,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         style: ElevatedButton.styleFrom(
                           foregroundColor: _isCheck
                               ? Colors.white
-                              : Color.fromARGB(255, 81, 161, 101),
+                              : const Color.fromARGB(255, 81, 161, 101),
                           backgroundColor: _isCheck
                               ? const Color.fromARGB(255, 81, 161, 101)
                               : Colors.white, // foreground
@@ -414,6 +414,12 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
   var _relationship04 = false;
   var _relationship05 = false;
   var _relationship06 = false;
+  var _life01 = false;
+  var _life02 = false;
+  var _life03 = false;
+  var _health01 = false;
+  var _health02 = false;
+  var _health03 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -879,29 +885,231 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                 }
               },
             ),
-            ElevatedButton(
-              onPressed: () async {
-                // final date = DateTime.now().toLocal().toIso8601String();
-                // // final uuid = widget.user.uid;
-                // // final email = widget.user.email; //ログインしているユーザーのuidを取得
-                // await FirebaseFirestore.instance
-                //     .collection('users') // コレクションID指定
-                //     .doc(uuid) // ドキュメントID自動生成
-                //     .set({
-                //   'username': userName,
-                //   'date': date,
-                //   'email': email,
-                //   'worries01': worries01,
-                //   'worries02': worries02,
-                // });
-                await Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) {
-                    return const HomePage();
-                  }),
-                );
+            const Padding(
+                padding:
+                    EdgeInsets.only(top: 20, bottom: 10, left: 20, right: 20),
+                child: Text('🏠 環境の変化に関する悩み',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                      // fontWeight: FontWeight.bold
+                    ))),
+            const Divider(
+              color: Colors.grey,
+              thickness: 0.5,
+              height: 0,
+              indent: 15,
+              endIndent: 15,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 10),
+            ),
+            CheckboxListTile(
+              value: _life01,
+              title: const Text('親元を離れてしまったことで、寂しさ・孤独感を感じている。',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) async {
+                setState(() {
+                  _life01 = value!;
+                });
+                if (_life01 == true) {
+                  await FirebaseFirestore.instance
+                      .collection('環境の変化')
+                      .doc('寂しさ・孤独感')
+                      .update({
+                    "users": FieldValue.arrayUnion([widget.userNameText])
+                  });
+                } else if (_life01 == false) {
+                  await FirebaseFirestore.instance
+                      .collection('環境の変化')
+                      .doc('寂しさ・孤独感')
+                      .update({
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                  });
+                }
               },
-              child: const Text('マッチング一覧画面へ'),
-            )
+            ),
+            CheckboxListTile(
+              value: _life02,
+              title: const Text('一人暮らしを始めたが、一人で生活できるか不安だ。',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) async {
+                setState(() {
+                  _life02 = value!;
+                });
+                if (_life02 == true) {
+                  await FirebaseFirestore.instance
+                      .collection('環境の変化')
+                      .doc('一人暮らしの不安')
+                      .update({
+                    "users": FieldValue.arrayUnion([widget.userNameText])
+                  });
+                } else if (_life02 == false) {
+                  await FirebaseFirestore.instance
+                      .collection('環境の変化')
+                      .doc('一人暮らしの不安')
+                      .update({
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                  });
+                }
+              },
+            ),
+            CheckboxListTile(
+              value: _life03,
+              title: const Text('隣人の騒音に悩んでいる',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) async {
+                setState(() {
+                  _life03 = value!;
+                });
+                if (_life03 == true) {
+                  await FirebaseFirestore.instance
+                      .collection('環境の変化')
+                      .doc('騒音')
+                      .update({
+                    "users": FieldValue.arrayUnion([widget.userNameText])
+                  });
+                } else if (_life03 == false) {
+                  await FirebaseFirestore.instance
+                      .collection('環境の変化')
+                      .doc('騒音')
+                      .update({
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                  });
+                }
+              },
+            ),
+            const Padding(
+                padding:
+                    EdgeInsets.only(top: 20, bottom: 10, left: 20, right: 20),
+                child: Text('🐱 自分のことに関する悩み',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                    ))),
+            const Divider(
+              color: Colors.grey,
+              thickness: 0.5,
+              height: 0,
+              indent: 15,
+              endIndent: 15,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 10),
+            ),
+            CheckboxListTile(
+              value: _health01,
+              title: const Text('自分の性格について悩んでいる。',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) async {
+                setState(() {
+                  _health01 = value!;
+                });
+                if (_health01 == true) {
+                  await FirebaseFirestore.instance
+                      .collection('自分のこと')
+                      .doc('自分の性格')
+                      .update({
+                    "users": FieldValue.arrayUnion([widget.userNameText])
+                  });
+                } else if (_health01 == false) {
+                  await FirebaseFirestore.instance
+                      .collection('自分のこと')
+                      .doc('自分の性格')
+                      .update({
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                  });
+                }
+              },
+            ),
+            CheckboxListTile(
+              value: _health02,
+              title: const Text('自分の成育過程・過程環境(トラウマなど)について悩んでいる。',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) async {
+                setState(() {
+                  _health02 = value!;
+                });
+                if (_health02 == true) {
+                  await FirebaseFirestore.instance
+                      .collection('自分のこと')
+                      .doc('成育過程・過程環境')
+                      .update({
+                    "users": FieldValue.arrayUnion([widget.userNameText])
+                  });
+                } else if (_health02 == false) {
+                  await FirebaseFirestore.instance
+                      .collection('自分のこと')
+                      .doc('成育過程・過程環境')
+                      .update({
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                  });
+                }
+              },
+            ),
+            CheckboxListTile(
+              value: _health03,
+              title: const Text('自分の身体・健康について悩んでいる。',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) async {
+                setState(() {
+                  _health03 = value!;
+                });
+                if (_health03 == true) {
+                  await FirebaseFirestore.instance
+                      .collection('自分のこと')
+                      .doc('身体・健康')
+                      .update({
+                    "users": FieldValue.arrayUnion([widget.userNameText])
+                  });
+                } else if (_health03 == false) {
+                  await FirebaseFirestore.instance
+                      .collection('自分のこと')
+                      .doc('身体・健康')
+                      .update({
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                  });
+                }
+              },
+            ),
+            Padding(
+                padding: const EdgeInsets.only(top: 20, bottom: 50),
+                child: Align(
+                    alignment: Alignment.center,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        alignment: Alignment.center,
+                        foregroundColor: Colors.white,
+                        backgroundColor: const Color.fromARGB(
+                            255, 81, 161, 101), // foreground
+                      ),
+                      onPressed: () async {
+                        await Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) {
+                            return const HomePage();
+                          }),
+                        );
+                      },
+                      child: const Text('マッチング一覧画面へ'),
+                    )))
           ],
         ),
       ),
