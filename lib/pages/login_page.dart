@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:empathy_flutter/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:empathy_flutter/firebase.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // ログイン画面用Widget
 class LoginPage extends StatefulWidget {
@@ -187,56 +189,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-// class RegisterNamePage extends StatefulWidget {
-//   RegisterNamePage(this.user);
-//   final User user;
-//   @override
-//   _RegisterNamePage createState() => _RegisterNamePage();
-// }
-
-// class _RegisterNamePage extends State<RegisterNamePage> {
-//   String username = ''; // ニックネーム
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         body: Center(
-//             child: Container(
-//                 padding: const EdgeInsets.all(24),
-//                 child: Column(
-//                     mainAxisAlignment: MainAxisAlignment.center,
-//                     children: <Widget>[
-//                       Container(
-//                         padding: EdgeInsets.all(8),
-//                         child: Text("${widget.user.email}"),
-//                       ),
-//                       TextFormField(
-//                         decoration: const InputDecoration(labelText: 'ニックネーム'),
-//                         onChanged: (String value) {
-//                           setState(() {
-//                             username = value;
-//                           });
-//                         },
-//                         validator: (String? value) {
-//                           if (value!.isEmpty) {
-//                             return 'ユーザー名を入力してください';
-//                           } else if () {
-//                             return 'そのユーザー名は使用されています';
-//                           } else {
-//                             return null;
-//                           }
-//                         },
-//                       ),
-//                       SizedBox(
-//                         width: double.infinity,
-//                         child: ElevatedButton(
-//                           child: const Text('ニックネーム登録'),
-//                           onPressed: () async {},
-//                         ),
-//                       ),
-//                     ]))));
-//   }
-// }
-
 class SignUpPage extends StatefulWidget {
   SignUpPage(this.user);
   final User user;
@@ -341,9 +293,25 @@ class _SignUpPageState extends State<SignUpPage> {
                           ],
                         )),
                     Container(
-                      padding: const EdgeInsets.all(0),
-                      child: const Text("アナタノミカタのプライバシーポリシーに同意します。"),
-                    ),
+                        padding: const EdgeInsets.all(0),
+                        child: RichText(
+                            text: TextSpan(children: [
+                          const TextSpan(
+                              text: 'アナタノミカタの',
+                              style: TextStyle(color: Colors.black)),
+                          TextSpan(
+                              text: 'プライバシーポリシー',
+                              style: const TextStyle(color: Colors.blue),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  _openprivacy(); // タップ時
+                                }),
+                          const TextSpan(
+                              text: 'に同意します。',
+                              style: TextStyle(color: Colors.black))
+                        ]))
+                        // child: const Text("アナタノミカタのプライバシーポリシーに同意します。"),
+                        ),
                     Padding(
                       padding: const EdgeInsets.only(top: 30),
                       child: ElevatedButton(
@@ -386,6 +354,20 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       ),
     );
+  }
+
+  void _openprivacy() async {
+    const url =
+        'https://adorable-volcano-5e9.notion.site/d16800abf38b42088203f5e6f998269a'; //←ここに表示させたいURLを入力する
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: true,
+        forceWebView: true,
+      );
+    } else {
+      throw 'このURLにはアクセスできません';
+    }
   }
 }
 
