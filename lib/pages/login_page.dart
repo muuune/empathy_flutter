@@ -53,6 +53,10 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: const Color.fromARGB(255, 81, 161, 101),
+                  ),
                   child: const Text('ユーザー登録'),
                   onPressed: () async {
                     try {
@@ -113,6 +117,10 @@ class _LoginPageState extends State<LoginPage> {
                   width: double.infinity,
                   // ログイン登録ボタン
                   child: OutlinedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: const Color.fromARGB(255, 81, 161, 101),
+                      backgroundColor: Colors.white, // foreground
+                    ),
                     child: const Text('ログイン'),
                     onPressed: () async {
                       try {
@@ -271,12 +279,13 @@ class _SignUpPageState extends State<SignUpPage> {
             )),
         backgroundColor: Colors.grey[50],
       ),
-      body: SingleChildScrollView(
+      body: Center(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(
-              height: 200,
-            ),
+            // const SizedBox(
+            //   height: 200,
+            // ),
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
@@ -312,7 +321,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     Container(
                       padding: const EdgeInsets.all(3),
-                      child: const Text("🚨 性別の判断や個人の特定がされないなユーザー名を使用してください。"),
+                      child: const Text("※ 性別の判断や個人の特定がされないなユーザー名を使用してください。",
+                          style: TextStyle(
+                            fontSize: 12,
+                          )),
                     ),
                     Padding(
                         padding: const EdgeInsets.only(top: 20),
@@ -320,7 +332,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Checkbox(
-                              activeColor: Colors.blueAccent,
+                              activeColor:
+                                  const Color.fromARGB(255, 81, 161, 101),
                               value: _isCheck,
                               onChanged: _handleCheckbox,
                             ),
@@ -334,23 +347,34 @@ class _SignUpPageState extends State<SignUpPage> {
                     Padding(
                       padding: const EdgeInsets.only(top: 30),
                       child: ElevatedButton(
-                        onPressed: () async {
-                          final userNameText = _userNameController.text;
-                          final email = widget.user.email;
-                          if (_formKey.currentState!.validate()) {
-                            if (!_existsUserName) {
-                              await Firestore.signUp(
-                                  _userNameController.text, email);
-                              await Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(builder: (context) {
-                                  return RegisterWorriesPage(userNameText);
-                                }),
-                              );
-                            }
-                            print(_nameController.text);
-                            print(_userNameController.text);
-                          }
-                        },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: _isCheck
+                              ? Colors.white
+                              : Color.fromARGB(255, 81, 161, 101),
+                          backgroundColor: _isCheck
+                              ? const Color.fromARGB(255, 81, 161, 101)
+                              : Colors.white, // foreground
+                        ),
+                        onPressed: _isCheck
+                            ? () async {
+                                final userNameText = _userNameController.text;
+                                final email = widget.user.email;
+                                if (_formKey.currentState!.validate()) {
+                                  if (!_existsUserName) {
+                                    await Firestore.signUp(
+                                        _userNameController.text, email);
+                                    await Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(builder: (context) {
+                                        return RegisterWorriesPage(
+                                            userNameText);
+                                      }),
+                                    );
+                                  }
+                                  print(_nameController.text);
+                                  print(_userNameController.text);
+                                }
+                              }
+                            : null,
                         child: const Text('登録'),
                       ),
                     ),
@@ -384,9 +408,12 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
   var _school06 = false;
   var _school07 = false;
   var _school08 = false;
-  var _school09 = false;
-  var _school10 = false;
   var _relationship01 = false;
+  var _relationship02 = false;
+  var _relationship03 = false;
+  var _relationship04 = false;
+  var _relationship05 = false;
+  var _relationship06 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -410,6 +437,15 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
             const Padding(
                 padding:
                     EdgeInsets.only(top: 20, bottom: 10, left: 20, right: 20),
+                child: Text('✅ 当てはまる悩みにチェックをしてください。',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
+                      // fontWeight: FontWeight.bold
+                    ))),
+            const Padding(
+                padding:
+                    EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
                 child: Text('🎓 学業に関する悩み',
                     style: TextStyle(
                       color: Colors.black,
@@ -428,7 +464,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
             ),
             CheckboxListTile(
               value: _school01,
-              title: const Text('試験・レポート・研究等が上手く進まず、進級・卒業できるか心配である',
+              title: const Text('試験・レポート・研究等が上手く進まず、進級・卒業できるか心配である。',
                   style: TextStyle(
                     fontSize: 13,
                   )),
@@ -462,7 +498,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
             ),
             CheckboxListTile(
               value: _school02,
-              title: const Text('大学の講義を受ける中で、自分の入りたい学部じゃなかったと感じることがある',
+              title: const Text('大学の講義を受ける中で、自分の入りたい学部じゃなかったと感じることがある。',
                   style: TextStyle(
                     fontSize: 13,
                   )),
@@ -490,7 +526,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
             ),
             CheckboxListTile(
               value: _school03,
-              title: const Text('大学の講義を受ける中で、ついていけないと感じることがある',
+              title: const Text('大学の講義を受ける中で、ついていけないと感じることがある。',
                   style: TextStyle(
                     fontSize: 13,
                   )),
@@ -518,7 +554,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
             ),
             CheckboxListTile(
               value: _school04,
-              title: const Text('学業とサークル・バイトの両立が難しく悩んでいる',
+              title: const Text('学業とサークル・バイトの両立が難しく悩んでいる。',
                   style: TextStyle(
                     fontSize: 13,
                   )),
@@ -546,7 +582,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
             ),
             CheckboxListTile(
               value: _school05,
-              title: const Text('大学院に進学すべきか、就職するべきか悩んでいる',
+              title: const Text('大学院に進学すべきか、就職するべきか悩んでいる。',
                   style: TextStyle(
                     fontSize: 13,
                   )),
@@ -574,7 +610,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
             ),
             CheckboxListTile(
               value: _school06,
-              title: const Text('周りと比べ就職先がなかなか決まらず、焦り・不安を感じている',
+              title: const Text('周りと比べ就職先がなかなか決まらず、焦り・不安を感じている。',
                   style: TextStyle(
                     fontSize: 13,
                   )),
@@ -602,7 +638,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
             ),
             CheckboxListTile(
               value: _school07,
-              title: const Text('就職したい業界が決まらず悩んでいる',
+              title: const Text('就職したい業界が決まらず悩んでいる。',
                   style: TextStyle(
                     fontSize: 13,
                   )),
@@ -630,7 +666,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
             ),
             CheckboxListTile(
               value: _school08,
-              title: const Text('学費などの学納金について悩んでいる',
+              title: const Text('学費・奨学金・生活費などの金銭面で悩んでいる。',
                   style: TextStyle(
                     fontSize: 13,
                   )),
@@ -650,62 +686,6 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   await FirebaseFirestore.instance
                       .collection('学業')
                       .doc('学納金')
-                      .update({
-                    "users": FieldValue.arrayRemove([widget.userNameText])
-                  });
-                }
-              },
-            ),
-            CheckboxListTile(
-              value: _school09,
-              title: const Text('生活費について悩んでいる',
-                  style: TextStyle(
-                    fontSize: 13,
-                  )),
-              controlAffinity: ListTileControlAffinity.leading,
-              onChanged: (bool? value) async {
-                setState(() {
-                  _school09 = value!;
-                });
-                if (_school09 == true) {
-                  await FirebaseFirestore.instance
-                      .collection('学業') // コレクションID指定
-                      .doc('生活費')
-                      .update({
-                    "users": FieldValue.arrayUnion([widget.userNameText])
-                  });
-                } else if (_school09 == false) {
-                  await FirebaseFirestore.instance
-                      .collection('学業')
-                      .doc('生活費')
-                      .update({
-                    "users": FieldValue.arrayRemove([widget.userNameText])
-                  });
-                }
-              },
-            ),
-            CheckboxListTile(
-              value: _school10,
-              title: const Text('奨学金について悩んでいる',
-                  style: TextStyle(
-                    fontSize: 13,
-                  )),
-              controlAffinity: ListTileControlAffinity.leading,
-              onChanged: (bool? value) async {
-                setState(() {
-                  _school10 = value!;
-                });
-                if (_school10 == true) {
-                  await FirebaseFirestore.instance
-                      .collection('学業') // コレクションID指定
-                      .doc('奨学金')
-                      .update({
-                    "users": FieldValue.arrayUnion([widget.userNameText])
-                  });
-                } else if (_school10 == false) {
-                  await FirebaseFirestore.instance
-                      .collection('学業')
-                      .doc('奨学金')
                       .update({
                     "users": FieldValue.arrayRemove([widget.userNameText])
                   });
@@ -733,7 +713,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
             ),
             CheckboxListTile(
               value: _relationship01,
-              title: const Text('大学・サークル・バイト内などでの友人関係・上下関係に悩んでいる',
+              title: const Text('大学・サークル・バイト内などでの友人関係・上下関係に悩んでいる。',
                   style: TextStyle(
                     fontSize: 13,
                   )),
@@ -743,25 +723,159 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   _relationship01 = value!;
                 });
                 if (_relationship01 == true) {
-                  //worries02 = "上下関係に悩んでいる";
                   await FirebaseFirestore.instance
-                      .collection('人間関係') // コレクションID指定
+                      .collection('人間関係')
                       .doc('友人関係・上下関係')
                       .update({
                     "users": FieldValue.arrayUnion([widget.userNameText])
-                  }); // ドキュメントID自動生成
-                  //     .set({
-                  //   'username': userName,
-                  // });
+                  });
                 } else if (_relationship01 == false) {
                   await FirebaseFirestore.instance
-                      .collection('人間関係') // コレクションID指定
+                      .collection('人間関係')
                       .doc('友人関係・上下関係')
                       .update({
                     "users": FieldValue.arrayRemove([widget.userNameText])
-                    // "users": FieldValue.arrayRemove([userName])
                   });
-                  //worries02 = "";
+                }
+              },
+            ),
+            CheckboxListTile(
+              value: _relationship02,
+              title: const Text('研究室やクラスルームの先生、メンバーに不満を抱えている。',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) async {
+                setState(() {
+                  _relationship02 = value!;
+                });
+                if (_relationship02 == true) {
+                  await FirebaseFirestore.instance
+                      .collection('人間関係')
+                      .doc('先生やメンバーへの不満')
+                      .update({
+                    "users": FieldValue.arrayUnion([widget.userNameText])
+                  });
+                } else if (_relationship02 == false) {
+                  await FirebaseFirestore.instance
+                      .collection('人間関係')
+                      .doc('先生やメンバーへの不満')
+                      .update({
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                  });
+                }
+              },
+            ),
+            CheckboxListTile(
+              value: _relationship03,
+              title: const Text('大学・サークル・バイト内などで友達ができずに悩んでいる。',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) async {
+                setState(() {
+                  _relationship03 = value!;
+                });
+                if (_relationship03 == true) {
+                  await FirebaseFirestore.instance
+                      .collection('人間関係')
+                      .doc('友達ができない')
+                      .update({
+                    "users": FieldValue.arrayUnion([widget.userNameText])
+                  });
+                } else if (_relationship03 == false) {
+                  await FirebaseFirestore.instance
+                      .collection('人間関係')
+                      .doc('友達ができない')
+                      .update({
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                  });
+                }
+              },
+            ),
+            CheckboxListTile(
+              value: _relationship04,
+              title: const Text('家族に不満を抱えている。',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) async {
+                setState(() {
+                  _relationship04 = value!;
+                });
+                if (_relationship04 == true) {
+                  await FirebaseFirestore.instance
+                      .collection('人間関係')
+                      .doc('家族に不満')
+                      .update({
+                    "users": FieldValue.arrayUnion([widget.userNameText])
+                  });
+                } else if (_relationship04 == false) {
+                  await FirebaseFirestore.instance
+                      .collection('人間関係')
+                      .doc('家族に不満')
+                      .update({
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                  });
+                }
+              },
+            ),
+            CheckboxListTile(
+              value: _relationship05,
+              title: const Text('セクシャリティのことについて悩んでいる。',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) async {
+                setState(() {
+                  _relationship05 = value!;
+                });
+                if (_relationship05 == true) {
+                  await FirebaseFirestore.instance
+                      .collection('人間関係')
+                      .doc('セクシャリティ')
+                      .update({
+                    "users": FieldValue.arrayUnion([widget.userNameText])
+                  });
+                } else if (_relationship05 == false) {
+                  await FirebaseFirestore.instance
+                      .collection('人間関係')
+                      .doc('セクシャリティ')
+                      .update({
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                  });
+                }
+              },
+            ),
+            CheckboxListTile(
+              value: _relationship06,
+              title: const Text('失恋から立ち直ることができない。',
+                  style: TextStyle(
+                    fontSize: 13,
+                  )),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) async {
+                setState(() {
+                  _relationship06 = value!;
+                });
+                if (_relationship06 == true) {
+                  await FirebaseFirestore.instance
+                      .collection('人間関係')
+                      .doc('失恋')
+                      .update({
+                    "users": FieldValue.arrayUnion([widget.userNameText])
+                  });
+                } else if (_relationship06 == false) {
+                  await FirebaseFirestore.instance
+                      .collection('人間関係')
+                      .doc('失恋')
+                      .update({
+                    "users": FieldValue.arrayRemove([widget.userNameText])
+                  });
                 }
               },
             ),
