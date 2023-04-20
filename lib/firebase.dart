@@ -7,7 +7,7 @@ class Firestore {
 
   static Future<bool> existsUserName(userName) async {
     bool temp = false;
-    userName = "lkjhgfdsawertyu"; //あり得ないドキュメント
+    userName = "jdfalksdjlad"; //あり得ないドキュメント
     await users.doc(userName).get().then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
         temp = true;
