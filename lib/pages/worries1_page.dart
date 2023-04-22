@@ -2114,12 +2114,4 @@ class _Worries1PageState extends State<Worries1Page> {
         await FirebaseFirestore.instance.collection('学業').doc('金銭面').get();
     return Future.value(collection['users'] as List);
   }
-
-  // void itemChange(bool value) async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     isCheck = value;
-  //     prefs.setBool(key, value);
-  //   });
-  // }
 }
