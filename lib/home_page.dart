@@ -16,6 +16,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _showStartDialog());
+  }
+
   static const _screens = [
     Worries1Page(),
     Worries2Page(),
@@ -63,13 +69,6 @@ class _HomePage extends State<HomePage> {
                               fontSize: 14,
                             )),
                         actions: [
-                          TextButton(
-                            child: const Text("Cancel",
-                                style: TextStyle(
-                                  color: Color.fromARGB(255, 81, 161, 101),
-                                )),
-                            onPressed: () => Navigator.pop(context),
-                          ),
                           TextButton(
                             child: const Text("OK",
                                 style: TextStyle(
@@ -123,44 +122,7 @@ class _HomePage extends State<HomePage> {
                       child: const Text('マッチング後の流れ'),
                     ),
                     onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: const Text("マッチング後の流れについて",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 17,
-                                )),
-                            content: const Text(
-                                "マッチングしたお相手と1対1のトークを、1日限りでしていただきます。\n\n1. 後日、登録時に使用したメールアドレス宛にトークルームへの招待をお送りします。\n2. 入室後は積極的なトークと、悩みへの共感をお願いします。",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                )),
-                            actions: [
-                              TextButton(
-                                child: const Text("Cancel",
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 81, 161, 101),
-                                    )),
-                                onPressed: () => Navigator.pop(context),
-                              ),
-                              TextButton(
-                                child: const Text("OK",
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 81, 161, 101),
-                                    )),
-                                onPressed: () => Navigator.pop(context),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => TutorialPage()),
-                      // );
+                      _showStartDialog();
                     },
                   ),
                   ListTile(
@@ -271,5 +233,35 @@ class _HomePage extends State<HomePage> {
     } else {
       throw 'このURLにはアクセスできません';
     }
+  }
+
+  Future<void> _showStartDialog() async {
+    return showDialog<void>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("マッチング後の流れについて",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 17,
+              )),
+          content: const Text(
+              "マッチングしたお相手と1対1のトークを、1日限りでしていただきます。\n\n1. 後日、登録時に使用したメールアドレス宛にトークルームへの招待をお送りします。\n2. 入室後は積極的なトークと、悩みへの共感をお願いします。",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 14,
+              )),
+          actions: [
+            TextButton(
+              child: const Text("OK",
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 81, 161, 101),
+                  )),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
