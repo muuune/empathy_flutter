@@ -104,10 +104,10 @@ class _HomePage extends State<HomePage> {
               child: ListView(
                 padding: EdgeInsets.zero,
                 children: <Widget>[
-                  Container(
+                  SizedBox(
                       height: 110,
                       child: DrawerHeader(
-                        child: Text('メニュー'),
+                        child: const Text('メニュー'),
                         decoration: BoxDecoration(
                           color: Colors.grey[50],
                           border: const Border(
