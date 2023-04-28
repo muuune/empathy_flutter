@@ -51,7 +51,7 @@ class _HomePage extends State<HomePage> {
               )),
           actions: <Widget>[
             IconButton(
-                icon: Icon(Icons.info_outline),
+                icon: const Icon(Icons.info_outline),
                 onPressed: () {
                   showDialog(
                     context: context,
@@ -150,7 +150,7 @@ class _HomePage extends State<HomePage> {
                       offset: const Offset(-20, 0),
                       child: const Text('プライバシーポリシー'),
                     ),
-                    onTap: () {},
+                    onTap: () => _openPrivacyPolicy(),
                   ),
                   ListTile(
                     leading: const Icon(Icons.logout),
@@ -235,6 +235,20 @@ class _HomePage extends State<HomePage> {
     }
   }
 
+  void _openPrivacyPolicy() async {
+    const url =
+        'https://adorable-volcano-5e9.notion.site/d16800abf38b42088203f5e6f998269a'; //←ここに表示させたいURLを入力する
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: true,
+        forceWebView: true,
+      );
+    } else {
+      throw 'このURLにはアクセスできません';
+    }
+  }
+
   Future<void> _showStartDialog() async {
     return showDialog<void>(
       context: context,
@@ -246,7 +260,7 @@ class _HomePage extends State<HomePage> {
                 fontSize: 17,
               )),
           content: const Text(
-              "マッチングしたお相手と1対1のトークを、1日限りでしていただきます。\n\n1. 後日、登録時に使用したメールアドレス宛にトークルームへの招待をお送りします。\n2. 入室後は積極的なトークと、悩みへの共感をお願いします。",
+              "マッチングしたお相手と1対1のトークを、1日限りでしていただきます。\n\n1. 後日、登録時に使用したメールアドレス宛にトークルームの招待をお送りします。\n2. 入室後は積極的なトークと、悩みへの共感をお願いします。",
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 14,
