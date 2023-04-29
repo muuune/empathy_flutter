@@ -262,10 +262,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         _formKey.currentState!.validate();
                       },
                       validator: (String? value) {
-                        if (value!.isEmpty) {
-                          return 'ⓘ ユーザー名が入力されていません';
-                        } else if (_existsUserName) {
+                        if (_existsUserName) {
                           return 'ⓘ そのユーザー名は使用されています';
+                        } else if (value!.isEmpty) {
+                          return 'ⓘ ユーザー名を入力してください';
                         } else {
                           return null;
                         }
