@@ -451,6 +451,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               padding: EdgeInsets.only(top: 10),
             ),
             CheckboxListTile(
+              activeColor: const Color.fromARGB(255, 81, 161, 101),
               value: _school01,
               title: const Text('試験・レポート・研究等が上手く進まず、進級・卒業できるか心配である。',
                   style: TextStyle(
@@ -485,6 +486,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               },
             ),
             CheckboxListTile(
+              activeColor: const Color.fromARGB(255, 81, 161, 101),
               value: _school02,
               title: const Text('大学の講義を受ける中で、自分の入りたい学部じゃなかったと感じることがある。',
                   style: TextStyle(
@@ -513,6 +515,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               },
             ),
             CheckboxListTile(
+              activeColor: const Color.fromARGB(255, 81, 161, 101),
               value: _school03,
               title: const Text('大学の講義を受ける中で、ついていけないと感じることがある。',
                   style: TextStyle(
@@ -541,6 +544,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               },
             ),
             CheckboxListTile(
+              activeColor: const Color.fromARGB(255, 81, 161, 101),
               value: _school04,
               title: const Text('学業とサークル・バイトの両立が難しく悩んでいる。',
                   style: TextStyle(
@@ -569,6 +573,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               },
             ),
             CheckboxListTile(
+              activeColor: const Color.fromARGB(255, 81, 161, 101),
               value: _school05,
               title: const Text('大学院に進学すべきか、就職するべきか悩んでいる。',
                   style: TextStyle(
@@ -597,6 +602,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               },
             ),
             CheckboxListTile(
+              activeColor: const Color.fromARGB(255, 81, 161, 101),
               value: _school06,
               title: const Text('周りと比べ就職先がなかなか決まらず、焦り・不安を感じている。',
                   style: TextStyle(
@@ -625,6 +631,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               },
             ),
             CheckboxListTile(
+              activeColor: const Color.fromARGB(255, 81, 161, 101),
               value: _school07,
               title: const Text('就職したい業界が決まらず悩んでいる。',
                   style: TextStyle(
@@ -653,6 +660,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               },
             ),
             CheckboxListTile(
+              activeColor: const Color.fromARGB(255, 81, 161, 101),
               value: _school08,
               title: const Text('学費・奨学金・生活費などの金銭面で悩んでいる。',
                   style: TextStyle(
@@ -666,14 +674,14 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                 if (_school08 == true) {
                   await FirebaseFirestore.instance
                       .collection('学業') // コレクションID指定
-                      .doc('学納金')
+                      .doc('金銭面')
                       .update({
                     "users": FieldValue.arrayUnion([widget.userNameText])
                   });
                 } else if (_school08 == false) {
                   await FirebaseFirestore.instance
                       .collection('学業')
-                      .doc('学納金')
+                      .doc('金銭面')
                       .update({
                     "users": FieldValue.arrayRemove([widget.userNameText])
                   });
@@ -700,6 +708,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               padding: EdgeInsets.only(top: 10),
             ),
             CheckboxListTile(
+              activeColor: const Color.fromARGB(255, 81, 161, 101),
               value: _relationship01,
               title: const Text('大学・サークル・バイト内などでの友人関係・上下関係に悩んでいる。',
                   style: TextStyle(
@@ -728,6 +737,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               },
             ),
             CheckboxListTile(
+              activeColor: const Color.fromARGB(255, 81, 161, 101),
               value: _relationship02,
               title: const Text('研究室やクラスルームの先生、メンバーに不満を抱えている。',
                   style: TextStyle(
@@ -756,6 +766,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               },
             ),
             CheckboxListTile(
+              activeColor: const Color.fromARGB(255, 81, 161, 101),
               value: _relationship03,
               title: const Text('大学・サークル・バイト内などで友達ができずに悩んでいる。',
                   style: TextStyle(
@@ -784,6 +795,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               },
             ),
             CheckboxListTile(
+              activeColor: const Color.fromARGB(255, 81, 161, 101),
               value: _relationship04,
               title: const Text('家族に不満を抱えている。',
                   style: TextStyle(
@@ -812,6 +824,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               },
             ),
             CheckboxListTile(
+              activeColor: const Color.fromARGB(255, 81, 161, 101),
               value: _relationship05,
               title: const Text('セクシャリティのことについて悩んでいる。',
                   style: TextStyle(
@@ -840,6 +853,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               },
             ),
             CheckboxListTile(
+              activeColor: const Color.fromARGB(255, 81, 161, 101),
               value: _relationship06,
               title: const Text('失恋から立ち直ることができない。',
                   style: TextStyle(
@@ -887,6 +901,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               padding: EdgeInsets.only(top: 10),
             ),
             CheckboxListTile(
+              activeColor: const Color.fromARGB(255, 81, 161, 101),
               value: _life01,
               title: const Text('親元を離れてしまったことで、寂しさ・孤独感を感じている。',
                   style: TextStyle(
@@ -915,6 +930,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               },
             ),
             CheckboxListTile(
+              activeColor: const Color.fromARGB(255, 81, 161, 101),
               value: _life02,
               title: const Text('一人暮らしを始めたが、一人で生活できるか不安だ。',
                   style: TextStyle(
@@ -943,6 +959,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               },
             ),
             CheckboxListTile(
+              activeColor: const Color.fromARGB(255, 81, 161, 101),
               value: _life03,
               title: const Text('隣人の騒音に悩んでいる',
                   style: TextStyle(
@@ -989,6 +1006,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               padding: EdgeInsets.only(top: 10),
             ),
             CheckboxListTile(
+              activeColor: const Color.fromARGB(255, 81, 161, 101),
               value: _health01,
               title: const Text('自分の性格について悩んでいる。',
                   style: TextStyle(
@@ -1017,6 +1035,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               },
             ),
             CheckboxListTile(
+              activeColor: const Color.fromARGB(255, 81, 161, 101),
               value: _health02,
               title: const Text('自分の成育過程・過程環境(トラウマなど)について悩んでいる。',
                   style: TextStyle(
@@ -1045,6 +1064,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               },
             ),
             CheckboxListTile(
+              activeColor: const Color.fromARGB(255, 81, 161, 101),
               value: _health03,
               title: const Text('自分の身体・健康について悩んでいる。',
                   style: TextStyle(
