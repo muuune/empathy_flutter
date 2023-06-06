@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:empathy_flutter/pages/login_page.dart';
 import 'package:empathy_flutter/pages/tutorial_page.dart';
 import 'package:empathy_flutter/pages/worries1_page.dart';
@@ -16,10 +17,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
+  final auth = FirebaseAuth.instance;
+  late final userId = auth.currentUser?.uid.toString();
+
   @override
   void initState() {
+    test();
+    print(userId);
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => _showStartDialog());
+  }
+
+  //displayNameを取得する
+  void test() async {
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+    final snapshot = await _db.collection("uid").doc(userId).get();
+    final displayName = snapshot.data()!['displayName'];
+    print(displayName);
   }
 
   static const _screens = [

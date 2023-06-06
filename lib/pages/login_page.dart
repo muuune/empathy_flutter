@@ -325,12 +325,16 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         onPressed: _isCheck
                             ? () async {
+                                final auth = FirebaseAuth.instance;
                                 final userNameText = _userNameController.text;
                                 final email = widget.user.email;
+                                final userId = auth.currentUser?.uid.toString();
                                 if (_formKey.currentState!.validate()) {
                                   if (!_existsUserName) {
                                     await Firestore.signUp(
                                         _userNameController.text, email);
+                                    await Firestore.registerUid(userId, email,
+                                        _userNameController.text);
                                     await Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(builder: (context) {
                                         return RegisterWorriesPage(
@@ -338,8 +342,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                       }),
                                     );
                                   }
-                                  print(_nameController.text);
-                                  print(_userNameController.text);
                                 }
                               }
                             : null,
@@ -373,15 +375,22 @@ class _SignUpPageState extends State<SignUpPage> {
 
 class RegisterWorriesPage extends StatefulWidget {
   RegisterWorriesPage(this.userNameText);
-  final FirebaseAuth auth = FirebaseAuth.instance;
   final String userNameText;
+
   @override
-  State<StatefulWidget> createState() {
-    return _RegisterWorriesPage();
-  }
+  _RegisterWorriesPage createState() => _RegisterWorriesPage();
 }
 
 class _RegisterWorriesPage extends State<RegisterWorriesPage> {
+  final TextEditingController _worriesExplanationController =
+      TextEditingController();
+
+  @override
+  void dispose() {
+    _worriesExplanationController.dispose();
+    super.dispose();
+  }
+
   var _school01 = false;
   var _school02 = false;
   var _school03 = false;
@@ -422,6 +431,18 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            Padding(
+                padding:
+                    EdgeInsets.only(top: 20, bottom: 10, left: 20, right: 20),
+                child: TextField(
+                  controller: _worriesExplanationController,
+                  decoration: InputDecoration(
+                    hintText: '説明を入力してください',
+                    hintStyle: TextStyle(fontSize: 13),
+                  ),
+                  maxLength: 15,
+                  textInputAction: TextInputAction.done,
+                )),
             const Padding(
                 padding:
                     EdgeInsets.only(top: 20, bottom: 10, left: 20, right: 20),
@@ -1104,6 +1125,12 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                             255, 81, 161, 101), // foreground
                       ),
                       onPressed: () async {
+                        final worriesExplanation =
+                            _worriesExplanationController.text;
+                        final userName = widget.userNameText;
+                        // 悩みの説明を登録
+                        await Firestore.registerExplanation(
+                            userName, worriesExplanation);
                         await Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) {
                             return const HomePage();
