@@ -61,9 +61,9 @@ class _Worries1PageState extends State<Worries1Page> {
                   snapshot.data[5].contains(displayName) ||
                   snapshot.data[6].contains(displayName) ||
                   snapshot.data[7].contains(displayName)) {
-                print(snapshot.data);
+                print('学業の取得データ' + snapshot.data);
               } else {
-                print(snapshot.data);
+                print('学業の取得データ' + snapshot.data);
                 return const Padding(
                     padding: EdgeInsets.only(top: 70),
                     child: Center(
@@ -231,7 +231,7 @@ class _Worries1PageState extends State<Worries1Page> {
     final FirebaseFirestore _db = FirebaseFirestore.instance;
     final snapshot = await _db.collection("uid").doc(userId).get();
     final snapshotData = snapshot.data()!['displayName'];
-    print(snapshotData);
+    print('ログイン中のユーザー' + snapshotData);
     return snapshotData;
   }
 }
