@@ -54,13 +54,13 @@ class _Worries2PageState extends State<Worries2Page> {
                   snapshot.data[3].contains(displayName) ||
                   snapshot.data[4].contains(displayName) ||
                   snapshot.data[5].contains(displayName)) {
-                print('人間関係の取得データ' + snapshot.data);
+                print(snapshot.data);
               } else {
-                print('人間関係の取得データ' + snapshot.data);
+                print(snapshot.data);
                 return const Padding(
                     padding: EdgeInsets.only(top: 70),
                     child: Center(
-                      child: Text("現在、人間関係に関する悩みで\nマッチングはありません🧑‍🎓",
+                      child: Text("現在、人間関係に関する悩みで\nマッチングはありません👭",
                           textAlign: TextAlign.center),
                     ));
               }

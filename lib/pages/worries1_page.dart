@@ -61,9 +61,9 @@ class _Worries1PageState extends State<Worries1Page> {
                   snapshot.data[5].contains(displayName) ||
                   snapshot.data[6].contains(displayName) ||
                   snapshot.data[7].contains(displayName)) {
-                print('学業の取得データ' + snapshot.data);
+                print(snapshot.data);
               } else {
-                print('学業の取得データ' + snapshot.data);
+                print(snapshot.data);
                 return const Padding(
                     padding: EdgeInsets.only(top: 70),
                     child: Center(
