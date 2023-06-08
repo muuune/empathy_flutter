@@ -33,7 +33,7 @@ class _Worries3PageState extends State<Worries3Page> {
         body: SingleChildScrollView(
             child: Column(children: [
       FutureBuilder(
-          //学業関係の質問に回答したユーザーを全て取得
+          //環境の変化の質問に回答したユーザーを全て取得
           future: Future.wait([
             getProductsLonely(), //[0]
             getProductsLivingAlone(), //[1]
