@@ -1,5 +1,9 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:empathy_flutter/viewModel/myself/character_data.dart';
+import 'package:empathy_flutter/viewModel/myself/health_data.dart';
+import 'package:empathy_flutter/viewModel/myself/process_data.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Worries4Page extends StatefulWidget {
@@ -11,801 +15,114 @@ class Worries4Page extends StatefulWidget {
 
 class _Worries4PageState extends State<Worries4Page> {
   var isCheck = false;
-  final key = "count_key";
+  final auth = FirebaseAuth.instance;
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  late final userId = auth.currentUser?.uid.toString();
+  String displayName = '';
+
+  //起動時にdisplayNameを取得し、変数に代入
+  @override
+  void initState() {
+    super.initState();
+    getDisplayName().then((value) => displayName = value);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
-      child: Column(children: [
-        FutureBuilder(
-          future: getProducts_character(),
+            child: Column(children: [
+      FutureBuilder(
+          // 自分のことの質問に回答したユーザーを全て取得
+          future: Future.wait([
+            getProductsCharacter(), //[0]
+            getProductsProcess(), //[1]
+            getProductsHealth(), //[2]
+          ]),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            return Column(children: [
-              const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                      padding: EdgeInsets.only(
-                          top: 20, bottom: 10, left: 20, right: 20),
-                      child: Text(
-                        '1. 自分の性格について悩んでいる',
-                      ))),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 2) //配列の長さが一定数以上であれば表示
-                  // if (snapshot.data.contains(snapshot.data[10]))
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[1]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🐱",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 3) //[0][2]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[2]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                          )),
-                      leading: const Text("🐰",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 4) //[0][3]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[3]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🦊",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 5) //[0][4]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[4]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🐻",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 6) //[0][5]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[5]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🐼",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 7) //[0][6]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[6]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🐸",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 8) //[0][7]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[7]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🐨",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 9) //[0][8]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[8]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🐶",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 6) //[0][8]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[2]}さんと${snapshot.data[5]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🐱",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-            ]);
-          },
-        ),
-        FutureBuilder(
-          future: getProducts_process(),
+            //Firestore上にログイン中のユーザーがいなければ、画面全体にテキストを表示
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.data[0].contains(displayName) ||
+                  snapshot.data[1].contains(displayName) ||
+                  snapshot.data[2].contains(displayName)) {
+                print(snapshot.data);
+              } else {
+                print(snapshot.data);
+                return const Padding(
+                    padding: EdgeInsets.only(top: 70),
+                    child: Center(
+                      child: Text("現在、自分のことに関する悩みで\nマッチングはありません🐱",
+                          textAlign: TextAlign.center),
+                    ));
+              }
+              return Column();
+            }
+            return Column();
+          }),
+      // 1. 自分の性格について悩んでいる
+      FutureBuilder(
+          future: getProductsCharacter(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            return Column(children: [
-              const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                      padding: EdgeInsets.only(
-                          top: 20, bottom: 10, left: 20, right: 20),
-                      child: Text(
-                        '2. 自分の成育過程・過程環境(トラウマなど)について悩んでいる',
-                      ))),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 2) //配列の長さが一定数以上であれば表示
-                  // if (snapshot.data.contains(snapshot.data[10]))
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[1]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🐱",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 3) //[0][2]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[2]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                          )),
-                      leading: const Text("🐰",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 4) //[0][3]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[3]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🦊",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 5) //[0][4]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[4]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🐻",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 6) //[0][5]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[5]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🐼",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 7) //[0][6]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[6]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🐸",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 8) //[0][7]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[7]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🐨",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 9) //[0][8]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[8]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🐶",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 6) //[0][8]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[2]}さんと${snapshot.data[5]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🐱",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-            ]);
-          },
-        ),
-        FutureBuilder(
-          future: getProducts_health(),
+            //snapshot.dataの中にdisplaynameが含まれれば表示
+            //含まれなければCardも表示しない
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.data.contains(displayName)) {
+                return getProductCharacterData(displayName: displayName);
+              }
+            }
+            return Column();
+          }),
+      // 2. 自分の成育過程・家庭環境(トラウマなど)について悩んでいる
+      FutureBuilder(
+          future: getProductsProcess(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            return Column(children: [
-              const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                      padding: EdgeInsets.only(
-                          top: 20, bottom: 10, left: 20, right: 20),
-                      child: Text(
-                        '3. 自分の身体・健康について悩んでいる',
-                      ))),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 2) //配列の長さが一定数以上であれば表示
-                  // if (snapshot.data.contains(snapshot.data[10]))
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[1]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🐱",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 3) //[0][2]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[2]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                          )),
-                      leading: const Text("🐰",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 4) //[0][3]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[3]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🦊",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 5) //[0][4]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[4]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🐻",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 6) //[0][5]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[5]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🐼",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 7) //[0][6]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[6]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🐸",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 8) //[0][7]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[7]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🐨",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 9) //[0][8]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[0]}さんと${snapshot.data[8]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🐶",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-              if (snapshot.connectionState == ConnectionState.done)
-                if (snapshot.data.length >= 6) //[0][8]
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data[2]}さんと${snapshot.data[5]}さんがマッチングしました",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.bold
-                          )),
-                      leading: const Text("🐱",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                          )),
-                      subtitle: Row(
-                        children: const [
-                          Text('自分のことに関する悩み',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-            ]);
-          },
-        ),
-      ]),
-    ));
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.data.contains(displayName)) {
+                return getProductProcessData(displayName: displayName);
+              }
+            }
+            return Column();
+          }),
+      // 3. 自分の身体・健康について悩んでいる
+      FutureBuilder(
+          future: getProductsHealth(),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.data.contains(displayName)) {
+                return getProductHealthData(displayName: displayName);
+              }
+            }
+            return Column();
+          })
+    ])));
   }
 
-  Future getProducts_character() async {
+  Future getProductsCharacter() async {
     var collection =
         await FirebaseFirestore.instance.collection('自分のこと').doc('自分の性格').get();
-    // var products = collection['users'] as List;
     return Future.value(collection['users'] as List);
   }
 
-  Future getProducts_process() async {
+  Future getProductsProcess() async {
     var collection = await FirebaseFirestore.instance
         .collection('自分のこと')
         .doc('成育過程・過程環境')
         .get();
-    // var products = collection['users'] as List;
     return Future.value(collection['users'] as List);
   }
 
-  Future getProducts_health() async {
+  Future getProductsHealth() async {
     var collection =
         await FirebaseFirestore.instance.collection('自分のこと').doc('身体・健康').get();
-    // var products = collection['users'] as List;
     return Future.value(collection['users'] as List);
+  }
+
+  //displayNameを取得する
+  Future getDisplayName() async {
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+    final snapshot = await _db.collection("uid").doc(userId).get();
+    final snapshotData = snapshot.data()!['displayName'];
+    print('ログイン中のユーザー' + snapshotData);
+    return snapshotData;
   }
 }
