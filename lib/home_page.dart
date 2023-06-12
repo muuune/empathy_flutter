@@ -22,19 +22,19 @@ class _HomePage extends State<HomePage> {
 
   @override
   void initState() {
-    test();
+    // test();
     print(userId);
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => _showStartDialog());
   }
 
   //displayNameを取得する
-  void test() async {
-    final FirebaseFirestore _db = FirebaseFirestore.instance;
-    final snapshot = await _db.collection("uid").doc(userId).get();
-    final displayName = snapshot.data()!['displayName'];
-    print(displayName);
-  }
+  // void test() async {
+  //   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  //   final snapshot = await _db.collection("uid").doc(userId).get();
+  //   final displayName = snapshot.data()!['displayName'];
+  //   print(displayName);
+  // }
 
   static const _screens = [
     Worries1Page(),

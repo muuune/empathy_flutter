@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:empathy_flutter/firebase.dart';
+import 'package:empathy_flutter/pages/login_page.dart';
 import 'package:empathy_flutter/viewModel/school/coexistence_data.dart';
 import 'package:empathy_flutter/viewModel/school/find_work_data.dart';
 import 'package:empathy_flutter/viewModel/school/grade_data.dart';
@@ -230,7 +231,15 @@ class _Worries1PageState extends State<Worries1Page> {
   Future getDisplayName() async {
     final FirebaseFirestore _db = FirebaseFirestore.instance;
     final snapshot = await _db.collection("uid").doc(userId).get();
-    final snapshotData = snapshot.data()!['displayName'];
+    String snapshotData = '';
+    if (userId != '') {
+      final snapshotData = snapshot.data()!['displayName'];
+    } else if (userId == '') {
+      return Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => LoginPage()),
+      );
+    }
     print('ログイン中のユーザー' + snapshotData);
     return snapshotData;
   }
