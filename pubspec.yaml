@@ -44,6 +44,7 @@ dependencies:
   shared_preferences: ^2.0.18
   flutter_overboard: ^3.1.1
   url_launcher: ^6.1.10
+  gap: ^3.0.0
 
 dev_dependencies:
   flutter_test:
