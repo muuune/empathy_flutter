@@ -432,26 +432,52 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Padding(
+            const Padding(
                 padding:
-                    EdgeInsets.only(top: 20, bottom: 10, left: 20, right: 20),
+                    EdgeInsets.only(top: 20, bottom: 0, left: 20, right: 20),
+                child: Text('1. あなたの悩みについて教えてください。',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
+                    ))),
+            const Padding(
+                padding:
+                    EdgeInsets.only(top: 5, bottom: 0, left: 20, right: 20),
+                child: Text(
+                    '・ここに入力されたお悩みは、マッチング相手に公開されます。\n・記入が難しい場合は、入力なしで登録してください。',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 12,
+                    ))),
+            //TODO: 入力欄を必須にする、長文も可能とする
+            Padding(
+                padding: const EdgeInsets.only(
+                    top: 10, bottom: 10, left: 20, right: 20),
                 child: TextField(
                   controller: _worriesExplanationController,
                   decoration: const InputDecoration(
-                    hintText: '説明を入力してください',
+                    hintText: '悩みを教えてください',
                     hintStyle: TextStyle(fontSize: 13),
                   ),
-                  maxLength: 15,
+                  maxLength: 50,
                   textInputAction: TextInputAction.done,
                 )),
             const Padding(
                 padding:
-                    EdgeInsets.only(top: 20, bottom: 10, left: 20, right: 20),
+                    EdgeInsets.only(top: 7, bottom: 0, left: 20, right: 20),
                 child: Text('2. 当てはまる悩みにチェックをしてください。',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 15,
                       // fontWeight: FontWeight.bold
+                    ))),
+            const Padding(
+                padding:
+                    EdgeInsets.only(top: 5, bottom: 5, left: 20, right: 20),
+                child: Text('・登録できる悩みは4つまでです。',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 12,
                     ))),
             const Padding(
                 padding:
@@ -1312,7 +1338,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                           }),
                         );
                       },
-                      child: const Text('マッチング一覧画面へ'),
+                      child: const Text('登録'),
                     ))),
           ],
         ),
@@ -1346,7 +1372,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               height: 200,
             ),
             content: const Text(
-              '悩みを4つ以上選択しています。\n新しく悩みを追加したい場合は、既に登録されている悩みを外してから追加してください。',
+              '登録できる悩みは4つまでです。\n新しく追加したい場合は、既に登録されている悩みを外してから、追加してください。',
+              style: TextStyle(fontSize: 14),
               textAlign: TextAlign.center,
             ),
             actions: <Widget>[
