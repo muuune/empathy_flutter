@@ -1331,9 +1331,15 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         final worriesExplanation =
                             _worriesExplanationController.text;
                         final userName = widget.userNameText;
-                        // 悩みの説明を登録
-                        await Firestore.registerExplanation(
-                            userName, worriesExplanation);
+
+                        // 悩みの説明に記載がない場合、テンプレート文を登録、記載がある場合、その内容を登録
+                        if (worriesExplanation == '') {
+                          await Firestore.registerExplanationEmpty(userName);
+                        } else {
+                          await Firestore.registerExplanation(
+                              userName, worriesExplanation);
+                        }
+
                         await Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) {
                             return const HomePage();
