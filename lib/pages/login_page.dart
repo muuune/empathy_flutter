@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:empathy_flutter/firebase.dart';
+import 'package:gap/gap.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // ログイン画面用Widget
@@ -435,37 +436,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
             const Padding(
                 padding:
                     EdgeInsets.only(top: 20, bottom: 0, left: 20, right: 20),
-                child: Text('1. あなたの悩みについて教えてください。',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                    ))),
-            const Padding(
-                padding:
-                    EdgeInsets.only(top: 5, bottom: 0, left: 20, right: 20),
-                child: Text(
-                    '・ここに入力されたお悩みは、マッチング相手に公開されます。\n・記入が難しい場合は、入力なしで登録してください。',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                    ))),
-            //TODO: 入力欄を必須にする、長文も可能とする
-            Padding(
-                padding: const EdgeInsets.only(
-                    top: 10, bottom: 10, left: 20, right: 20),
-                child: TextField(
-                  controller: _worriesExplanationController,
-                  decoration: const InputDecoration(
-                    hintText: '悩みを教えてください',
-                    hintStyle: TextStyle(fontSize: 13),
-                  ),
-                  maxLength: 50,
-                  textInputAction: TextInputAction.done,
-                )),
-            const Padding(
-                padding:
-                    EdgeInsets.only(top: 7, bottom: 0, left: 20, right: 20),
-                child: Text('2. 当てはまる悩みにチェックをしてください。',
+                child: Text('1. 当てはまる悩みにチェックをしてください。',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 15,
@@ -474,7 +445,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
             const Padding(
                 padding:
                     EdgeInsets.only(top: 5, bottom: 5, left: 20, right: 20),
-                child: Text('・登録できる悩みは4つまでです。',
+                child: Text('※ 登録できる悩みは4つまでです。',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 12,
@@ -1314,6 +1285,37 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                 }
               },
             ),
+            const Padding(
+                padding:
+                    EdgeInsets.only(top: 20, bottom: 0, left: 20, right: 20),
+                child: Text('2. あなたの悩みについて教えてください。',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
+                    ))),
+            const Gap(5),
+            const Padding(
+                padding:
+                    EdgeInsets.only(top: 5, bottom: 0, left: 20, right: 20),
+                child: Text(
+                    'Q. あなたが一番悩んでいる悩みを教えてください。\nQ. 上記の項目にないことで悩んでいることがあれば、ここに記載してください。 \n\n※ここに入力されたお悩みは、マッチング相手に公開されます。\n※記入が難しい場合は、入力なしで登録してください。',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 12,
+                    ))),
+            //TODO: 入力欄を必須にする、長文も可能とする
+            Padding(
+                padding: const EdgeInsets.only(
+                    top: 10, bottom: 10, left: 20, right: 20),
+                child: TextField(
+                  controller: _worriesExplanationController,
+                  decoration: const InputDecoration(
+                    hintText: '悩みを教えてください',
+                    hintStyle: TextStyle(fontSize: 13),
+                  ),
+                  maxLength: 50,
+                  textInputAction: TextInputAction.done,
+                )),
             Padding(
                 padding: const EdgeInsets.only(top: 20, bottom: 50),
                 child: Align(
