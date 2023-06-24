@@ -36,12 +36,25 @@ class Firestore {
     await uid.doc(userId).set({'displayName': userName, 'email': email});
   }
 
+  // 悩みの説明がある時
   static Future<void> registerExplanation(userName, worriesExplanation) async {
     await registerWorriesExplanation
         .doc(userName)
         .set({
           'createdAt': Timestamp.now(),
-          'worries_explanation': worriesExplanation
+          'worries_explanation': worriesExplanation,
+        })
+        .then((value) => print("registerExplanation"))
+        .catchError((error) => print("Failed to registerExplanation: $error"));
+  }
+
+  // 悩みの説明がない時
+  static Future<void> registerExplanationEmpty(userName) async {
+    await registerWorriesExplanation
+        .doc(userName)
+        .set({
+          'createdAt': Timestamp.now(),
+          'worries_explanation': 'まだ悩みの説明の登録がされていません',
         })
         .then((value) => print("registerExplanation"))
         .catchError((error) => print("Failed to registerExplanation: $error"));
