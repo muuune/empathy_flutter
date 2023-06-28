@@ -20,17 +20,22 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Center(
-        child: Container(
-          padding: const EdgeInsets.all(24),
+        child: SingleChildScrollView(
+          reverse: true,
+          padding: const EdgeInsets.all(30),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 70, left: 70, bottom: 10),
+                child: Image.asset('images/welcome.png'),
+              ),
               const Text('アナタノミカタへようこそ！'),
-              const Padding(padding: const EdgeInsets.only(bottom: 50)),
-
-              // メールアドレス入力
+              const Gap(25),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'メールアドレス'),
                 onChanged: (String value) {
@@ -39,7 +44,6 @@ class _LoginPageState extends State<LoginPage> {
                   });
                 },
               ),
-              // パスワード入力
               TextFormField(
                 decoration: const InputDecoration(labelText: 'パスワード'),
                 obscureText: true,
@@ -182,6 +186,7 @@ class _LoginPageState extends State<LoginPage> {
                       }
                     },
                   )),
+              Padding(padding: EdgeInsets.only(bottom: bottomSpace)),
             ],
           ),
         ),
@@ -1376,8 +1381,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                 borderRadius: BorderRadius.all(Radius.circular(10.0))),
             titlePadding: const EdgeInsets.only(top: 20),
             title: Image.asset(
-              'images/choose.png',
-              height: 200,
+              'images/sorry.png',
+              height: 180,
             ),
             content: const Text(
               '登録できる悩みは4つまでです。\n新しく追加したい場合は、既に登録されている悩みを外してから、追加してください。',
