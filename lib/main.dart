@@ -21,13 +21,16 @@ class MyApp extends StatelessWidget {
         home: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
+            final auth = FirebaseAuth.instance;
+            late final userId = auth.currentUser?.uid;
             WidgetsBinding.instance
                 .addPostFrameCallback((_) => _showTutorial(context));
             if (snapshot.connectionState == ConnectionState.waiting) {
               // スプラッシュ画面などに書き換えても良い
+              // 今は特に何もしていない
               return const SizedBox();
             }
-            if (snapshot.hasData) {
+            if (snapshot.hasData && userId != '') {
               // User が null でなない、つまりサインイン済みのホーム画面へ
               return const HomePage();
             }

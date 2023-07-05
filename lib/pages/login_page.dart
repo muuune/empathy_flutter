@@ -73,13 +73,11 @@ class _LoginPageState extends State<LoginPage> {
                         email: email,
                         password: password,
                       );
-                      // ユーザー登録に成功した場合
-                      // チャット画面に遷移＋ログイン画面を破棄
-                      await Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) {
-                          return SignUpPage(result.user!);
-                        }),
-                      );
+                      // ユーザー登録に成功した場合、登録画面に遷移
+                      await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SignUpPage(result.user!)));
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'email-already-in-use') {
                         ScaffoldMessenger.of(context).showSnackBar(

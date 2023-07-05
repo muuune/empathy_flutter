@@ -22,7 +22,6 @@ class _HomePage extends State<HomePage> {
 
   @override
   void initState() {
-    // test();
     print(userId);
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => _showStartDialog());
