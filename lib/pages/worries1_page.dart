@@ -24,14 +24,16 @@ class _Worries1PageState extends State<Worries1Page> {
   var isCheck = false;
   final auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
-  late final userId = auth.currentUser?.uid.toString();
+  late final userId = auth.currentUser?.uid;
   String displayName = '';
 
   //起動時にdisplayNameを取得し、変数に代入
   @override
   void initState() {
     super.initState();
-    getDisplayName().then((value) => displayName = value);
+    if (userId != '') {
+      getDisplayName().then((value) => displayName = value);
+    }
   }
 
   @override
@@ -227,20 +229,33 @@ class _Worries1PageState extends State<Worries1Page> {
     return Future.value(collection['users'] as List);
   }
 
+  // // displayNameを取得する
+  // Future getDisplayName() async {
+  //   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  //   final snapshot = await _db.collection("uid").doc(userId as String?).get();
+  //   // snapshotDataは、ログイン中のユーザー名が格納されてる
+  //   String snapshotData = '';
+  //   if (userId == true) {
+  //     print('trueになってます');
+  //     return snapshotData = snapshot.data()!['displayName'];
+  //   } else if (userId == false) {
+  //     return Navigator.push(
+  //       context,
+  //       MaterialPageRoute(builder: (context) => LoginPage()),
+  //     );
+  //   }
+  //   // print('ログイン中のユーザー' + snapshotData);
+  //   // return snapshotData;
+  // }
+
   //displayNameを取得する
   Future getDisplayName() async {
     final FirebaseFirestore _db = FirebaseFirestore.instance;
     final snapshot = await _db.collection("uid").doc(userId).get();
     String snapshotData = '';
-    if (userId != '') {
-      final snapshotData = snapshot.data()!['displayName'];
-    } else if (userId == '') {
-      return Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => LoginPage()),
-      );
+    print('これです' + snapshot.data().toString());
+    if (snapshot.data() != null) {
+      return snapshotData = snapshot.data()!['displayName'];
     }
-    print('ログイン中のユーザー' + snapshotData);
-    return snapshotData;
   }
 }
