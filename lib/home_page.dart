@@ -5,8 +5,10 @@ import 'package:empathy_flutter/pages/worries1_page.dart';
 import 'package:empathy_flutter/pages/worries2_page.dart';
 import 'package:empathy_flutter/pages/worries3_page.dart';
 import 'package:empathy_flutter/pages/worries4_page.dart';
+import 'package:empathy_flutter/pages/worries_%20explanation_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
@@ -117,17 +119,49 @@ class _HomePage extends State<HomePage> {
               child: ListView(
                 padding: EdgeInsets.zero,
                 children: <Widget>[
-                  SizedBox(
-                      height: 110,
-                      child: DrawerHeader(
-                        child: const Text('メニュー'),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[50],
-                          border: const Border(
-                              bottom:
-                                  BorderSide(color: Colors.grey, width: 0.2)),
+                  const Gap(60),
+                  const Padding(
+                      padding: EdgeInsets.only(left: 15), child: Text('メニュー')),
+                  const Gap(25),
+                  Container(
+                    width: 200,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[50],
+                      border: const Border(
+                        bottom: BorderSide(
+                          color: Colors.grey,
+                          width: 0.4,
                         ),
-                      )),
+                      ),
+                    ),
+                  ),
+                  // SizedBox(
+                  //     height: 110,
+                  //     child: DrawerHeader(
+                  //       child: const Text('メニュー'),
+                  //       decoration: BoxDecoration(
+                  //         color: Colors.grey[50],
+                  //         border: const Border(
+                  //             bottom:
+                  //                 BorderSide(color: Colors.grey, width: 0.2)),
+                  //       ),
+                  //     )),
+                  const Gap(10),
+                  ListTile(
+                    leading: const Icon(Icons.edit),
+                    title: Transform.translate(
+                      offset: const Offset(-20, 0),
+                      child: const Text('悩みの説明を編集する'),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const WorriesExplanationPage()),
+                      );
+                    },
+                  ),
                   ListTile(
                     leading: const Icon(Icons.fast_forward),
                     title: Transform.translate(
@@ -283,6 +317,7 @@ class _HomePage extends State<HomePage> {
               child: const Text("OK",
                   style: TextStyle(
                     color: Color.fromARGB(255, 81, 161, 101),
+                    fontSize: 17,
                   )),
               onPressed: () => Navigator.pop(context),
             ),
