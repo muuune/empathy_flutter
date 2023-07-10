@@ -245,7 +245,6 @@ class _SignUpPageState extends State<SignUpPage> {
             style: TextStyle(
               color: Colors.black,
               fontSize: 17,
-              // fontWeight: FontWeight.bold
             )),
         backgroundColor: Colors.grey[50],
       ),
@@ -253,9 +252,6 @@ class _SignUpPageState extends State<SignUpPage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // const SizedBox(
-            //   height: 200,
-            // ),
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
@@ -409,26 +405,26 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
     super.dispose();
   }
 
-  var _school01 = false;
-  var _school02 = false;
-  var _school03 = false;
-  var _school04 = false;
-  var _school05 = false;
-  var _school06 = false;
-  var _school07 = false;
-  var _school08 = false;
-  var _relationship01 = false;
-  var _relationship02 = false;
-  var _relationship03 = false;
-  var _relationship04 = false;
-  var _relationship05 = false;
-  var _relationship06 = false;
-  var _life01 = false;
-  var _life02 = false;
-  var _life03 = false;
-  var _health01 = false;
-  var _health02 = false;
-  var _health03 = false;
+  bool _school01 = false;
+  bool _school02 = false;
+  bool _school03 = false;
+  bool _school04 = false;
+  bool _school05 = false;
+  bool _school06 = false;
+  bool _school07 = false;
+  bool _school08 = false;
+  bool _relationship01 = false;
+  bool _relationship02 = false;
+  bool _relationship03 = false;
+  bool _relationship04 = false;
+  bool _relationship05 = false;
+  bool _relationship06 = false;
+  bool _life01 = false;
+  bool _life02 = false;
+  bool _life03 = false;
+  bool _health01 = false;
+  bool _health02 = false;
+  bool _health03 = false;
   var count = 0;
 
   @override
@@ -509,19 +505,25 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   });
                   if (_school01 == true) {
                     countUp();
-                    if (count == 5) {
-                      showLimit();
-                      setState(() {
-                        count--;
-                        _school01 = false;
-                      });
-                    }
                     await FirebaseFirestore.instance
                         .collection('学業')
                         .doc('進級・卒業')
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    if (count == 5) {
+                      await FirebaseFirestore.instance
+                          .collection('学業')
+                          .doc('進級・卒業')
+                          .update({
+                        "users": FieldValue.arrayRemove([widget.userNameText])
+                      });
+                      showLimit();
+                      setState(() {
+                        count--;
+                        _school01 = false;
+                      });
+                    }
                   } else if (_school01 == false) {
                     countDown();
                     await FirebaseFirestore.instance
@@ -547,19 +549,25 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   });
                   if (_school02 == true) {
                     countUp();
-                    if (count == 5) {
-                      showLimit();
-                      setState(() {
-                        count--;
-                        _school02 = false;
-                      });
-                    }
                     await FirebaseFirestore.instance
                         .collection('学業')
                         .doc('入りたい学部じゃなかった')
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    if (count == 5) {
+                      await FirebaseFirestore.instance
+                          .collection('学業')
+                          .doc('入りたい学部じゃなかった')
+                          .update({
+                        "users": FieldValue.arrayRemove([widget.userNameText])
+                      });
+                      showLimit();
+                      setState(() {
+                        count--;
+                        _school02 = false;
+                      });
+                    }
                   } else if (_school02 == false) {
                     countDown();
                     await FirebaseFirestore.instance
@@ -585,19 +593,25 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   });
                   if (_school03 == true) {
                     countUp();
-                    if (count == 5) {
-                      showLimit();
-                      setState(() {
-                        count--;
-                        _school03 = false;
-                      });
-                    }
                     await FirebaseFirestore.instance
                         .collection('学業') // コレクションID指定
                         .doc('講義についていけない')
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    if (count == 5) {
+                      await FirebaseFirestore.instance
+                          .collection('学業')
+                          .doc('講義についていけない')
+                          .update({
+                        "users": FieldValue.arrayRemove([widget.userNameText])
+                      });
+                      showLimit();
+                      setState(() {
+                        count--;
+                        _school03 = false;
+                      });
+                    }
                   } else if (_school03 == false) {
                     countDown();
                     await FirebaseFirestore.instance
@@ -623,19 +637,25 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   });
                   if (_school04 == true) {
                     countUp();
-                    if (count == 5) {
-                      showLimit();
-                      setState(() {
-                        count--;
-                        _school04 = false;
-                      });
-                    }
                     await FirebaseFirestore.instance
                         .collection('学業') // コレクションID指定
                         .doc('両立が難しい')
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    if (count == 5) {
+                      await FirebaseFirestore.instance
+                          .collection('学業')
+                          .doc('両立が難しい')
+                          .update({
+                        "users": FieldValue.arrayRemove([widget.userNameText])
+                      });
+                      showLimit();
+                      setState(() {
+                        count--;
+                        _school04 = false;
+                      });
+                    }
                   } else if (_school04 == false) {
                     countDown();
                     await FirebaseFirestore.instance
@@ -661,19 +681,25 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   });
                   if (_school05 == true) {
                     countUp();
-                    if (count == 5) {
-                      showLimit();
-                      setState(() {
-                        count--;
-                        _school05 = false;
-                      });
-                    }
                     await FirebaseFirestore.instance
                         .collection('学業') // コレクションID指定
                         .doc('大学院への進学に不安')
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    if (count == 5) {
+                      await FirebaseFirestore.instance
+                          .collection('学業')
+                          .doc('大学院への進学に不安')
+                          .update({
+                        "users": FieldValue.arrayRemove([widget.userNameText])
+                      });
+                      showLimit();
+                      setState(() {
+                        count--;
+                        _school05 = false;
+                      });
+                    }
                   } else if (_school05 == false) {
                     countDown();
                     await FirebaseFirestore.instance
@@ -699,19 +725,25 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   });
                   if (_school06 == true) {
                     countUp();
-                    if (count == 5) {
-                      showLimit();
-                      setState(() {
-                        count--;
-                        _school06 = false;
-                      });
-                    }
                     await FirebaseFirestore.instance
                         .collection('学業') // コレクションID指定
                         .doc('就職先が決まらない')
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    if (count == 5) {
+                      await FirebaseFirestore.instance
+                          .collection('学業')
+                          .doc('就職先が決まらない')
+                          .update({
+                        "users": FieldValue.arrayRemove([widget.userNameText])
+                      });
+                      showLimit();
+                      setState(() {
+                        count--;
+                        _school06 = false;
+                      });
+                    }
                   } else if (_school06 == false) {
                     countDown();
                     await FirebaseFirestore.instance
@@ -737,19 +769,25 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   });
                   if (_school07 == true) {
                     countUp();
-                    if (count == 5) {
-                      showLimit();
-                      setState(() {
-                        count--;
-                        _school07 = false;
-                      });
-                    }
                     await FirebaseFirestore.instance
                         .collection('学業') // コレクションID指定
                         .doc('就職したい業界が分からない')
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    if (count == 5) {
+                      await FirebaseFirestore.instance
+                          .collection('学業')
+                          .doc('就職したい業界が分からない')
+                          .update({
+                        "users": FieldValue.arrayRemove([widget.userNameText])
+                      });
+                      showLimit();
+                      setState(() {
+                        count--;
+                        _school07 = false;
+                      });
+                    }
                   } else if (_school07 == false) {
                     countDown();
                     await FirebaseFirestore.instance
@@ -775,19 +813,25 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   });
                   if (_school08 == true) {
                     countUp();
-                    if (count == 5) {
-                      showLimit();
-                      setState(() {
-                        count--;
-                        _school08 = false;
-                      });
-                    }
                     await FirebaseFirestore.instance
                         .collection('学業') // コレクションID指定
                         .doc('金銭面')
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    if (count == 5) {
+                      await FirebaseFirestore.instance
+                          .collection('学業')
+                          .doc('金銭面')
+                          .update({
+                        "users": FieldValue.arrayRemove([widget.userNameText])
+                      });
+                      showLimit();
+                      setState(() {
+                        count--;
+                        _school08 = false;
+                      });
+                    }
                   } else if (_school08 == false) {
                     countDown();
                     await FirebaseFirestore.instance
@@ -832,19 +876,25 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   });
                   if (_relationship01 == true) {
                     countUp();
-                    if (count == 5) {
-                      showLimit();
-                      setState(() {
-                        count--;
-                        _relationship01 = false;
-                      });
-                    }
                     await FirebaseFirestore.instance
                         .collection('人間関係')
                         .doc('友人関係・上下関係')
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    if (count == 5) {
+                      await FirebaseFirestore.instance
+                          .collection('人間関係')
+                          .doc('友人関係・上下関係')
+                          .update({
+                        "users": FieldValue.arrayRemove([widget.userNameText])
+                      });
+                      showLimit();
+                      setState(() {
+                        count--;
+                        _relationship01 = false;
+                      });
+                    }
                   } else if (_relationship01 == false) {
                     countDown();
                     await FirebaseFirestore.instance
@@ -870,19 +920,25 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   });
                   if (_relationship02 == true) {
                     countUp();
-                    if (count == 5) {
-                      showLimit();
-                      setState(() {
-                        count--;
-                        _relationship02 = false;
-                      });
-                    }
                     await FirebaseFirestore.instance
                         .collection('人間関係')
                         .doc('先生やメンバーへの不満')
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    if (count == 5) {
+                      await FirebaseFirestore.instance
+                          .collection('人間関係')
+                          .doc('先生やメンバーへの不満')
+                          .update({
+                        "users": FieldValue.arrayRemove([widget.userNameText])
+                      });
+                      showLimit();
+                      setState(() {
+                        count--;
+                        _relationship02 = false;
+                      });
+                    }
                   } else if (_relationship02 == false) {
                     countDown();
                     await FirebaseFirestore.instance
@@ -908,19 +964,25 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   });
                   if (_relationship03 == true) {
                     countUp();
-                    if (count == 5) {
-                      showLimit();
-                      setState(() {
-                        count--;
-                        _relationship03 = false;
-                      });
-                    }
                     await FirebaseFirestore.instance
                         .collection('人間関係')
                         .doc('友達ができない')
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    if (count == 5) {
+                      await FirebaseFirestore.instance
+                          .collection('人間関係')
+                          .doc('友達ができない')
+                          .update({
+                        "users": FieldValue.arrayRemove([widget.userNameText])
+                      });
+                      showLimit();
+                      setState(() {
+                        count--;
+                        _relationship03 = false;
+                      });
+                    }
                   } else if (_relationship03 == false) {
                     countDown();
                     await FirebaseFirestore.instance
@@ -946,19 +1008,25 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   });
                   if (_relationship04 == true) {
                     countUp();
-                    if (count == 5) {
-                      showLimit();
-                      setState(() {
-                        count--;
-                        _relationship04 = false;
-                      });
-                    }
                     await FirebaseFirestore.instance
                         .collection('人間関係')
                         .doc('家族に不満')
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    if (count == 5) {
+                      await FirebaseFirestore.instance
+                          .collection('人間関係')
+                          .doc('家族に不満')
+                          .update({
+                        "users": FieldValue.arrayRemove([widget.userNameText])
+                      });
+                      showLimit();
+                      setState(() {
+                        count--;
+                        _relationship04 = false;
+                      });
+                    }
                   } else if (_relationship04 == false) {
                     countDown();
                     await FirebaseFirestore.instance
@@ -984,19 +1052,25 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   });
                   if (_relationship05 == true) {
                     countUp();
-                    if (count == 5) {
-                      showLimit();
-                      setState(() {
-                        count--;
-                        _relationship05 = false;
-                      });
-                    }
                     await FirebaseFirestore.instance
                         .collection('人間関係')
                         .doc('セクシャリティ')
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    if (count == 5) {
+                      await FirebaseFirestore.instance
+                          .collection('人間関係')
+                          .doc('セクシャリティ')
+                          .update({
+                        "users": FieldValue.arrayRemove([widget.userNameText])
+                      });
+                      showLimit();
+                      setState(() {
+                        count--;
+                        _relationship05 = false;
+                      });
+                    }
                   } else if (_relationship05 == false) {
                     countDown();
                     await FirebaseFirestore.instance
@@ -1022,19 +1096,25 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   });
                   if (_relationship06 == true) {
                     countUp();
-                    if (count == 5) {
-                      showLimit();
-                      setState(() {
-                        count--;
-                        _relationship06 = false;
-                      });
-                    }
                     await FirebaseFirestore.instance
                         .collection('人間関係')
                         .doc('失恋')
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    if (count == 5) {
+                      await FirebaseFirestore.instance
+                          .collection('人間関係')
+                          .doc('失恋')
+                          .update({
+                        "users": FieldValue.arrayRemove([widget.userNameText])
+                      });
+                      showLimit();
+                      setState(() {
+                        count--;
+                        _relationship06 = false;
+                      });
+                    }
                   } else if (_relationship06 == false) {
                     countDown();
                     await FirebaseFirestore.instance
@@ -1079,19 +1159,25 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   });
                   if (_life01 == true) {
                     countUp();
-                    if (count == 5) {
-                      showLimit();
-                      setState(() {
-                        count--;
-                        _life01 = false;
-                      });
-                    }
                     await FirebaseFirestore.instance
                         .collection('環境の変化')
                         .doc('寂しさ・孤独感')
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    if (count == 5) {
+                      await FirebaseFirestore.instance
+                          .collection('環境の変化')
+                          .doc('寂しさ・孤独感')
+                          .update({
+                        "users": FieldValue.arrayRemove([widget.userNameText])
+                      });
+                      showLimit();
+                      setState(() {
+                        count--;
+                        _life01 = false;
+                      });
+                    }
                   } else if (_life01 == false) {
                     countDown();
                     await FirebaseFirestore.instance
@@ -1117,19 +1203,25 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   });
                   if (_life02 == true) {
                     countUp();
-                    if (count == 5) {
-                      showLimit();
-                      setState(() {
-                        count--;
-                        _life02 = false;
-                      });
-                    }
                     await FirebaseFirestore.instance
                         .collection('環境の変化')
                         .doc('一人暮らしの不安')
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    if (count == 5) {
+                      await FirebaseFirestore.instance
+                          .collection('環境の変化')
+                          .doc('一人暮らしの不安')
+                          .update({
+                        "users": FieldValue.arrayRemove([widget.userNameText])
+                      });
+                      showLimit();
+                      setState(() {
+                        count--;
+                        _life02 = false;
+                      });
+                    }
                   } else if (_life02 == false) {
                     countDown();
                     await FirebaseFirestore.instance
@@ -1155,19 +1247,26 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   });
                   if (_life03 == true) {
                     countUp();
-                    if (count == 5) {
-                      showLimit();
-                      setState(() {
-                        count--;
-                        _life03 = false;
-                      });
-                    }
+
                     await FirebaseFirestore.instance
                         .collection('環境の変化')
                         .doc('騒音')
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    if (count == 5) {
+                      await FirebaseFirestore.instance
+                          .collection('環境の変化')
+                          .doc('騒音')
+                          .update({
+                        "users": FieldValue.arrayRemove([widget.userNameText])
+                      });
+                      showLimit();
+                      setState(() {
+                        count--;
+                        _life03 = false;
+                      });
+                    }
                   } else if (_life03 == false) {
                     countDown();
                     await FirebaseFirestore.instance
@@ -1211,19 +1310,25 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   });
                   if (_health01 == true) {
                     countUp();
-                    if (count == 5) {
-                      showLimit();
-                      setState(() {
-                        count--;
-                        _health01 = false;
-                      });
-                    }
                     await FirebaseFirestore.instance
                         .collection('自分のこと')
                         .doc('自分の性格')
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    if (count == 5) {
+                      await FirebaseFirestore.instance
+                          .collection('自分のこと')
+                          .doc('自分の性格')
+                          .update({
+                        "users": FieldValue.arrayRemove([widget.userNameText])
+                      });
+                      showLimit();
+                      setState(() {
+                        count--;
+                        _health01 = false;
+                      });
+                    }
                   } else if (_health01 == false) {
                     countDown();
                     await FirebaseFirestore.instance
@@ -1249,19 +1354,25 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   });
                   if (_health02 == true) {
                     countUp();
-                    if (count == 5) {
-                      showLimit();
-                      setState(() {
-                        count--;
-                        _health02 = false;
-                      });
-                    }
                     await FirebaseFirestore.instance
                         .collection('自分のこと')
                         .doc('成育過程・過程環境')
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    if (count == 5) {
+                      await FirebaseFirestore.instance
+                          .collection('自分のこと')
+                          .doc('成育過程・過程環境')
+                          .update({
+                        "users": FieldValue.arrayRemove([widget.userNameText])
+                      });
+                      showLimit();
+                      setState(() {
+                        count--;
+                        _health02 = false;
+                      });
+                    }
                   } else if (_health02 == false) {
                     countDown();
                     await FirebaseFirestore.instance
@@ -1287,19 +1398,25 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   });
                   if (_health03 == true) {
                     countUp();
-                    if (count == 5) {
-                      showLimit();
-                      setState(() {
-                        count--;
-                        _health03 = false;
-                      });
-                    }
                     await FirebaseFirestore.instance
                         .collection('自分のこと')
                         .doc('身体・健康')
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    if (count == 5) {
+                      await FirebaseFirestore.instance
+                          .collection('自分のこと')
+                          .doc('身体・健康')
+                          .update({
+                        "users": FieldValue.arrayRemove([widget.userNameText])
+                      });
+                      showLimit();
+                      setState(() {
+                        count--;
+                        _health03 = false;
+                      });
+                    }
                   } else if (_health03 == false) {
                     countDown();
                     await FirebaseFirestore.instance
@@ -1398,9 +1515,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
 
   void countUp() {
     count++;
-    print(count);
     if (count == 5) {
-      print('アパー');
+      print(count);
     }
   }
 
