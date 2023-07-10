@@ -66,6 +66,9 @@ class _Worries2PageState extends State<Worries2Page> {
               }
               return Column();
             }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return showIndicator();
+            }
             return Column();
           }),
       // 1. 大学・サークル・バイト内などでの、友人関係・上下関係に悩んでいる
@@ -191,5 +194,15 @@ class _Worries2PageState extends State<Worries2Page> {
     final snapshotData = snapshot.data()!['displayName'];
     print('ログイン中のユーザー' + snapshotData);
     return snapshotData;
+  }
+
+  // 読み込み中
+  Widget showIndicator() {
+    return const Center(
+        child: Padding(
+            padding: EdgeInsets.only(top: 70),
+            child: CircularProgressIndicator(
+              color: Color.fromARGB(255, 81, 161, 101),
+            )));
   }
 }

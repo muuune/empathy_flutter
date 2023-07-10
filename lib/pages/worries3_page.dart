@@ -57,6 +57,9 @@ class _Worries3PageState extends State<Worries3Page> {
               }
               return Column();
             }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return showIndicator();
+            }
             return Column();
           }),
       // 1. 親元を離れてしまったことで、寂しさ・孤独感を感じている
@@ -127,5 +130,15 @@ class _Worries3PageState extends State<Worries3Page> {
     final snapshotData = snapshot.data()!['displayName'];
     print('ログイン中のユーザー' + snapshotData);
     return snapshotData;
+  }
+
+  // 読み込み中
+  Widget showIndicator() {
+    return const Center(
+        child: Padding(
+            padding: EdgeInsets.only(top: 70),
+            child: CircularProgressIndicator(
+              color: Color.fromARGB(255, 81, 161, 101),
+            )));
   }
 }

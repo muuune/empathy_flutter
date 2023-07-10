@@ -76,6 +76,9 @@ class _Worries1PageState extends State<Worries1Page> {
               }
               return Column();
             }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return showIndicator();
+            }
             return Column();
           }),
       // 1. 試験・レポート・研究等が上手く進まず、進級・卒業できるか心配である
@@ -257,5 +260,15 @@ class _Worries1PageState extends State<Worries1Page> {
     if (snapshot.data() != null) {
       return snapshotData = snapshot.data()!['displayName'];
     }
+  }
+
+  // 読み込み中
+  Widget showIndicator() {
+    return const Center(
+        child: Padding(
+            padding: EdgeInsets.only(top: 70),
+            child: CircularProgressIndicator(
+              color: Color.fromARGB(255, 81, 161, 101),
+            )));
   }
 }
