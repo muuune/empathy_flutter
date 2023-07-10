@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:empathy_flutter/pages/login_page.dart';
 import 'package:empathy_flutter/pages/tutorial_page.dart';
 import 'package:empathy_flutter/pages/worries1_page.dart';
@@ -26,7 +25,7 @@ class _HomePage extends State<HomePage> {
   void initState() {
     print(userId);
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _showStartDialog());
+    WidgetsBinding.instance.addPostFrameCallback((_) => showAttentionDialog());
   }
 
   //displayNameを取得する
@@ -68,33 +67,7 @@ class _HomePage extends State<HomePage> {
             IconButton(
                 icon: const Icon(Icons.info_outline),
                 onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: const Text("マッチング後の流れについて",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 17,
-                            )),
-                        content: const Text(
-                            "マッチングしたお相手と1対1のトークを、1日限りでしていただきます。\n\n1. 後日、登録時に使用したメールアドレス宛にトークルームへの招待をお送りします。\n2. 入室後は積極的なトークと、悩みへの共感をお願いします。",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                            )),
-                        actions: [
-                          TextButton(
-                            child: const Text("OK",
-                                style: TextStyle(
-                                  color: Color.fromARGB(255, 81, 161, 101),
-                                )),
-                            onPressed: () => Navigator.pop(context),
-                          ),
-                        ],
-                      );
-                    },
-                  );
+                  showAttentionDialog();
                 }),
           ],
           elevation: 0.0,
@@ -169,7 +142,7 @@ class _HomePage extends State<HomePage> {
                       child: const Text('マッチング後の流れ'),
                     ),
                     onTap: () {
-                      _showStartDialog();
+                      showAttentionDialog();
                     },
                   ),
                   ListTile(
@@ -296,34 +269,72 @@ class _HomePage extends State<HomePage> {
     }
   }
 
-  Future<void> _showStartDialog() async {
-    return showDialog<void>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text("マッチング後の流れについて",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 17,
-              )),
-          content: const Text(
-              "マッチングしたお相手と1対1のトークを、1日限りでしていただきます。\n\n1. 後日、登録時に使用したメールアドレス宛にトークルームの招待をお送りします。\n2. 入室後は積極的なトークと、悩みへの共感をお願いします。",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 14,
-              )),
-          actions: [
-            TextButton(
-              child: const Text("OK",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 81, 161, 101),
-                    fontSize: 17,
-                  )),
-              onPressed: () => Navigator.pop(context),
+  Future showAttentionDialog() async {
+    showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
             ),
-          ],
-        );
-      },
-    );
+            child: Container(
+              width: 311.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Gap(10),
+                  const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20.0),
+                      child: Text(
+                        'マッチング後の流れについて',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Text(
+                      'マッチングした相手と1対1のトークを、1日限りでしていただきます。\n\n1. 後日、登録時に使用したメールアドレス宛にトークルームの招待をお送りします。\n\n2. 入室後は積極的なトークと、悩みへの共感をお願いします。',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 24.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor:
+                              const Color.fromARGB(255, 81, 161, 101),
+                          shadowColor: Colors.grey,
+                          elevation: 5,
+                          shape: const StadiumBorder(),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 16, horizontal: 36),
+                          child: Text('確認した'),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Gap(35),
+                ],
+              ),
+            ),
+          );
+        });
   }
 }

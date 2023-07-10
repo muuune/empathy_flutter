@@ -79,7 +79,7 @@ class matchingCard extends StatelessWidget {
         final getExplanation =
             await _db.collection("explanation").doc(snapshot).get();
         final getExplanationData = getExplanation.data()!['worriesExplanation'];
-        return showAlertDialog(
+        return showExplanationDialog(
           context,
           title: snapshot + 'さんの\n' + '抱えているお悩み',
           content: getExplanationData.toString(),
@@ -113,7 +113,7 @@ class matchingCard extends StatelessWidget {
     );
   }
 
-  Future showAlertDialog(
+  Future showExplanationDialog(
     context, {
     required String title,
     required String content,

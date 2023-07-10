@@ -57,6 +57,9 @@ class _Worries4PageState extends State<Worries4Page> {
               }
               return Column();
             }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return showIndicator();
+            }
             return Column();
           }),
       // 1. 自分の性格について悩んでいる
@@ -124,5 +127,15 @@ class _Worries4PageState extends State<Worries4Page> {
     final snapshotData = snapshot.data()!['displayName'];
     print('ログイン中のユーザー' + snapshotData);
     return snapshotData;
+  }
+
+  // 読み込み中
+  Widget showIndicator() {
+    return const Center(
+        child: Padding(
+            padding: EdgeInsets.only(top: 70),
+            child: CircularProgressIndicator(
+              color: Color.fromARGB(255, 81, 161, 101),
+            )));
   }
 }
