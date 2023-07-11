@@ -264,6 +264,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: Text("${widget.user.email} 様"),
                     ),
                     TextFormField(
+                      keyboardType: TextInputType.text,
                       controller: _userNameController,
                       decoration: const InputDecoration(
                         hintText: 'ユーザー名を入力してください',
@@ -398,11 +399,21 @@ class RegisterWorriesPage extends StatefulWidget {
 class _RegisterWorriesPage extends State<RegisterWorriesPage> {
   final TextEditingController _worriesExplanationController =
       TextEditingController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void dispose() {
     _worriesExplanationController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // reverseがtrueでも、画面が一番上に移動する
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+    });
   }
 
   bool _school01 = false;
@@ -451,6 +462,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
           backgroundColor: Colors.grey[50],
         ),
         body: SingleChildScrollView(
+          controller: _scrollController,
           reverse: true,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
