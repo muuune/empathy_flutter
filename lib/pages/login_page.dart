@@ -1471,8 +1471,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(
-                        width: 2,
-                        color: Colors.blue,
+                        width: 1,
+                        color: Colors.grey,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
