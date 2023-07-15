@@ -64,12 +64,15 @@ class Firestore {
 class matchingCard extends StatelessWidget {
   final String snapshot;
   final String pictograph;
+  final String cause;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   matchingCard({
     super.key,
     required this.snapshot,
     required this.pictograph,
+    // ここに要因名を入れて必須化する
+    required this.cause,
   });
 
   @override
@@ -100,8 +103,8 @@ class matchingCard extends StatelessWidget {
                 fontSize: 30,
               )),
           subtitle: Row(
-            children: const [
-              Text('学業に関する悩み',
+            children: [
+              Text(cause,
                   textAlign: TextAlign.right,
                   style: TextStyle(
                     fontSize: 12,

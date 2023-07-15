@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class getProductMoneyData extends StatelessWidget {
   final String displayName;
+  String causeText = '学業に関する悩み';
 
   getProductMoneyData({
     super.key,
@@ -34,41 +35,49 @@ class getProductMoneyData extends StatelessWidget {
                             matchingCard(
                               snapshot: snapshot.data[0],
                               pictograph: '🧑‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 3)
                             matchingCard(
                               snapshot: snapshot.data[2],
                               pictograph: '📚',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 4)
                             matchingCard(
                               snapshot: snapshot.data[3],
                               pictograph: '🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 5)
                             matchingCard(
                               snapshot: snapshot.data[4],
                               pictograph: '✍️',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 6)
                             matchingCard(
                               snapshot: snapshot.data[5],
                               pictograph: '👩‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 7)
                             matchingCard(
                               snapshot: snapshot.data[6],
                               pictograph: '📕',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 8)
                             matchingCard(
                               snapshot: snapshot.data[7],
                               pictograph: '🧑‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 9)
                             matchingCard(
                               snapshot: snapshot.data[8],
                               pictograph: '📚',
+                              cause: causeText,
                             ),
                         ],
                       ),
@@ -80,41 +89,49 @@ class getProductMoneyData extends StatelessWidget {
                             matchingCard(
                               snapshot: snapshot.data[0],
                               pictograph: '🧑‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 3)
                             matchingCard(
                               snapshot: snapshot.data[2],
                               pictograph: '📚',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 4)
                             matchingCard(
                               snapshot: snapshot.data[3],
                               pictograph: '🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 5)
                             matchingCard(
                               snapshot: snapshot.data[4],
                               pictograph: '✍️',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 6)
                             matchingCard(
                               snapshot: snapshot.data[5],
                               pictograph: '👩‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 7)
                             matchingCard(
                               snapshot: snapshot.data[6],
                               pictograph: '📕',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 8)
                             matchingCard(
                               snapshot: snapshot.data[7],
                               pictograph: '🧑‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 9)
                             matchingCard(
                               snapshot: snapshot.data[8],
                               pictograph: '📚',
+                              cause: causeText,
                             ),
                         ],
                       ),
@@ -126,41 +143,49 @@ class getProductMoneyData extends StatelessWidget {
                             matchingCard(
                               snapshot: snapshot.data[0],
                               pictograph: '🧑‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 2)
                             matchingCard(
                               snapshot: snapshot.data[1],
                               pictograph: '📚',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 4)
                             matchingCard(
                               snapshot: snapshot.data[3],
                               pictograph: '🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 5)
                             matchingCard(
                               snapshot: snapshot.data[4],
                               pictograph: '✍️',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 6)
                             matchingCard(
                               snapshot: snapshot.data[5],
                               pictograph: '👩‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 7)
                             matchingCard(
                               snapshot: snapshot.data[6],
                               pictograph: '📕',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 8)
                             matchingCard(
                               snapshot: snapshot.data[7],
                               pictograph: '🧑‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 9)
                             matchingCard(
                               snapshot: snapshot.data[8],
                               pictograph: '📚',
+                              cause: causeText,
                             ),
                         ],
                       ),
@@ -172,41 +197,49 @@ class getProductMoneyData extends StatelessWidget {
                             matchingCard(
                               snapshot: snapshot.data[0],
                               pictograph: '🧑‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 2)
                             matchingCard(
                               snapshot: snapshot.data[1],
                               pictograph: '📚',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 4)
                             matchingCard(
                               snapshot: snapshot.data[3],
                               pictograph: '🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 5)
                             matchingCard(
                               snapshot: snapshot.data[4],
                               pictograph: '✍️',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 6)
                             matchingCard(
                               snapshot: snapshot.data[5],
                               pictograph: '👩‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 7)
                             matchingCard(
                               snapshot: snapshot.data[6],
                               pictograph: '📕',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 8)
                             matchingCard(
                               snapshot: snapshot.data[7],
                               pictograph: '🧑‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 9)
                             matchingCard(
                               snapshot: snapshot.data[8],
                               pictograph: '📚',
+                              cause: causeText,
                             ),
                         ],
                       ),
@@ -218,41 +251,49 @@ class getProductMoneyData extends StatelessWidget {
                             matchingCard(
                               snapshot: snapshot.data[0],
                               pictograph: '🧑‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 2)
                             matchingCard(
                               snapshot: snapshot.data[1],
                               pictograph: '📚',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 3)
                             matchingCard(
                               snapshot: snapshot.data[2],
                               pictograph: '🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 4)
                             matchingCard(
                               snapshot: snapshot.data[3],
                               pictograph: '✍️',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 6)
                             matchingCard(
                               snapshot: snapshot.data[5],
                               pictograph: '👩‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 7)
                             matchingCard(
                               snapshot: snapshot.data[6],
                               pictograph: '📕',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 8)
                             matchingCard(
                               snapshot: snapshot.data[7],
                               pictograph: '🧑‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 9)
                             matchingCard(
                               snapshot: snapshot.data[8],
                               pictograph: '📚',
+                              cause: causeText,
                             ),
                         ],
                       ),
@@ -264,41 +305,49 @@ class getProductMoneyData extends StatelessWidget {
                             matchingCard(
                               snapshot: snapshot.data[0],
                               pictograph: '🧑‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 2)
                             matchingCard(
                               snapshot: snapshot.data[1],
                               pictograph: '📚',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 3)
                             matchingCard(
                               snapshot: snapshot.data[2],
                               pictograph: '🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 4)
                             matchingCard(
                               snapshot: snapshot.data[3],
                               pictograph: '✍️',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 5)
                             matchingCard(
                               snapshot: snapshot.data[4],
                               pictograph: '👩‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 7)
                             matchingCard(
                               snapshot: snapshot.data[6],
                               pictograph: '📕',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 8)
                             matchingCard(
                               snapshot: snapshot.data[7],
                               pictograph: '🧑‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 9)
                             matchingCard(
                               snapshot: snapshot.data[8],
                               pictograph: '📚',
+                              cause: causeText,
                             ),
                         ],
                       ),
@@ -310,41 +359,49 @@ class getProductMoneyData extends StatelessWidget {
                             matchingCard(
                               snapshot: snapshot.data[0],
                               pictograph: '🧑‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 2)
                             matchingCard(
                               snapshot: snapshot.data[1],
                               pictograph: '📚',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 3)
                             matchingCard(
                               snapshot: snapshot.data[2],
                               pictograph: '🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 4)
                             matchingCard(
                               snapshot: snapshot.data[3],
                               pictograph: '✍️',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 5)
                             matchingCard(
                               snapshot: snapshot.data[4],
                               pictograph: '👩‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 6)
                             matchingCard(
                               snapshot: snapshot.data[5],
                               pictograph: '📕',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 8)
                             matchingCard(
                               snapshot: snapshot.data[7],
                               pictograph: '🧑‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 9)
                             matchingCard(
                               snapshot: snapshot.data[8],
                               pictograph: '📚',
+                              cause: causeText,
                             ),
                         ],
                       ),
@@ -356,41 +413,49 @@ class getProductMoneyData extends StatelessWidget {
                             matchingCard(
                               snapshot: snapshot.data[0],
                               pictograph: '🧑‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 2)
                             matchingCard(
                               snapshot: snapshot.data[1],
                               pictograph: '📚',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 3)
                             matchingCard(
                               snapshot: snapshot.data[2],
                               pictograph: '🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 4)
                             matchingCard(
                               snapshot: snapshot.data[3],
                               pictograph: '✍️',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 5)
                             matchingCard(
                               snapshot: snapshot.data[4],
                               pictograph: '👩‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 6)
                             matchingCard(
                               snapshot: snapshot.data[5],
                               pictograph: '📕',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 7)
                             matchingCard(
                               snapshot: snapshot.data[6],
                               pictograph: '🧑‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 9)
                             matchingCard(
                               snapshot: snapshot.data[8],
                               pictograph: '📚',
+                              cause: causeText,
                             ),
                         ],
                       ),
@@ -402,41 +467,49 @@ class getProductMoneyData extends StatelessWidget {
                             matchingCard(
                               snapshot: snapshot.data[0],
                               pictograph: '🧑‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 2)
                             matchingCard(
                               snapshot: snapshot.data[1],
                               pictograph: '📚',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 3)
                             matchingCard(
                               snapshot: snapshot.data[2],
                               pictograph: '🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 4)
                             matchingCard(
                               snapshot: snapshot.data[3],
                               pictograph: '✍️',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 5)
                             matchingCard(
                               snapshot: snapshot.data[4],
                               pictograph: '👩‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 6)
                             matchingCard(
                               snapshot: snapshot.data[5],
                               pictograph: '📕',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 7)
                             matchingCard(
                               snapshot: snapshot.data[6],
                               pictograph: '🧑‍🎓',
+                              cause: causeText,
                             ),
                           if (snapshot.data.length >= 8)
                             matchingCard(
                               snapshot: snapshot.data[7],
                               pictograph: '📚',
+                              cause: causeText,
                             ),
                         ],
                       ),
