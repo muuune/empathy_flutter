@@ -1555,15 +1555,16 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               textAlign: TextAlign.center,
             ),
             actions: <Widget>[
-              TextButton(
-                child: const Text(
-                  'OK',
-                  style: TextStyle(color: Color.fromARGB(255, 81, 161, 101)),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
+              // シミュレーターだと戻れるが、実機だとログインページまで戻ってしまうため、一時コメントアウト
+              // TextButton(
+              //   child: const Text(
+              //     'OK',
+              //     style: TextStyle(color: Color.fromARGB(255, 81, 161, 101)),
+              //   ),
+              //   onPressed: () {
+              //     Navigator.of(context).pop();
+              //   },
+              // ),
             ],
           );
         });

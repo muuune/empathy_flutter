@@ -325,7 +325,7 @@ class _HomePage extends State<HomePage> {
                         child: const Padding(
                           padding: EdgeInsets.symmetric(
                               vertical: 16, horizontal: 36),
-                          child: Text('確認した'),
+                          child: Text('確認'),
                         ),
                       ),
                     ],
