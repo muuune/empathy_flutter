@@ -61,6 +61,11 @@ class _WorriesExplanationPage extends State<WorriesExplanationPage> {
                       future: getWorriesExplanation(),
                       builder: (BuildContext context,
                           AsyncSnapshot<String> snapshot) {
+                        // 読み込み中
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return showIndicator();
+                        }
                         if (snapshot.hasData) {
                           return Container(
                             width: 500,
@@ -210,5 +215,15 @@ class _WorriesExplanationPage extends State<WorriesExplanationPage> {
             ],
           );
         });
+  }
+
+  // 読み込み中
+  Widget showIndicator() {
+    return const Center(
+        child: Padding(
+            padding: EdgeInsets.only(top: 70),
+            child: CircularProgressIndicator(
+              color: Color.fromARGB(255, 81, 161, 101),
+            )));
   }
 }
