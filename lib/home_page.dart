@@ -243,12 +243,14 @@ class _HomePage extends State<HomePage> {
   }
 
   void _openUrl() async {
-    const url = 'https://forms.gle/W9UMC2Um6vB5bvrM9'; //←ここに表示させたいURLを入力する
+    const url = 'https://forms.gle/W9UMC2Um6vB5bvrM9';
     if (await canLaunch(url)) {
       await launch(
         url,
+        // iOSでアプリ内かブラウザのどちらかでURLを開くか決める。
         forceSafariVC: true,
-        forceWebView: true,
+        // Androidでアプリ内かブラウザのどちらかでURLを開くか決める。
+        forceWebView: false,
       );
     } else {
       throw 'このURLにはアクセスできません';
@@ -257,12 +259,14 @@ class _HomePage extends State<HomePage> {
 
   void _openPrivacyPolicy() async {
     const url =
-        'https://adorable-volcano-5e9.notion.site/d16800abf38b42088203f5e6f998269a'; //←ここに表示させたいURLを入力する
+        'https://adorable-volcano-5e9.notion.site/d16800abf38b42088203f5e6f998269a';
     if (await canLaunch(url)) {
       await launch(
         url,
+        // iOSでアプリ内かブラウザのどちらかでURLを開くか決める。
         forceSafariVC: true,
-        forceWebView: true,
+        // Androidでアプリ内かブラウザのどちらかでURLを開くか決める。
+        forceWebView: false,
       );
     } else {
       throw 'このURLにはアクセスできません';
