@@ -70,9 +70,9 @@ class _HomePage extends State<HomePage> {
               )),
           actions: <Widget>[
             IconButton(
-                icon: const Icon(Icons.info_outline),
+                icon: const Icon(Icons.chat),
                 onPressed: () {
-                  showAttentionDialog();
+                  _openLINE();
                 }),
           ],
           elevation: 0.0,
@@ -151,16 +151,16 @@ class _HomePage extends State<HomePage> {
                       );
                     },
                   ),
-                  // ListTile(
-                  //   leading: const Icon(Icons.fast_forward),
-                  //   title: Transform.translate(
-                  //     offset: const Offset(-20, 0),
-                  //     child: const Text('マッチング後の流れ'),
-                  //   ),
-                  //   onTap: () {
-                  //     showAttentionDialog();
-                  //   },
-                  // ),
+                  ListTile(
+                    leading: const Icon(Icons.fast_forward),
+                    title: Transform.translate(
+                      offset: const Offset(-20, 0),
+                      child: const Text('マッチング後の流れ'),
+                    ),
+                    onTap: () {
+                      showAttentionDialog();
+                    },
+                  ),
                   ListTile(
                     leading: const Icon(Icons.announcement),
                     title: Transform.translate(
@@ -276,6 +276,21 @@ class _HomePage extends State<HomePage> {
   void _openPrivacyPolicy() async {
     const url =
         'https://adorable-volcano-5e9.notion.site/d16800abf38b42088203f5e6f998269a';
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        // iOSでアプリ内かブラウザのどちらかでURLを開くか決める。
+        forceSafariVC: true,
+        // Androidでアプリ内かブラウザのどちらかでURLを開くか決める。
+        forceWebView: false,
+      );
+    } else {
+      throw 'このURLにはアクセスできません';
+    }
+  }
+
+  void _openLINE() async {
+    const url = 'https://line.me/R/nv/chat';
     if (await canLaunch(url)) {
       await launch(
         url,
