@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:empathy_flutter/pages/login_page.dart';
 import 'package:empathy_flutter/pages/tutorial_page.dart';
 import 'package:empathy_flutter/pages/worries1_page.dart';
@@ -20,11 +21,15 @@ class HomePage extends StatefulWidget {
 class _HomePage extends State<HomePage> {
   final auth = FirebaseAuth.instance;
   late final userId = auth.currentUser?.uid.toString();
+  String displayName = '';
 
   @override
   void initState() {
     print(userId);
     super.initState();
+    if (userId != '') {
+      getDisplayName().then((value) => displayName = value);
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) => showAttentionDialog());
   }
 
@@ -95,6 +100,17 @@ class _HomePage extends State<HomePage> {
                   const Gap(60),
                   const Padding(
                       padding: EdgeInsets.only(left: 15), child: Text('メニュー')),
+                  const Gap(10),
+                  Container(
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    child: Wrap(
+                      children: [
+                        const Icon(Icons.account_circle),
+                        const Gap(12),
+                        Text('   $displayNameさん'),
+                      ],
+                    ),
+                  ),
                   const Gap(25),
                   Container(
                     width: 200,
@@ -340,5 +356,16 @@ class _HomePage extends State<HomePage> {
             ),
           );
         });
+  }
+
+  //displayNameを取得する
+  Future getDisplayName() async {
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+    final snapshot = await _db.collection("uid").doc(userId).get();
+    String snapshotData = '';
+    print('これです' + snapshot.data().toString());
+    if (snapshot.data() != null) {
+      return snapshotData = snapshot.data()!['displayName'];
+    }
   }
 }
