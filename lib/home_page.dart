@@ -135,16 +135,16 @@ class _HomePage extends State<HomePage> {
                       );
                     },
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.fast_forward),
-                    title: Transform.translate(
-                      offset: const Offset(-20, 0),
-                      child: const Text('マッチング後の流れ'),
-                    ),
-                    onTap: () {
-                      showAttentionDialog();
-                    },
-                  ),
+                  // ListTile(
+                  //   leading: const Icon(Icons.fast_forward),
+                  //   title: Transform.translate(
+                  //     offset: const Offset(-20, 0),
+                  //     child: const Text('マッチング後の流れ'),
+                  //   ),
+                  //   onTap: () {
+                  //     showAttentionDialog();
+                  //   },
+                  // ),
                   ListTile(
                     leading: const Icon(Icons.announcement),
                     title: Transform.translate(
