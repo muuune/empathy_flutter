@@ -54,7 +54,7 @@ class Firestore {
         .doc(userName)
         .set({
           'createdAt': Timestamp.now(),
-          'worries_explanation': 'まだ悩みの説明の登録がされていません',
+          'worries_explanation': '現在、悩みの説明の登録がされていません',
         })
         .then((value) => print("registerExplanation"))
         .catchError((error) => print("Failed to registerExplanation: $error"));
@@ -81,11 +81,13 @@ class matchingCard extends StatelessWidget {
       onTap: () async {
         final getExplanation =
             await _db.collection("explanation").doc(snapshot).get();
-        final getExplanationData = getExplanation.data()!['worriesExplanation'];
+        final getExplanationData =
+            getExplanation.data()!['worries_explanation'];
         return showExplanationDialog(
           context,
           title: snapshot + 'さんの\n' + '抱えているお悩み',
-          content: getExplanationData.toString(),
+          // 半角スペースを改行に自動変換する
+          content: getExplanationData.replaceAll(' ', '\n').toString(),
           onApproved: () {
             Navigator.of(context).pop();
           },
