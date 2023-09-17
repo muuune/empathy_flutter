@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
+
         // デバックバナーを消す
         debugShowCheckedModeBanner: false,
         title: 'Flutter app',

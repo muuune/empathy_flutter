@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:570232323077:android:70ad4de235b42d9d74706c",
         "android_client_info": {
-          "package_name": "com.example.empathy_flutter"
+          "package_name": "com.empathy_flutter.empathy_flutter"
         }
       },
       "oauth_client": [

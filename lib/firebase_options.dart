@@ -67,8 +67,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '570232323077',
     projectId: 'empathy-firebase',
     storageBucket: 'empathy-firebase.appspot.com',
-    iosClientId: '570232323077-luch9r22l8g843gbl39g0a5cvh1n32hf.apps.googleusercontent.com',
-    iosBundleId: 'com.example.empathyFlutter',
+    iosClientId:
+        '570232323077-luch9r22l8g843gbl39g0a5cvh1n32hf.apps.googleusercontent.com',
+    iosBundleId: 'com.empathy_flutter.empathyFlutter',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -77,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '570232323077',
     projectId: 'empathy-firebase',
     storageBucket: 'empathy-firebase.appspot.com',
-    iosClientId: '570232323077-luch9r22l8g843gbl39g0a5cvh1n32hf.apps.googleusercontent.com',
-    iosBundleId: 'com.example.empathyFlutter',
+    iosClientId:
+        '570232323077-luch9r22l8g843gbl39g0a5cvh1n32hf.apps.googleusercontent.com',
+    iosBundleId: 'com.empathy_flutter.empathyFlutter',
   );
 }
