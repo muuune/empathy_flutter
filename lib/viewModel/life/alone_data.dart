@@ -31,9 +31,9 @@ class getProductLivingAloneData extends StatelessWidget {
                     if (snapshot.data[0] == displayName)
                       Column(
                         children: [
-                          if (snapshot.data.length >= 1)
+                          if (snapshot.data.length >= 2)
                             matchingCard(
-                              snapshot: snapshot.data[0],
+                              snapshot: snapshot.data[1],
                               pictograph: '🏠',
                               cause: causeText,
                             ),
@@ -205,9 +205,9 @@ class getProductLivingAloneData extends StatelessWidget {
                               pictograph: '📦',
                               cause: causeText,
                             ),
-                          if (snapshot.data.length >= 4)
+                          if (snapshot.data.length >= 3)
                             matchingCard(
-                              snapshot: snapshot.data[3],
+                              snapshot: snapshot.data[2],
                               pictograph: '🧹',
                               cause: causeText,
                             ),
