@@ -46,17 +46,24 @@ class _Worries2PageState extends State<Worries2Page> {
             getProductsBrokenHeart(), //[5]
           ]),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            //Firestore上にログイン中のユーザーがいなければ、画面全体にテキストを表示
+            // Firestore上にログイン中のユーザーがいなければ、画面全体にテキストを表示
+            // 各質問に登録してる人が1人だけの場合、「マッチングがありません」と表示させる
             if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.data[0].contains(displayName) ||
-                  snapshot.data[1].contains(displayName) ||
-                  snapshot.data[2].contains(displayName) ||
-                  snapshot.data[3].contains(displayName) ||
-                  snapshot.data[4].contains(displayName) ||
-                  snapshot.data[5].contains(displayName)) {
+              if (snapshot.data[0].contains(displayName) &&
+                      snapshot.data[0].length > 1 ||
+                  snapshot.data[1].contains(displayName) &&
+                      snapshot.data[1].length > 1 ||
+                  snapshot.data[2].contains(displayName) &&
+                      snapshot.data[2].length > 1 ||
+                  snapshot.data[3].contains(displayName) &&
+                      snapshot.data[3].length > 1 ||
+                  snapshot.data[4].contains(displayName) &&
+                      snapshot.data[4].length > 1 ||
+                  snapshot.data[5].contains(displayName) &&
+                      snapshot.data[5].length > 1) {
                 print(snapshot.data);
               } else {
-                print(snapshot.data);
+                print('マッチングはありません');
                 return const Padding(
                     padding: EdgeInsets.only(top: 70),
                     child: Center(
@@ -79,7 +86,9 @@ class _Worries2PageState extends State<Worries2Page> {
             //含まれなければCardも表示しない
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.data.contains(displayName)) {
-                return getProductRelationshipData(displayName: displayName);
+                if (snapshot.data.length > 1) {
+                  return getProductRelationshipData(displayName: displayName);
+                }
               }
             }
             return Column();
@@ -90,7 +99,9 @@ class _Worries2PageState extends State<Worries2Page> {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.data.contains(displayName)) {
-                return getProductMemberData(displayName: displayName);
+                if (snapshot.data.length > 1) {
+                  return getProductMemberData(displayName: displayName);
+                }
               }
             }
             return Column();
@@ -101,7 +112,9 @@ class _Worries2PageState extends State<Worries2Page> {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.data.contains(displayName)) {
-                return getProductNoFriendData(displayName: displayName);
+                if (snapshot.data.length > 1) {
+                  return getProductNoFriendData(displayName: displayName);
+                }
               }
             }
             return Column();
@@ -123,7 +136,9 @@ class _Worries2PageState extends State<Worries2Page> {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.data.contains(displayName)) {
-                return getProductSexualityData(displayName: displayName);
+                if (snapshot.data.length > 1) {
+                  return getProductSexualityData(displayName: displayName);
+                }
               }
             }
             return Column();
@@ -134,7 +149,9 @@ class _Worries2PageState extends State<Worries2Page> {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.data.contains(displayName)) {
-                return getProductBrokenHeartData(displayName: displayName);
+                if (snapshot.data.length > 1) {
+                  return getProductBrokenHeartData(displayName: displayName);
+                }
               }
             }
             return Column();

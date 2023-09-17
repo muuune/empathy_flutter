@@ -31,9 +31,11 @@ class getProductCoexistenceData extends StatelessWidget {
                     if (snapshot.data[0] == displayName)
                       Column(
                         children: [
-                          if (snapshot.data.length >= 1)
+                          // if (snapshot.data.length >= 1)ではなくif (snapshot.data.length >= 2)であるべきだと思うが一旦保留
+                          // メモ: Firebaseから取ってきたデータが1つ以上あれば、0番目を表示させる
+                          if (snapshot.data.length >= 2)
                             matchingCard(
-                              snapshot: snapshot.data[0],
+                              snapshot: snapshot.data[1],
                               pictograph: '🧑‍🎓',
                               cause: causeText,
                             ),
@@ -205,9 +207,9 @@ class getProductCoexistenceData extends StatelessWidget {
                               pictograph: '📚',
                               cause: causeText,
                             ),
-                          if (snapshot.data.length >= 4)
+                          if (snapshot.data.length >= 3)
                             matchingCard(
-                              snapshot: snapshot.data[3],
+                              snapshot: snapshot.data[2],
                               pictograph: '🎓',
                               cause: causeText,
                             ),

@@ -8,7 +8,7 @@
 PRODUCT_NAME = empathy_flutter
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.empathyFlutter
+PRODUCT_BUNDLE_IDENTIFIER = com.empathy_flutter.empathyFlutter
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2023 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2023 com.empathy_flutter. All rights reserved.

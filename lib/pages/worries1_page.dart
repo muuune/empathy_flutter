@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:empathy_flutter/firebase.dart';
-import 'package:empathy_flutter/pages/login_page.dart';
 import 'package:empathy_flutter/viewModel/school/coexistence_data.dart';
 import 'package:empathy_flutter/viewModel/school/find_work_data.dart';
 import 'package:empathy_flutter/viewModel/school/grade_data.dart';
@@ -54,19 +52,28 @@ class _Worries1PageState extends State<Worries1Page> {
             getProductsMoney(), //[7]
           ]),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            //Firestore上にログイン中のユーザーがいなければ、画面全体にテキストを表示
+            // Firestore上にログイン中のユーザーがいなければ、画面全体にテキストを表示
+            // 各質問に登録してる人が1人だけの場合、「マッチングがありません」と表示させる
             if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.data[0].contains(displayName) ||
-                  snapshot.data[1].contains(displayName) ||
-                  snapshot.data[2].contains(displayName) ||
-                  snapshot.data[3].contains(displayName) ||
-                  snapshot.data[4].contains(displayName) ||
-                  snapshot.data[5].contains(displayName) ||
-                  snapshot.data[6].contains(displayName) ||
-                  snapshot.data[7].contains(displayName)) {
+              if (snapshot.data[0].contains(displayName) &&
+                      snapshot.data[0].length > 1 ||
+                  snapshot.data[1].contains(displayName) &&
+                      snapshot.data[1].length > 1 ||
+                  snapshot.data[2].contains(displayName) &&
+                      snapshot.data[2].length > 1 ||
+                  snapshot.data[3].contains(displayName) &&
+                      snapshot.data[3].length > 1 ||
+                  snapshot.data[4].contains(displayName) &&
+                      snapshot.data[4].length > 1 ||
+                  snapshot.data[5].contains(displayName) &&
+                      snapshot.data[5].length > 1 ||
+                  snapshot.data[6].contains(displayName) &&
+                      snapshot.data[6].length > 1 ||
+                  snapshot.data[7].contains(displayName) &&
+                      snapshot.data[7].length > 1) {
                 print(snapshot.data);
               } else {
-                print(snapshot.data);
+                print('マッチングなし');
                 return const Padding(
                     padding: EdgeInsets.only(top: 70),
                     child: Center(
@@ -89,7 +96,9 @@ class _Worries1PageState extends State<Worries1Page> {
             //含まれなければCardも表示しない
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.data.contains(displayName)) {
-                return getProductGradeData(displayName: displayName);
+                if (snapshot.data.length > 1) {
+                  return getProductGradeData(displayName: displayName);
+                }
               }
             }
             return Column();
@@ -100,7 +109,9 @@ class _Worries1PageState extends State<Worries1Page> {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.data.contains(displayName)) {
-                return getProductReluctanceData(displayName: displayName);
+                if (snapshot.data.length > 1) {
+                  return getProductReluctanceData(displayName: displayName);
+                }
               }
             }
             return Column();
@@ -111,7 +122,9 @@ class _Worries1PageState extends State<Worries1Page> {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.data.contains(displayName)) {
-                return getProductLectureData(displayName: displayName);
+                if (snapshot.data.length > 1) {
+                  return getProductLectureData(displayName: displayName);
+                }
               }
             }
             return Column();
@@ -122,7 +135,9 @@ class _Worries1PageState extends State<Worries1Page> {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.data.contains(displayName)) {
-                return getProductCoexistenceData(displayName: displayName);
+                if (snapshot.data.length > 1) {
+                  return getProductCoexistenceData(displayName: displayName);
+                }
               }
             }
             return Column();
@@ -133,7 +148,9 @@ class _Worries1PageState extends State<Worries1Page> {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.data.contains(displayName)) {
-                return getProductGraduateData(displayName: displayName);
+                if (snapshot.data.length > 1) {
+                  return getProductGraduateData(displayName: displayName);
+                }
               }
             }
             return Column();
@@ -144,7 +161,9 @@ class _Worries1PageState extends State<Worries1Page> {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.data.contains(displayName)) {
-                return getProductFindWorkData(displayName: displayName);
+                if (snapshot.data.length > 1) {
+                  return getProductFindWorkData(displayName: displayName);
+                }
               }
             }
             return Column();
@@ -155,7 +174,9 @@ class _Worries1PageState extends State<Worries1Page> {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.data.contains(displayName)) {
-                return getProductIndustryData(displayName: displayName);
+                if (snapshot.data.length > 1) {
+                  return getProductIndustryData(displayName: displayName);
+                }
               }
             }
             return Column();
@@ -166,7 +187,9 @@ class _Worries1PageState extends State<Worries1Page> {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.data.contains(displayName)) {
-                return getProductMoneyData(displayName: displayName);
+                if (snapshot.data.length > 1) {
+                  return getProductMoneyData(displayName: displayName);
+                }
               }
             }
             return Column();
