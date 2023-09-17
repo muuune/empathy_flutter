@@ -42,12 +42,15 @@ class _Worries4PageState extends State<Worries4Page> {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             //Firestore上にログイン中のユーザーがいなければ、画面全体にテキストを表示
             if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.data[0].contains(displayName) ||
-                  snapshot.data[1].contains(displayName) ||
-                  snapshot.data[2].contains(displayName)) {
+              if (snapshot.data[0].contains(displayName) &&
+                      snapshot.data[0].length > 1 ||
+                  snapshot.data[1].contains(displayName) &&
+                      snapshot.data[1].length > 1 ||
+                  snapshot.data[2].contains(displayName) &&
+                      snapshot.data[2].length > 1) {
                 print(snapshot.data);
               } else {
-                print(snapshot.data);
+                print('マッチングはありません');
                 return const Padding(
                     padding: EdgeInsets.only(top: 70),
                     child: Center(
@@ -70,7 +73,9 @@ class _Worries4PageState extends State<Worries4Page> {
             //含まれなければCardも表示しない
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.data.contains(displayName)) {
-                return getProductCharacterData(displayName: displayName);
+                if (snapshot.data.length > 1) {
+                  return getProductCharacterData(displayName: displayName);
+                }
               }
             }
             return Column();
@@ -81,7 +86,9 @@ class _Worries4PageState extends State<Worries4Page> {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.data.contains(displayName)) {
-                return getProductProcessData(displayName: displayName);
+                if (snapshot.data.length > 1) {
+                  return getProductProcessData(displayName: displayName);
+                }
               }
             }
             return Column();
@@ -92,7 +99,9 @@ class _Worries4PageState extends State<Worries4Page> {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.data.contains(displayName)) {
-                return getProductHealthData(displayName: displayName);
+                if (snapshot.data.length > 1) {
+                  return getProductHealthData(displayName: displayName);
+                }
               }
             }
             return Column();
