@@ -25,11 +25,11 @@ class _HomePage extends State<HomePage> {
 
   @override
   void initState() {
-    print(userId);
-    super.initState();
     if (userId != '') {
       getDisplayName().then((value) => displayName = value);
     }
+    print(userId);
+    super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => showAttentionDialog());
   }
 
@@ -107,7 +107,18 @@ class _HomePage extends State<HomePage> {
                       children: [
                         const Icon(Icons.account_circle),
                         const Gap(12),
-                        Text('   $displayNameさん'),
+                        FutureBuilder(
+                            future: getDisplayName(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasError) {
+                                return const Text('   読み込めません');
+                              } else if (snapshot.hasData) {
+                                Object result = snapshot.data!;
+                                return Text('   $resultさん');
+                              } else {
+                                return const Text('   読み込めません');
+                              }
+                            }),
                       ],
                     ),
                   ),
