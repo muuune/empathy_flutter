@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:empathy_flutter/pages/confirm_worries_page.dart';
 import 'package:empathy_flutter/pages/login_page.dart';
 import 'package:empathy_flutter/pages/tutorial_page.dart';
 import 'package:empathy_flutter/pages/worries1_page.dart';
@@ -147,6 +148,20 @@ class _HomePage extends State<HomePage> {
                   //       ),
                   //     )),
                   const Gap(10),
+                  ListTile(
+                    leading: const Icon(Icons.check),
+                    title: Transform.translate(
+                      offset: const Offset(-20, 0),
+                      child: const Text('登録した悩みを確認する'),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ConfirmWorriesPage()),
+                      );
+                    },
+                  ),
                   ListTile(
                     leading: const Icon(Icons.edit),
                     title: Transform.translate(
