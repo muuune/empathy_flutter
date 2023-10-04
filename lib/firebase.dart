@@ -8,6 +8,8 @@ class Firestore {
   static CollectionReference uid = firestoreInstance.collection('uid');
   static CollectionReference registerWorriesExplanation =
       firestoreInstance.collection('explanation');
+  static CollectionReference registerConfirmWorries =
+      firestoreInstance.collection('confirmWorries');
 
   static Future<bool> existsUserName(userName) async {
     bool temp = false;
@@ -58,6 +60,28 @@ class Firestore {
         })
         .then((value) => print("registerExplanation"))
         .catchError((error) => print("Failed to registerExplanation: $error"));
+  }
+
+  // ユーザーが登録してる悩みの一覧を保存するために、ユーザー名のドキュメントを作成する
+  // updateではdocの場所も指定しないといけないため、別でsetを行う必要がある
+  static Future<void> registerUserDoc(userName) async {
+    await registerConfirmWorries.doc(userName).set({
+      'createdAt': Timestamp.now(),
+    });
+  }
+
+  // チェックされている悩みを登録する(ユーザーが登録してる悩みを一覧でまとめる用)
+  static Future<void> registerUserConfirmWorries(userName, checkedList) async {
+    await registerConfirmWorries.doc(userName).update({
+      "worries": FieldValue.arrayUnion([checkedList])
+    });
+  }
+
+  // チェックされている悩みを削除する(ユーザーが登録してる悩みを一覧でまとめる用)
+  static Future<void> deleteUserConfirmWorries(userName, checkedList) async {
+    await registerConfirmWorries.doc(userName).update({
+      "worries": FieldValue.arrayRemove([checkedList])
+    });
   }
 }
 

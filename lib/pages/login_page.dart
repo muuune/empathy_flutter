@@ -410,6 +410,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
   @override
   void initState() {
     super.initState();
+    Firestore.registerUserDoc(widget.userNameText);
     // reverseがtrueでも、画面が一番上に移動する
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
@@ -523,6 +524,9 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    await Firestore.registerUserConfirmWorries(
+                        widget.userNameText,
+                        '試験・レポート・研究等が上手く進まず、進級・卒業できるか心配である。');
                     if (count == 5) {
                       await FirebaseFirestore.instance
                           .collection('学業')
@@ -567,6 +571,10 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    await Firestore.registerUserConfirmWorries(
+                        widget.userNameText,
+                        '大学の講義を受ける中で、自分の入りたい学部じゃなかったと感じることがある。');
+                    // 上限に達した時は、選択したものを自動的に削除する(選んでなかったことにする)
                     if (count == 5) {
                       await FirebaseFirestore.instance
                           .collection('学業')
@@ -574,13 +582,20 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                           .update({
                         "users": FieldValue.arrayRemove([widget.userNameText])
                       });
+                      await Firestore.deleteUserConfirmWorries(
+                          widget.userNameText,
+                          '大学の講義を受ける中で、自分の入りたい学部じゃなかったと感じることがある。');
+                      // ダイアログの表示
                       showLimit();
+                      // カウントを減らし、チェックしていなかったことにする
                       setState(() {
                         count--;
                         _school02 = false;
                       });
                     }
-                  } else if (_school02 == false) {
+                  }
+                  // チェックを外した時
+                  else if (_school02 == false) {
                     countDown();
                     await FirebaseFirestore.instance
                         .collection('学業')
@@ -588,6 +603,9 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayRemove([widget.userNameText])
                     });
+                    await Firestore.deleteUserConfirmWorries(
+                        widget.userNameText,
+                        '大学の講義を受ける中で、自分の入りたい学部じゃなかったと感じることがある。');
                   }
                 },
               ),
@@ -611,6 +629,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    await Firestore.registerUserConfirmWorries(
+                        widget.userNameText, '大学の講義を受ける中で、ついていけないと感じることがある。');
                     if (count == 5) {
                       await FirebaseFirestore.instance
                           .collection('学業')
@@ -618,6 +638,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                           .update({
                         "users": FieldValue.arrayRemove([widget.userNameText])
                       });
+                      await Firestore.deleteUserConfirmWorries(
+                          widget.userNameText, '大学の講義を受ける中で、ついていけないと感じることがある。');
                       showLimit();
                       setState(() {
                         count--;
@@ -632,6 +654,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayRemove([widget.userNameText])
                     });
+                    await Firestore.deleteUserConfirmWorries(
+                        widget.userNameText, '大学の講義を受ける中で、ついていけないと感じることがある。');
                   }
                 },
               ),
@@ -655,6 +679,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    await Firestore.registerUserConfirmWorries(
+                        widget.userNameText, '学業とサークル・バイトの両立が難しく悩んでいる。');
                     if (count == 5) {
                       await FirebaseFirestore.instance
                           .collection('学業')
@@ -662,6 +688,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                           .update({
                         "users": FieldValue.arrayRemove([widget.userNameText])
                       });
+                      await Firestore.deleteUserConfirmWorries(
+                          widget.userNameText, '学業とサークル・バイトの両立が難しく悩んでいる。');
                       showLimit();
                       setState(() {
                         count--;
@@ -676,6 +704,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayRemove([widget.userNameText])
                     });
+                    await Firestore.deleteUserConfirmWorries(
+                        widget.userNameText, '学業とサークル・バイトの両立が難しく悩んでいる。');
                   }
                 },
               ),
@@ -699,6 +729,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    await Firestore.registerUserConfirmWorries(
+                        widget.userNameText, '大学院に進学すべきか、就職するべきか悩んでいる。');
                     if (count == 5) {
                       await FirebaseFirestore.instance
                           .collection('学業')
@@ -706,6 +738,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                           .update({
                         "users": FieldValue.arrayRemove([widget.userNameText])
                       });
+                      await Firestore.deleteUserConfirmWorries(
+                          widget.userNameText, '大学院に進学すべきか、就職するべきか悩んでいる。');
                       showLimit();
                       setState(() {
                         count--;
@@ -720,6 +754,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayRemove([widget.userNameText])
                     });
+                    await Firestore.deleteUserConfirmWorries(
+                        widget.userNameText, '大学院に進学すべきか、就職するべきか悩んでいる。');
                   }
                 },
               ),
@@ -743,6 +779,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    await Firestore.registerUserConfirmWorries(
+                        widget.userNameText, '周りと比べ就職先がなかなか決まらず、焦り・不安を感じている。');
                     if (count == 5) {
                       await FirebaseFirestore.instance
                           .collection('学業')
@@ -750,6 +788,9 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                           .update({
                         "users": FieldValue.arrayRemove([widget.userNameText])
                       });
+                      await Firestore.deleteUserConfirmWorries(
+                          widget.userNameText,
+                          '周りと比べ就職先がなかなか決まらず、焦り・不安を感じている。');
                       showLimit();
                       setState(() {
                         count--;
@@ -764,6 +805,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayRemove([widget.userNameText])
                     });
+                    await Firestore.deleteUserConfirmWorries(
+                        widget.userNameText, '周りと比べ就職先がなかなか決まらず、焦り・不安を感じている。');
                   }
                 },
               ),
@@ -787,6 +830,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    await Firestore.registerUserConfirmWorries(
+                        widget.userNameText, '就職したい業界が決まらず悩んでいる。');
                     if (count == 5) {
                       await FirebaseFirestore.instance
                           .collection('学業')
@@ -794,6 +839,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                           .update({
                         "users": FieldValue.arrayRemove([widget.userNameText])
                       });
+                      await Firestore.deleteUserConfirmWorries(
+                          widget.userNameText, '就職したい業界が決まらず悩んでいる。');
                       showLimit();
                       setState(() {
                         count--;
@@ -808,6 +855,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayRemove([widget.userNameText])
                     });
+                    await Firestore.deleteUserConfirmWorries(
+                        widget.userNameText, '就職したい業界が決まらず悩んでいる。');
                   }
                 },
               ),
@@ -831,6 +880,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    await Firestore.registerUserConfirmWorries(
+                        widget.userNameText, '学費・奨学金・生活費などの金銭面で悩んでいる。');
                     if (count == 5) {
                       await FirebaseFirestore.instance
                           .collection('学業')
@@ -838,6 +889,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                           .update({
                         "users": FieldValue.arrayRemove([widget.userNameText])
                       });
+                      await Firestore.deleteUserConfirmWorries(
+                          widget.userNameText, '学費・奨学金・生活費などの金銭面で悩んでいる。');
                       showLimit();
                       setState(() {
                         count--;
@@ -852,6 +905,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayRemove([widget.userNameText])
                     });
+                    await Firestore.deleteUserConfirmWorries(
+                        widget.userNameText, '学費・奨学金・生活費などの金銭面で悩んでいる。');
                   }
                 },
               ),
@@ -894,6 +949,9 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    await Firestore.registerUserConfirmWorries(
+                        widget.userNameText,
+                        '大学・サークル・バイト内などでの友人関係・上下関係に悩んでいる。');
                     if (count == 5) {
                       await FirebaseFirestore.instance
                           .collection('人間関係')
@@ -901,6 +959,9 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                           .update({
                         "users": FieldValue.arrayRemove([widget.userNameText])
                       });
+                      await Firestore.deleteUserConfirmWorries(
+                          widget.userNameText,
+                          '大学・サークル・バイト内などでの友人関係・上下関係に悩んでいる。');
                       showLimit();
                       setState(() {
                         count--;
@@ -915,6 +976,9 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayRemove([widget.userNameText])
                     });
+                    await Firestore.deleteUserConfirmWorries(
+                        widget.userNameText,
+                        '大学・サークル・バイト内などでの友人関係・上下関係に悩んでいる。');
                   }
                 },
               ),
@@ -938,6 +1002,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    await Firestore.registerUserConfirmWorries(
+                        widget.userNameText, '研究室やクラスルームの先生、メンバーに不満を抱えている。');
                     if (count == 5) {
                       await FirebaseFirestore.instance
                           .collection('人間関係')
@@ -945,6 +1011,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                           .update({
                         "users": FieldValue.arrayRemove([widget.userNameText])
                       });
+                      await Firestore.deleteUserConfirmWorries(
+                          widget.userNameText, '研究室やクラスルームの先生、メンバーに不満を抱えている。');
                       showLimit();
                       setState(() {
                         count--;
@@ -959,6 +1027,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayRemove([widget.userNameText])
                     });
+                    await Firestore.deleteUserConfirmWorries(
+                        widget.userNameText, '研究室やクラスルームの先生、メンバーに不満を抱えている。');
                   }
                 },
               ),
@@ -982,6 +1052,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    await Firestore.registerUserConfirmWorries(
+                        widget.userNameText, '大学・サークル・バイト内などで友達ができずに悩んでいる。');
                     if (count == 5) {
                       await FirebaseFirestore.instance
                           .collection('人間関係')
@@ -989,6 +1061,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                           .update({
                         "users": FieldValue.arrayRemove([widget.userNameText])
                       });
+                      await Firestore.deleteUserConfirmWorries(
+                          widget.userNameText, '大学・サークル・バイト内などで友達ができずに悩んでいる。');
                       showLimit();
                       setState(() {
                         count--;
@@ -1003,6 +1077,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayRemove([widget.userNameText])
                     });
+                    await Firestore.deleteUserConfirmWorries(
+                        widget.userNameText, '大学・サークル・バイト内などで友達ができずに悩んでいる。');
                   }
                 },
               ),
@@ -1026,6 +1102,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    await Firestore.registerUserConfirmWorries(
+                        widget.userNameText, '家族に不満を抱えている。');
                     if (count == 5) {
                       await FirebaseFirestore.instance
                           .collection('人間関係')
@@ -1033,6 +1111,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                           .update({
                         "users": FieldValue.arrayRemove([widget.userNameText])
                       });
+                      await Firestore.deleteUserConfirmWorries(
+                          widget.userNameText, '家族に不満を抱えている。');
                       showLimit();
                       setState(() {
                         count--;
@@ -1047,6 +1127,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayRemove([widget.userNameText])
                     });
+                    await Firestore.deleteUserConfirmWorries(
+                        widget.userNameText, '家族に不満を抱えている。');
                   }
                 },
               ),
@@ -1070,6 +1152,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    await Firestore.registerUserConfirmWorries(
+                        widget.userNameText, 'セクシャリティのことについて悩んでいる。');
                     if (count == 5) {
                       await FirebaseFirestore.instance
                           .collection('人間関係')
@@ -1077,6 +1161,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                           .update({
                         "users": FieldValue.arrayRemove([widget.userNameText])
                       });
+                      await Firestore.deleteUserConfirmWorries(
+                          widget.userNameText, 'セクシャリティのことについて悩んでいる。');
                       showLimit();
                       setState(() {
                         count--;
@@ -1091,6 +1177,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayRemove([widget.userNameText])
                     });
+                    await Firestore.deleteUserConfirmWorries(
+                        widget.userNameText, 'セクシャリティのことについて悩んでいる。');
                   }
                 },
               ),
@@ -1114,6 +1202,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    await Firestore.registerUserConfirmWorries(
+                        widget.userNameText, '失恋から立ち直ることができない。');
                     if (count == 5) {
                       await FirebaseFirestore.instance
                           .collection('人間関係')
@@ -1121,6 +1211,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                           .update({
                         "users": FieldValue.arrayRemove([widget.userNameText])
                       });
+                      await Firestore.deleteUserConfirmWorries(
+                          widget.userNameText, '失恋から立ち直ることができない。');
                       showLimit();
                       setState(() {
                         count--;
@@ -1135,6 +1227,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayRemove([widget.userNameText])
                     });
+                    await Firestore.deleteUserConfirmWorries(
+                        widget.userNameText, '失恋から立ち直ることができない。');
                   }
                 },
               ),
@@ -1177,6 +1271,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    await Firestore.registerUserConfirmWorries(
+                        widget.userNameText, '親元を離れてしまったことで、寂しさ・孤独感を感じている。');
                     if (count == 5) {
                       await FirebaseFirestore.instance
                           .collection('環境の変化')
@@ -1184,6 +1280,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                           .update({
                         "users": FieldValue.arrayRemove([widget.userNameText])
                       });
+                      await Firestore.deleteUserConfirmWorries(
+                          widget.userNameText, '親元を離れてしまったことで、寂しさ・孤独感を感じている。');
                       showLimit();
                       setState(() {
                         count--;
@@ -1198,6 +1296,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayRemove([widget.userNameText])
                     });
+                    await Firestore.deleteUserConfirmWorries(
+                        widget.userNameText, '親元を離れてしまったことで、寂しさ・孤独感を感じている。');
                   }
                 },
               ),
@@ -1221,6 +1321,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    await Firestore.registerUserConfirmWorries(
+                        widget.userNameText, '一人暮らしを始めたが、一人で生活できるか不安だ。');
                     if (count == 5) {
                       await FirebaseFirestore.instance
                           .collection('環境の変化')
@@ -1228,6 +1330,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                           .update({
                         "users": FieldValue.arrayRemove([widget.userNameText])
                       });
+                      await Firestore.deleteUserConfirmWorries(
+                          widget.userNameText, '一人暮らしを始めたが、一人で生活できるか不安だ。');
                       showLimit();
                       setState(() {
                         count--;
@@ -1242,6 +1346,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayRemove([widget.userNameText])
                     });
+                    await Firestore.deleteUserConfirmWorries(
+                        widget.userNameText, '一人暮らしを始めたが、一人で生活できるか不安だ。');
                   }
                 },
               ),
@@ -1259,13 +1365,14 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   });
                   if (_life03 == true) {
                     countUp();
-
                     await FirebaseFirestore.instance
                         .collection('環境の変化')
                         .doc('騒音')
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    await Firestore.registerUserConfirmWorries(
+                        widget.userNameText, '隣人の騒音に悩んでいる');
                     if (count == 5) {
                       await FirebaseFirestore.instance
                           .collection('環境の変化')
@@ -1273,6 +1380,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                           .update({
                         "users": FieldValue.arrayRemove([widget.userNameText])
                       });
+                      await Firestore.deleteUserConfirmWorries(
+                          widget.userNameText, '隣人の騒音に悩んでいる');
                       showLimit();
                       setState(() {
                         count--;
@@ -1287,6 +1396,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayRemove([widget.userNameText])
                     });
+                    await Firestore.deleteUserConfirmWorries(
+                        widget.userNameText, '隣人の騒音に悩んでいる');
                   }
                 },
               ),
@@ -1328,6 +1439,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    await Firestore.registerUserConfirmWorries(
+                        widget.userNameText, '自分の性格について悩んでいる。');
                     if (count == 5) {
                       await FirebaseFirestore.instance
                           .collection('自分のこと')
@@ -1335,6 +1448,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                           .update({
                         "users": FieldValue.arrayRemove([widget.userNameText])
                       });
+                      await Firestore.deleteUserConfirmWorries(
+                          widget.userNameText, '自分の性格について悩んでいる。');
                       showLimit();
                       setState(() {
                         count--;
@@ -1349,6 +1464,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayRemove([widget.userNameText])
                     });
+                    await Firestore.deleteUserConfirmWorries(
+                        widget.userNameText, '自分の性格について悩んでいる。');
                   }
                 },
               ),
@@ -1372,6 +1489,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    await Firestore.registerUserConfirmWorries(
+                        widget.userNameText, '自分の成育過程・過程環境(トラウマなど)について悩んでいる。');
                     if (count == 5) {
                       await FirebaseFirestore.instance
                           .collection('自分のこと')
@@ -1379,6 +1498,9 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                           .update({
                         "users": FieldValue.arrayRemove([widget.userNameText])
                       });
+                      await Firestore.deleteUserConfirmWorries(
+                          widget.userNameText,
+                          '自分の成育過程・過程環境(トラウマなど)について悩んでいる。');
                       showLimit();
                       setState(() {
                         count--;
@@ -1393,6 +1515,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayRemove([widget.userNameText])
                     });
+                    await Firestore.deleteUserConfirmWorries(
+                        widget.userNameText, '自分の成育過程・過程環境(トラウマなど)について悩んでいる。');
                   }
                 },
               ),
@@ -1416,6 +1540,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayUnion([widget.userNameText])
                     });
+                    await Firestore.registerUserConfirmWorries(
+                        widget.userNameText, '自分の身体・健康について悩んでいる。');
                     if (count == 5) {
                       await FirebaseFirestore.instance
                           .collection('自分のこと')
@@ -1423,6 +1549,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                           .update({
                         "users": FieldValue.arrayRemove([widget.userNameText])
                       });
+                      await Firestore.deleteUserConfirmWorries(
+                          widget.userNameText, '自分の身体・健康について悩んでいる。');
                       showLimit();
                       setState(() {
                         count--;
@@ -1437,6 +1565,8 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         .update({
                       "users": FieldValue.arrayRemove([widget.userNameText])
                     });
+                    await Firestore.deleteUserConfirmWorries(
+                        widget.userNameText, '自分の身体・健康について悩んでいる。');
                   }
                 },
               ),
