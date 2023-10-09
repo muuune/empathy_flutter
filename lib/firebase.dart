@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Firestore {
@@ -56,7 +57,7 @@ class Firestore {
         .doc(userName)
         .set({
           'createdAt': Timestamp.now(),
-          'worries_explanation': '現在、悩みの説明の登録がされていません',
+          'worries_explanation': '$userNameさんは、悩みの登録はしていますが、悩みの説明の登録はしていません。',
         })
         .then((value) => print("registerExplanation"))
         .catchError((error) => print("Failed to registerExplanation: $error"));
@@ -90,6 +91,8 @@ class matchingCard extends StatelessWidget {
   final String pictograph;
   final String cause;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final auth = FirebaseAuth.instance;
+  late final userId = auth.currentUser?.uid;
 
   matchingCard({
     super.key,
@@ -107,9 +110,14 @@ class matchingCard extends StatelessWidget {
             await _db.collection("explanation").doc(snapshot).get();
         final getExplanationData =
             getExplanation.data()!['worries_explanation'];
+        // 登録した悩みを表示する時は、下のコメントアウトを外す。
+        // final getRegisterWorries =
+        //     await _db.collection('confirmWorries').doc(snapshot).get();
+        // final getRegisterWorriesData = getRegisterWorries['worries'] as List;
         return showExplanationDialog(
           context,
           title: snapshot + 'さんの\n' + '抱えているお悩み',
+          // registerWorries: getRegisterWorriesData,
           // 半角スペースを改行に自動変換する
           content: getExplanationData.replaceAll(' ', '\n').toString(),
           onApproved: () {
@@ -132,7 +140,7 @@ class matchingCard extends StatelessWidget {
             children: [
               Text(cause,
                   textAlign: TextAlign.right,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 12,
                   )),
             ],
@@ -146,6 +154,7 @@ class matchingCard extends StatelessWidget {
     context, {
     required String title,
     required String content,
+    // required List<dynamic> registerWorries,
     required Null Function() onApproved,
   }) async {
     showDialog(
@@ -174,6 +183,82 @@ class matchingCard extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       )),
+                  // const Padding(
+                  //   padding: EdgeInsets.only(bottom: 5.0),
+                  //   child: Text(
+                  //     '登録している悩み',
+                  //     style: TextStyle(
+                  //       decoration: TextDecoration.underline,
+                  //     ),
+                  //   ),
+                  // ),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  //   child: FutureBuilder(builder:
+                  //       (BuildContext context, AsyncSnapshot snapshot) {
+                  //     // 読み込み中
+                  //     if (snapshot.connectionState == ConnectionState.waiting) {
+                  //       return showIndicator();
+                  //     }
+                  //     return Column(
+                  //       crossAxisAlignment: CrossAxisAlignment.start,
+                  //       children: [
+                  //         if (registerWorries.isEmpty)
+                  //           const Padding(
+                  //             padding: EdgeInsets.all(15),
+                  //             child: Text(
+                  //               '登録している悩みはありません。',
+                  //             ),
+                  //           ),
+                  //         if (registerWorries.isNotEmpty &&
+                  //             registerWorries[0] != null)
+                  //           Padding(
+                  //             padding: const EdgeInsets.symmetric(
+                  //                 vertical: 7, horizontal: 15),
+                  //             child: Text(
+                  //               '1. ${registerWorries[0]}',
+                  //             ),
+                  //           ),
+                  //         if (registerWorries.length >= 2 &&
+                  //             registerWorries[1] != null)
+                  //           Padding(
+                  //             padding: const EdgeInsets.symmetric(
+                  //                 vertical: 7, horizontal: 15),
+                  //             child: Text(
+                  //               '2. ${registerWorries[1]}',
+                  //             ),
+                  //           ),
+                  //         if (registerWorries.length >= 3 &&
+                  //             registerWorries[2] != null)
+                  //           Padding(
+                  //             padding: const EdgeInsets.symmetric(
+                  //                 vertical: 7, horizontal: 15),
+                  //             child: Text(
+                  //               '3. ${registerWorries[2]}',
+                  //             ),
+                  //           ),
+                  //         if (registerWorries.length >= 4 &&
+                  //             registerWorries[3] != null)
+                  //           Padding(
+                  //             padding: const EdgeInsets.symmetric(
+                  //                 vertical: 7, horizontal: 15),
+                  //             child: Text(
+                  //               '4. ${registerWorries[3]}',
+                  //             ),
+                  //           ),
+                  //       ],
+                  //     );
+                  //   }),
+                  // ),
+                  // const Padding(
+                  //   padding: EdgeInsets.symmetric(vertical: 10.0),
+                  //   child: Text(
+                  //     '登録している悩みの説明',
+                  //     style: TextStyle(
+                  //       decoration: TextDecoration.underline,
+                  //     ),
+                  //   ),
+                  // ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Text(
@@ -200,8 +285,8 @@ class matchingCard extends StatelessWidget {
                         },
                         child: const Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: 16, horizontal: 36),
-                          child: Text('確認'),
+                              vertical: 12, horizontal: 20),
+                          child: Text('閉じる'),
                         ),
                       ),
                     ],
@@ -215,4 +300,14 @@ class matchingCard extends StatelessWidget {
           );
         });
   }
+
+// 読み込み中
+  // Widget showIndicator() {
+  //   return const Center(
+  //       child: Padding(
+  //           padding: EdgeInsets.only(top: 70),
+  //           child: CircularProgressIndicator(
+  //             color: Color.fromARGB(255, 81, 161, 101),
+  //           )));
+  // }
 }
