@@ -73,7 +73,7 @@ class _ConfirmWorriesPage extends State<ConfirmWorriesPage> {
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 7, horizontal: 15),
                                     child: Text(
-                                      '1️. ${snapshot.data[0]}',
+                                      '1. ${snapshot.data[0]}',
                                       style: const TextStyle(fontSize: 13),
                                     ),
                                   ),
@@ -85,7 +85,7 @@ class _ConfirmWorriesPage extends State<ConfirmWorriesPage> {
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 7, horizontal: 15),
                                 child: Text(
-                                  '2️. ${snapshot.data[1]}',
+                                  '2. ${snapshot.data[1]}',
                                   style: const TextStyle(fontSize: 13),
                                 ),
                               ),
@@ -95,7 +95,17 @@ class _ConfirmWorriesPage extends State<ConfirmWorriesPage> {
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 7, horizontal: 15),
                                 child: Text(
-                                  '3️. ${snapshot.data[2]}',
+                                  '3. ${snapshot.data[2]}',
+                                  style: const TextStyle(fontSize: 13),
+                                ),
+                              ),
+                            if (snapshot.data.length >= 4 &&
+                                snapshot.data[3] != null)
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 7, horizontal: 15),
+                                child: Text(
+                                  '4. ${snapshot.data[3]}',
                                   style: const TextStyle(fontSize: 13),
                                 ),
                               ),
