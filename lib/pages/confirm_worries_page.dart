@@ -67,7 +67,7 @@ class _ConfirmWorriesPage extends State<ConfirmWorriesPage> {
                               ),
                             if (snapshot.data.length >= 1 &&
                                 snapshot.data[0] != null)
-                              Row(
+                              Wrap(
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -81,33 +81,45 @@ class _ConfirmWorriesPage extends State<ConfirmWorriesPage> {
                               ),
                             if (snapshot.data.length >= 2 &&
                                 snapshot.data[1] != null)
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 7, horizontal: 15),
-                                child: Text(
-                                  '2. ${snapshot.data[1]}',
-                                  style: const TextStyle(fontSize: 13),
-                                ),
+                              Wrap(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 7, horizontal: 15),
+                                    child: Text(
+                                      '2. ${snapshot.data[1]}',
+                                      style: const TextStyle(fontSize: 13),
+                                    ),
+                                  ),
+                                ],
                               ),
                             if (snapshot.data.length >= 3 &&
                                 snapshot.data[2] != null)
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 7, horizontal: 15),
-                                child: Text(
-                                  '3. ${snapshot.data[2]}',
-                                  style: const TextStyle(fontSize: 13),
-                                ),
+                              Wrap(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 7, horizontal: 15),
+                                    child: Text(
+                                      '3. ${snapshot.data[2]}',
+                                      style: const TextStyle(fontSize: 13),
+                                    ),
+                                  ),
+                                ],
                               ),
                             if (snapshot.data.length >= 4 &&
                                 snapshot.data[3] != null)
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 7, horizontal: 15),
-                                child: Text(
-                                  '4. ${snapshot.data[3]}',
-                                  style: const TextStyle(fontSize: 13),
-                                ),
+                              Wrap(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 7, horizontal: 15),
+                                    child: Text(
+                                      '4. ${snapshot.data[3]}',
+                                      style: const TextStyle(fontSize: 13),
+                                    ),
+                                  ),
+                                ],
                               ),
                           ],
                         );
