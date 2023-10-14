@@ -1613,6 +1613,23 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                   }
                 },
               ),
+              Center(
+                child: TextButton.icon(
+                    style: TextButton.styleFrom(
+                      foregroundColor: const Color.fromARGB(255, 81, 161, 101),
+                    ),
+                    onPressed: () => _openUrl(),
+                    icon: const Icon(
+                      Icons.error,
+                      size: 20,
+                    ),
+                    label: const Text(
+                      '当てはまる悩みがなかった方はこちら',
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                      ),
+                    )),
+              ),
               const Padding(
                   padding:
                       EdgeInsets.only(top: 20, bottom: 0, left: 20, right: 20),
@@ -1666,13 +1683,38 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                         style: ElevatedButton.styleFrom(
                           alignment: Alignment.center,
                           foregroundColor: Colors.white,
-                          backgroundColor: const Color.fromARGB(
-                              255, 81, 161, 101), // foreground
+                          backgroundColor:
+                              const Color.fromARGB(255, 81, 161, 101),
                         ),
                         onPressed: () async {
                           final worriesExplanation =
                               _worriesExplanationController.text;
                           final userName = widget.userNameText;
+
+                          // 悩みをチェックしているかを確認する
+                          // 全てfalseならダイアログを表示する
+                          if ((!_school01 &&
+                              !_school02 &&
+                              !_school03 &&
+                              !_school04 &&
+                              !_school05 &&
+                              !_school06 &&
+                              !_school07 &&
+                              !_school08 &&
+                              !_relationship01 &&
+                              !_relationship02 &&
+                              !_relationship03 &&
+                              !_relationship04 &&
+                              !_relationship05 &&
+                              !_relationship06 &&
+                              !_life01 &&
+                              !_life02 &&
+                              !_life03 &&
+                              !_health01 &&
+                              !_health02 &&
+                              !_health03)) {
+                            return showNoSelect();
+                          }
 
                           // 悩みの説明に記載がない場合、テンプレート文を登録、記載がある場合、その内容を登録
                           if (worriesExplanation == '') {
@@ -1741,5 +1783,53 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
             ],
           );
         });
+  }
+
+  void showNoSelect() {
+    showDialog(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))),
+            titlePadding: const EdgeInsets.only(top: 20),
+            title: Image.asset(
+              'images/sorry.png',
+              height: 180,
+            ),
+            content: const Text(
+              '現在、悩みが登録されていません。\n\n当てはまる悩みがなかった方は、この画面の「当てはまる悩みがなかった方はこちら」からアンケートにお進みください。',
+              style: TextStyle(fontSize: 14),
+              textAlign: TextAlign.center,
+            ),
+            actions: <Widget>[
+              // シミュレーターだと戻れるが、実機だとログインページまで戻ってしまうため、一時コメントアウト
+              // TextButton(
+              //   child: const Text(
+              //     'OK',
+              //     style: TextStyle(color: Color.fromARGB(255, 81, 161, 101)),
+              //   ),
+              //   onPressed: () {
+              //     Navigator.of(context).pop();
+              //   },
+              // ),
+            ],
+          );
+        });
+  }
+
+  _openUrl() async {
+    const url = 'https://forms.gle/W9UMC2Um6vB5bvrM9';
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        // iOSでアプリ内かブラウザのどちらかでURLを開くか決める。
+        forceSafariVC: true,
+        // Androidでアプリ内かブラウザのどちらかでURLを開くか決める。
+        forceWebView: false,
+      );
+    } else {
+      throw 'このURLにはアクセスできません';
+    }
   }
 }
