@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:empathy_flutter/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:empathy_flutter/firebase.dart';
@@ -1391,7 +1392,7 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               CheckboxListTile(
                 activeColor: const Color.fromARGB(255, 81, 161, 101),
                 value: _life03,
-                title: const Text('隣人の騒音に悩んでいる',
+                title: const Text('隣人の騒音に悩んでいる。',
                     style: TextStyle(
                       fontSize: 13,
                     )),
@@ -1714,21 +1715,23 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
                               !_health02 &&
                               !_health03)) {
                             return showNoSelect();
+                          } else {
+                            return showConfirmWorries();
                           }
 
                           // 悩みの説明に記載がない場合、テンプレート文を登録、記載がある場合、その内容を登録
-                          if (worriesExplanation == '') {
-                            await Firestore.registerExplanationEmpty(userName);
-                          } else {
-                            await Firestore.registerExplanation(
-                                userName, worriesExplanation);
-                          }
+                          // if (worriesExplanation == '') {
+                          //   await Firestore.registerExplanationEmpty(userName);
+                          // } else {
+                          //   await Firestore.registerExplanation(
+                          //       userName, worriesExplanation);
+                          // }
 
-                          await Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) {
-                              return const HomePage();
-                            }),
-                          );
+                          // await Navigator.of(context).pushReplacement(
+                          //   MaterialPageRoute(builder: (context) {
+                          //     return const HomePage();
+                          //   }),
+                          // );
                         },
                         child: const Text('登録'),
                       ))),
@@ -1813,6 +1816,238 @@ class _RegisterWorriesPage extends State<RegisterWorriesPage> {
               //     Navigator.of(context).pop();
               //   },
               // ),
+            ],
+          );
+        });
+  }
+
+  void showConfirmWorries() {
+    final worriesExplanation = _worriesExplanationController.text;
+    final userName = widget.userNameText;
+    showDialog(
+        context: context,
+        builder: (_) {
+          return CupertinoAlertDialog(
+            // イラストを使用する場合
+            // title: Image.asset(
+            //   'images/OK.png',
+            //   height: 180,
+            // ),
+            title: const Padding(
+              padding: EdgeInsets.only(top: 8.0, bottom: 5),
+              child: Text(
+                '登録内容の確認',
+                style: TextStyle(fontSize: 14),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            content: Column(
+              children: <Widget>[
+                const Padding(
+                  padding: EdgeInsets.only(top: 8.0),
+                  child: Text(
+                    'こちらの悩みで登録してもよろしいですか？',
+                    style: TextStyle(fontSize: 13),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const Text(
+                  '登録後は悩みを変更することができません。',
+                  style: TextStyle(fontSize: 13),
+                  textAlign: TextAlign.center,
+                ),
+                const Gap(10),
+                if (_school01)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      '✅ 試験・レポート・研究等が上手く進まず、進級・卒業できるか心配である。',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                if (_school02)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      '✅ 大学の講義を受ける中で、自分の入りたい学部じゃなかったと感じることがある。',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                if (_school03)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      '✅ 大学の講義を受ける中で、ついていけないと感じることがある。',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                if (_school04)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      '✅ 学業とサークル・バイトの両立が難しく悩んでいる。',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                if (_school05)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                    child: Text(
+                      '✅ 大学院に進学すべきか、就職するべきか悩んでいる。',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                if (_school06)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      '✅ 周りと比べ就職先がなかなか決まらず、焦り・不安を感じている。',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                if (_school07)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      '✅ 就職したい業界が決まらず悩んでいる。',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                if (_school08)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      '✅ 学費・奨学金・生活費などの金銭面で悩んでいる。',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                if (_relationship01)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      '✅ 大学・サークル・バイト内などでの友人関係・上下関係に悩んでいる。',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                if (_relationship02)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      '✅ 研究室やクラスルームの先生、メンバーに不満を抱えている。',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                if (_relationship03)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      '✅ 大学・サークル・バイト内などで友達ができずに悩んでいる。',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                if (_relationship04)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      '✅ 家族に不満を抱えている。',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                if (_relationship05)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      '✅ セクシャリティのことについて悩んでいる。',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                if (_relationship06)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      '✅ 失恋から立ち直ることができない。',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                if (_life01)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      '✅ 親元を離れてしまったことで、寂しさ・孤独感を感じている。',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                if (_life02)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      '✅ 一人暮らしを始めたが、一人で生活できるか不安だ。',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                if (_life03)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      '✅ 隣人の騒音に悩んでいる。',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                if (_health01)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      '✅ 自分の性格について悩んでいる。',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                if (_health02)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      '✅ 自分の成育過程・過程環境(トラウマなど)について悩んでいる。',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                if (_health03)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      '✅ 自分の身体・健康について悩んでいる。',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+              ],
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text(
+                  '戻る',
+                ),
+                onPressed: () {
+                  return Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: const Text(
+                  '登録',
+                ),
+                onPressed: () async {
+                  // 悩みの説明に記載がない場合、テンプレート文を登録、記載がある場合、その内容を登録
+                  if (worriesExplanation == '') {
+                    await Firestore.registerExplanationEmpty(userName);
+                  } else {
+                    await Firestore.registerExplanation(
+                        userName, worriesExplanation);
+                  }
+
+                  await Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) {
+                      return const HomePage();
+                    }),
+                  );
+                },
+              ),
             ],
           );
         });
