@@ -198,6 +198,22 @@ class _LoginPageState extends State<LoginPage> {
                         }
                       },
                     )),
+                const Gap(10),
+                const Text(
+                  '深刻な気持ちを抱えている方は、電話やSNSなどで専門の相談員が気持ちを受け止めてくれる窓口があります。本アプリではなく、まずはそちらで相談してみてください。',
+                  style: TextStyle(fontSize: 13),
+                ),
+                TextButton(
+                  onPressed: () {
+                    openUrl();
+                  },
+                  child: const Text('相談窓口はこちら'),
+                  style: ButtonStyle(
+                    foregroundColor: MaterialStateProperty.all<Color>(
+                      const Color.fromARGB(255, 81, 161, 101),
+                    ),
+                  ),
+                ),
                 Padding(padding: EdgeInsets.only(bottom: bottomSpace)),
               ],
             ),
@@ -205,6 +221,19 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  void openUrl() async {
+    const url = 'https://www.mhlw.go.jp/mamorouyokokoro/';
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: true,
+        forceWebView: true,
+      );
+    } else {
+      throw 'このURLにはアクセスできません';
+    }
   }
 }
 
@@ -311,26 +340,26 @@ class _SignUpPageState extends State<SignUpPage> {
                               const Text("私は現在大学生です🎓"),
                             ],
                           )),
-                      Container(
-                          padding: const EdgeInsets.all(0),
-                          child: RichText(
-                              text: TextSpan(children: [
-                            const TextSpan(
-                                text: 'アナタノミカタの',
-                                style: TextStyle(color: Colors.black)),
-                            TextSpan(
-                                text: 'プライバシーポリシー',
-                                style: const TextStyle(color: Colors.blue),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    _openprivacy(); // タップ時
-                                  }),
-                            const TextSpan(
-                                text: 'に同意します。',
-                                style: TextStyle(color: Colors.black))
-                          ]))
-                          // child: const Text("アナタノミカタのプライバシーポリシーに同意します。"),
-                          ),
+                      // 正式なプライバシーポリシーが完成したら、コメントアウトを外す
+                      // Container(
+                      //     padding: const EdgeInsets.all(0),
+                      //     child: RichText(
+                      //         text: TextSpan(children: [
+                      //       const TextSpan(
+                      //           text: 'アナタノミカタの',
+                      //           style: TextStyle(color: Colors.black)),
+                      //       TextSpan(
+                      //           text: 'プライバシーポリシー',
+                      //           style: const TextStyle(color: Colors.blue),
+                      //           recognizer: TapGestureRecognizer()
+                      //             ..onTap = () {
+                      //               _openprivacy(); // タップ時
+                      //             }),
+                      //       const TextSpan(
+                      //           text: 'に同意します。',
+                      //           style: TextStyle(color: Colors.black))
+                      //     ]))
+                      //     ),
                       Padding(
                         padding: const EdgeInsets.only(top: 30),
                         child: ElevatedButton(

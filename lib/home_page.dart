@@ -181,20 +181,20 @@ class _HomePage extends State<HomePage> {
                     leading: const Icon(Icons.fast_forward),
                     title: Transform.translate(
                       offset: const Offset(-20, 0),
-                      child: const Text('マッチング後の流れ'),
+                      child: const Text('この後の流れ'),
                     ),
                     onTap: () {
                       showAttentionDialog();
                     },
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.announcement),
-                    title: Transform.translate(
-                      offset: const Offset(-20, 0),
-                      child: const Text('当てはまる悩みがない方'),
-                    ),
-                    onTap: () => _openUrl(),
-                  ),
+                  // ListTile(
+                  //   leading: const Icon(Icons.announcement),
+                  //   title: Transform.translate(
+                  //     offset: const Offset(-20, 0),
+                  //     child: const Text('当てはまる悩みがない方'),
+                  //   ),
+                  //   onTap: () => _openUrl(),
+                  // ),
                   ListTile(
                     leading: const Icon(Icons.push_pin),
                     title: Transform.translate(
@@ -206,14 +206,14 @@ class _HomePage extends State<HomePage> {
                       MaterialPageRoute(builder: (context) => TutorialPage()),
                     ),
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.lock),
-                    title: Transform.translate(
-                      offset: const Offset(-20, 0),
-                      child: const Text('プライバシーポリシー'),
-                    ),
-                    onTap: () => _openPrivacyPolicy(),
-                  ),
+                  // ListTile(
+                  //   leading: const Icon(Icons.lock),
+                  //   title: Transform.translate(
+                  //     offset: const Offset(-20, 0),
+                  //     child: const Text('プライバシーポリシー'),
+                  //   ),
+                  //   onTap: () => _openPrivacyPolicy(),
+                  // ),
                   ListTile(
                     leading: const Icon(Icons.logout),
                     title: Transform.translate(
@@ -351,7 +351,7 @@ class _HomePage extends State<HomePage> {
                   const Padding(
                       padding: EdgeInsets.symmetric(vertical: 20.0),
                       child: Text(
-                        'マッチング後の流れについて',
+                        'この後の流れについて',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 16.0,
@@ -361,8 +361,8 @@ class _HomePage extends State<HomePage> {
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
                     child: Text(
-                      'マッチングした相手と1対1のトークを、1日限りでしていただきます。\n\n1. 後日、登録時に使用したメールアドレス宛にトークルームの招待をお送りします。\n\n2. 入室後は積極的なトークと、悩みへの共感をお願いします。',
-                      textAlign: TextAlign.center,
+                      'マッチングした相手と1対1のトークを、一日限りで行っていただきます。\n\n1. 後日、登録時に使用したメールアドレス宛にトークルームの招待リンクをお送りします。\n\n2. 入室後は積極的なトークと、相手の悩みへの共感をお願い致します。',
+                      textAlign: TextAlign.left,
                     ),
                   ),
                   const SizedBox(
