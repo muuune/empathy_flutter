@@ -321,10 +321,11 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       Container(
                         padding: const EdgeInsets.all(3),
-                        child: const Text("※ 性別の判断や個人の特定がされないなユーザー名を使用してください。",
-                            style: TextStyle(
-                              fontSize: 12,
-                            )),
+                        child:
+                            const Text("※ 性別の判断や個人の特定がされないようなユーザー名を使用してください。",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                )),
                       ),
                       Padding(
                           padding: const EdgeInsets.only(top: 20),
