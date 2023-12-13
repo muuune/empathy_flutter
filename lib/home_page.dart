@@ -181,7 +181,7 @@ class _HomePage extends State<HomePage> {
                     leading: const Icon(Icons.fast_forward),
                     title: Transform.translate(
                       offset: const Offset(-20, 0),
-                      child: const Text('この後の流れ'),
+                      child: const Text('マッチング後の流れ'),
                     ),
                     onTap: () {
                       showAttentionDialog();
@@ -351,7 +351,7 @@ class _HomePage extends State<HomePage> {
                   const Padding(
                       padding: EdgeInsets.symmetric(vertical: 20.0),
                       child: Text(
-                        'この後の流れについて',
+                        'マッチング後の流れについて',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 16.0,
@@ -361,7 +361,7 @@ class _HomePage extends State<HomePage> {
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
                     child: Text(
-                      'マッチングした相手と1対1のトークを、一日限りで行っていただきます。\n\n1. 後日、登録時に使用したメールアドレス宛にトークルームの招待リンクをお送りします。\n\n2. 入室後は積極的なトークと、相手の悩みへの共感をお願い致します。',
+                      'マッチングした相手と1対1のトークを、一日限りでしていただきます。\n\n1. 後日、登録時に使用したメールアドレスにトークルームへの招待リンクをお送りします。\n\n2. チャット時は積極的なトークと、お相手が抱える悩みへの共感をお願い致します。\n\n詳細についてはメールで案内させていただきます。',
                       textAlign: TextAlign.left,
                     ),
                   ),
