@@ -6,4 +6,7 @@
 <img src="https://img.shields.io/badge/-firebase-DD2C00.svg?logo=firebase&style=flat">
 </p>
 
-同じ悩みを抱える学生同士が繋がるアプリ
+<p>学士・修士の研究で制作してたアプリ</p>
+<p>同じ悩みを抱える学生同士が繋がるアプリ</p>
+
+研究の概要はこちら: https://www.slideshare.net/slideshow/pdf-e3c2/271675817
