@@ -33,7 +33,7 @@
 
 
 ## 使用パッケージ
-
+firebase_auth / cloud_firestore / flutter_riverpod / shared_preferences / flutter_overboard / url_launcher / gap
 
 
 
